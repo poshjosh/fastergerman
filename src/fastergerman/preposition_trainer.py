@@ -33,31 +33,32 @@ class PrepositionTrainer:
         self.choice_buttons = []
         self.game = PrepositionTrainer._get_default_game()
 
-        self._setup_ui()
+        ##############
+        #  Setup UI  #
+        ##############
 
-    def _setup_ui(self):
         # Main container with padding
         self.main_frame = ttk.Frame(self.root, padding="20")
         self.main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
-        
+
         # Configure styles
         style = ttk.Style()
         style.theme_use("clam")    # "default", "alt" .....
         style.configure("Correct.TButton", background="green", foreground="white")
         style.configure(STYLE_MEDIUM_TEXT, font=FONT_MEDIUM)
-        
+
         # Title
         title_label = ttk.Label(
-            self.main_frame, 
-            text="PrepMeister Pro", 
+            self.main_frame,
+            text="PrepMeister Pro",
             font=FONT_X_LARGE
         )
         title_label.grid(row=0, column=0, columnspan=3, pady=20)
 
         # Settings Frame
         settings_frame = ttk.LabelFrame(
-            self.main_frame, 
-            text="Settings", 
+            self.main_frame,
+            text="Settings",
             padding="10"
         )
         settings_frame.grid(row=1, column=0, columnspan=3, pady=20, sticky=(tk.W, tk.E))
@@ -104,23 +105,23 @@ class PrepositionTrainer:
         self.question_display_time_var = tk.StringVar(
             value=str(self.game.settings.question_display_time))
         question_display_time_spinbox = ttk.Spinbox(
-            settings_frame, 
+            settings_frame,
             from_=5,
             to=60,
             textvariable=self.question_display_time_var,
             width=5
         )
         question_display_time_spinbox.grid(row=2, column=1, padx=5, pady=5)
-        
+
         # Number of choices setting
         ttk.Label(settings_frame, text="Number of choices:").grid(
             row=3, column=0, padx=5, pady=5
         )
         self.number_of_choices_var = tk.StringVar(value=str(self.game.settings.number_of_choices))
         number_of_choices_spinbox = ttk.Spinbox(
-            settings_frame, 
-            from_=2, 
-            to=5, 
+            settings_frame,
+            from_=2,
+            to=5,
             textvariable=self.number_of_choices_var,
             width=5
         )
@@ -154,30 +155,30 @@ class PrepositionTrainer:
         # Question display area
         self.question_frame = ttk.Frame(self.main_frame, padding="20")
         self.question_frame.grid(row=2, column=0, columnspan=3, pady=20)
-        
+
         self.question_label = ttk.Label(
-            self.question_frame, 
+            self.question_frame,
             text="Click Start to begin",
             font=FONT_LARGE
         )
         self.question_label.grid(row=0, column=0, pady=10)
-        
+
         # Choices frame
         self.choices_frame = ttk.Frame(self.question_frame)
         self.choices_frame.grid(row=1, column=0, pady=10)
-        
+
         # Control buttons
         self.start_button = ttk.Button(
-            self.main_frame, 
-            text="Start", 
+            self.main_frame,
+            text="Start",
             command=self.start_quiz
         )
         self.start_button.grid(row=3, column=0, pady=20, padx=5)
-        
+
         self.pause_button = ttk.Button(
-            self.main_frame, 
-            text="Pause", 
-            command=self.pause_quiz, 
+            self.main_frame,
+            text="Pause",
+            command=self.pause_quiz,
             state=tk.DISABLED
         )
         self.pause_button.grid(row=3, column=1, pady=20, padx=5)
@@ -185,8 +186,8 @@ class PrepositionTrainer:
         # Score display
         self.score_var = tk.StringVar(value=f"Score: {self.game.score}")
         score_label = ttk.Label(
-            self.main_frame, 
-            textvariable=self.score_var, 
+            self.main_frame,
+            textvariable=self.score_var,
             font=FONT_LARGE
         )
         score_label.grid(row=4, column=0, columnspan=3, pady=10)
@@ -226,18 +227,6 @@ class PrepositionTrainer:
         if self.timer_id:
             self.root.after_cancel(self.timer_id)
 
-    def update_timer(self):
-        if not self.is_running:
-            return
-            
-        self.time_remaining -= 1
-        self.timer_label.config(text=f"Time: {self.time_remaining}")
-        
-        if self.time_remaining > 0:
-            self.timer_id = self.root.after(1000, self.update_timer)
-        else:
-            self.show_next_question()
-            
     def show_next_question(self):
         if not self.is_running:
             return
@@ -270,7 +259,7 @@ class PrepositionTrainer:
         self.question_label.config(text=question)
         
         # Get choices
-        choices = self.get_choices(
+        choices = PrepositionTrainer._get_choices(
             self.current_question.preposition,
             self.current_question.choices,
             int(self.number_of_choices_var.get())
@@ -281,7 +270,7 @@ class PrepositionTrainer:
             btn = ttk.Button(
                 self.choices_frame,
                 text=choice,
-                command=lambda c=choice: self.check_answer(c)
+                command=lambda c=choice: self._on_answer(c)
             )
             btn.grid(row=0, column=i, padx=5)
             self.choice_buttons.append(btn)
@@ -290,7 +279,7 @@ class PrepositionTrainer:
         display_time: int = int(self.question_display_time_var.get())
         self.time_remaining = display_time
         self.timer_label.config(text=f"Time: {self.time_remaining}")
-        self.update_timer()
+        self._update_timer()
             
         # Schedule next question
         self.after_id = self.root.after(
@@ -299,19 +288,54 @@ class PrepositionTrainer:
         )
 
     @staticmethod
-    def get_choices(correct: str, options: List[str], num_choices: int) -> List[str]:
+    def _get_default_game(game_name: str = DEFAULT_GAME_NAME) -> Game:
+        return Game(game_name, Settings.of_dict({}),
+                    PrepositionTrainer._get_default_questions(), Score(0, 0))
+
+    @staticmethod
+    def _get_default_questions() -> List[Question]:
+        questions = [Question.of_dict(e) for e in DEFAULT_QUESTIONS]
+        return [q for q in questions if q.priority != "low"]
+
+    @staticmethod
+    def _get_choices(correct: str, options: List[str], num_choices: int) -> List[str]:
         """Get a list of choices including the correct answer and random alternatives."""
         choices = [correct]
         available_alternatives = [alt for alt in options if alt != correct]
         choices.extend(random.sample(
-            available_alternatives, 
+            available_alternatives,
             min(num_choices - 1, len(available_alternatives))
         ))
         random.shuffle(choices)
         return choices
-        
-    def check_answer(self, answer: str):
 
+    def _load_game(self, game_name: str or None = None):
+        if game_name:
+            if game_name == NO_GAME:  # reset
+                self.game = PrepositionTrainer._get_default_game(
+                    f"Game_{datetime.today().strftime('%Y-%m-%d_%H%M%S')}")
+            else:
+                self.game = load_game(game_name)
+            self._update_settings(self.game.settings)
+        else:
+            self.game = PrepositionTrainer._get_default_game().with_settings(self._get_settings())
+        self.save_game_as_var.set(self.game.name)
+        self._update_score()
+        self._update_questions_left()
+
+    def _update_timer(self):
+        if not self.is_running:
+            return
+
+        self.time_remaining -= 1
+        self.timer_label.config(text=f"Time: {self.time_remaining}")
+
+        if self.time_remaining > 0:
+            self.timer_id = self.root.after(1000, self._update_timer)
+        else:
+            self.show_next_question()
+
+    def _on_answer(self, answer: str):
         # Update score
         self.game = self.game.on_question_answer(self.current_question, answer)
         self._update_score()
@@ -329,30 +353,6 @@ class PrepositionTrainer:
 
         # Show next question after a brief delay
         self.root.after(1000, self.show_next_question)
-
-    def _load_game(self, game_name: str or None = None):
-        if game_name:
-            if game_name == NO_GAME:  # reset
-                self.game = PrepositionTrainer._get_default_game(
-                    f"Game_{datetime.today().strftime('%Y-%m-%d_%H%M%S')}")
-            else:
-                self.game = load_game(game_name)
-            self._update_settings(self.game.settings)
-        else:
-            self.game = PrepositionTrainer._get_default_game().with_settings(self._get_settings())
-        self.save_game_as_var.set(self.game.name)
-        self._update_score()
-        self._update_questions_left()
-
-    @staticmethod
-    def _get_default_game(game_name: str = DEFAULT_GAME_NAME) -> Game:
-        return Game(game_name, Settings.of_dict({}),
-                    PrepositionTrainer._get_default_questions(), Score(0, 0))
-
-    @staticmethod
-    def _get_default_questions() -> List[Question]:
-        questions = [Question.of_dict(e) for e in DEFAULT_QUESTIONS]
-        return [q for q in questions if q.priority != "low"]
 
     def _get_settings(self) -> Settings:
         return Settings(
