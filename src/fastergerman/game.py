@@ -79,15 +79,21 @@ class Game:
 
     def on_question_answer(self, question: Question, answer: str) -> 'Game':
         updated_question = question.on_answer(answer)
+        questions = [q for q in self.questions]
         if updated_question.consecutively_correct >= self.settings.max_consecutively_correct:
             # Return the game without the question
-            return Game(self.name,
-                        self.settings,
-                        [q for q in self.questions if q != question],
-                        self.score)
+            questions.remove(question)
+            # Did not work
+#            questions = [q for q in self.questions if q.verb != question.verb]
+        else:
+            index = questions.index(question)
+            questions.remove(question)
+            questions.insert(index, updated_question)
+            # Did not work
+#            questions = [updated_question if q.verb == question.verb else q for q in self.questions]
         return Game(self.name,
                     self.settings,
-                    [updated_question if q == question else q for q in self.questions],
+                    questions,
                     self.score.advance(question.is_answer(answer)))
 
     def with_name(self, name: str) -> 'Game':

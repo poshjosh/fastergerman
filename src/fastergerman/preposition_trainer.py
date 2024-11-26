@@ -226,16 +226,13 @@ class PrepositionTrainer:
             self.root.after_cancel(self.after_id)
         if self.timer_id:
             self.root.after_cancel(self.timer_id)
+        self._save_game()
 
     def show_next_question(self):
         if not self.is_running:
             return
 
-        # Save game
-        self.game = (self.game
-                     .with_name(self.save_game_as_var.get())
-                     .with_settings(self._get_settings()))
-        save_game(self.game)
+        self._save_game()
 
         # Clear previous choices
         for widget in self.choices_frame.winfo_children():
@@ -320,8 +317,13 @@ class PrepositionTrainer:
         else:
             self.game = PrepositionTrainer._get_default_game().with_settings(self._get_settings())
         self.save_game_as_var.set(self.game.name)
-        self._update_score()
-        self._update_questions_left()
+        self._update_display()
+
+    def _save_game(self):
+        self.game = (self.game
+                     .with_name(self.save_game_as_var.get())
+                     .with_settings(self._get_settings()))
+        save_game(self.game)
 
     def _update_timer(self):
         if not self.is_running:
@@ -338,7 +340,7 @@ class PrepositionTrainer:
     def _on_answer(self, answer: str):
         # Update score
         self.game = self.game.on_question_answer(self.current_question, answer)
-        self._update_score()
+        self._update_display()
 
         # Highlight correct answer
         for btn in self.choice_buttons:
@@ -367,9 +369,12 @@ class PrepositionTrainer:
         self.max_consecutively_correct_var.set(str(settings.max_consecutively_correct))
         self.display_translation_var.set(settings.display_translation)
 
+    def _update_display(self):
+        self._update_score()
+        self._update_questions_left()
+
     def _update_questions_left(self):
-        if self.game.questions:
-            self.questions_left_label.config(text=f"{QUESTIONS_LEFT}: {len(self.game.questions)}")
+        self.questions_left_label.config(text=f"{QUESTIONS_LEFT}: {len(self.game.questions)}")
 
     def _update_score(self):
         self.score_var.set(f"Score: {self.game.score}")

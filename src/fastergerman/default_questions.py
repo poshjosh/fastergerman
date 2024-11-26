@@ -856,5 +856,3 @@ DEFAULT_QUESTIONS = [
         "choices": ["für", "mit", "bei", "zu"]
     }
 ]
-
-# print("Number of verbs: ", len(VERB_DATA))
