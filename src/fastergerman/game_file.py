@@ -7,12 +7,16 @@ from .file import create_file, read_content, write_content, write_json, read_jso
     delete_file, delete_dir
 from .game import Game, Score, Settings
 
-DATA_DIR_PATH = Path.home() / ".fastergerman" / "v0.0.2" / "data"
+DATA_DIR_PATH = Path.home() / ".fastergerman" / "v0.0.3" / "data"
 GAME_TO_LOAD_FILE_PATH = DATA_DIR_PATH / "game-to-load.txt"
 GAMES_DIR_PATH = DATA_DIR_PATH / "games"
 
+_debug = False
+
 
 def load_game(game_name: str or None = None) -> Game:
+    if _debug is True:
+        print("Loading game: ", game_name)
     if not game_name:
         game_name = get_game_to_load()
     game_dict = read_json(_get_game_file_path(game_name))
@@ -23,13 +27,21 @@ def load_game(game_name: str or None = None) -> Game:
 
 def save_game(game: Game):
     game_name = game.name
+    if _debug is True:
+        print("Saving game: ", game_name)
     if not game_name:
         raise ValueError("No game name provided.")
+    game_dict = dataclasses.asdict(game)
+    if len(game_dict) == 0:
+        return False
     _save_game_to_load(game_name)
-    _save_json(dataclasses.asdict(game), _get_game_file_path(game_name))
+    _save_json(game_dict, _get_game_file_path(game_name))
+    return True
 
 
 def delete_game(game_name: str):
+    if _debug is True:
+        print("Deleting game: ", game_name)
     if not game_name:
         raise ValueError("No game name provided.")
     _delete_from_game_to_load(game_name)
@@ -52,8 +64,11 @@ def get_game_to_load(result_if_none: str or None = None) -> Union[str, None]:
 def _save_json(json, path):
     if not os.path.exists(path):
         create_file(path)
-        # print("Created: ", path)
+        if _debug is True:
+            print("Created: ", path)
     write_json(json, path)
+    if _debug is True:
+        print(f"Written {json}\nto {path}")
 
 
 def _get_game_file_path(game_name: str):
@@ -67,15 +82,20 @@ def _get_game_dir_path(game_name: str):
 def _save_game_to_load(game_name: str):
     if not os.path.exists(GAME_TO_LOAD_FILE_PATH):
         create_file(GAME_TO_LOAD_FILE_PATH)
-#        print("Created: ", GAME_TO_LOAD_FILE_PATH)
+        if _debug is True:
+            print("Created: ", GAME_TO_LOAD_FILE_PATH)
     write_content(game_name, GAME_TO_LOAD_FILE_PATH)
+    if _debug is True:
+        print(f"Written {game_name} to {GAME_TO_LOAD_FILE_PATH}")
 
 
 def _delete_from_game_to_load(game_name: str):
     game_to_load = get_game_to_load()
     if game_to_load == game_name:
         game_names = get_game_names()
+        if game_name in game_names:
+            game_names.remove(game_name)
         if len(game_names) > 0:
-            write_content(game_names[0], GAME_TO_LOAD_FILE_PATH)
+            _save_game_to_load(game_names[0])
         else:
             delete_file(GAME_TO_LOAD_FILE_PATH)

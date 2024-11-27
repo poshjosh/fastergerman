@@ -3,8 +3,8 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class Score:
-    success: int
-    total: int
+    success: int = 0
+    total: int = 0
 
     @staticmethod
     def of_dict(score_dict: dict) -> 'Score':
@@ -14,7 +14,7 @@ class Score:
         return Score(self.success + 1 if correct else self.success, self.total + 1)
 
     def to_percent(self) -> float:
-        return (self.success / self.total) * 100
+        return 0 if self.success == 0 else (self.success / self.total) * 100
 
     def __str__(self):
         return f"{self.success}/{self.total}"
@@ -22,10 +22,12 @@ class Score:
 
 @dataclass(frozen=True)
 class Settings:
-    question_display_time: int
-    number_of_choices: int
-    max_consecutively_correct: int
-    display_translation: bool
+    question_display_time: int = 30
+    number_of_choices: int = 3
+    max_consecutively_correct: int = 2
+    display_translation: bool = True
+    start_at_question_number: int = 0
+    max_number_of_questions: int = 20
 
     @staticmethod
     def of_dict(settings_dict: dict) -> 'Settings':
@@ -33,7 +35,18 @@ class Settings:
             settings_dict.get("question_display_time", 30),
             settings_dict.get("number_of_choices", 3),
             settings_dict.get("max_consecutively_correct", 2),
-            settings_dict.get("display_translation", True))
+            settings_dict.get("display_translation", True),
+            settings_dict.get("start_at_question_number", 0),
+            settings_dict.get("max_number_of_questions", 20))
+
+    def next(self) -> 'Settings':
+        return Settings(
+            self.question_display_time,
+            self.number_of_choices,
+            self.max_consecutively_correct,
+            self.display_translation,
+            self.start_at_question_number + self.max_number_of_questions,
+            self.max_number_of_questions)
 
 
 @dataclass(frozen=True)
@@ -43,8 +56,8 @@ class Question:
     example: str
     translation: str
     choices: list[str]
-    priority: str
-    consecutively_correct: int
+    priority: str = "medium"
+    consecutively_correct: int = 0
 
     @staticmethod
     def of_dict(question_dict: dict) -> 'Question':
@@ -70,7 +83,7 @@ class Game:
     name: str
     settings: Settings
     questions: list[Question]
-    score: Score
+    score: Score = Score(0, 0)
 
     @staticmethod
     def of_dict(game_dict: dict) -> 'Game':
@@ -111,11 +124,4 @@ class Game:
             self.name,
             settings,
             self.questions,
-            self.score)
-
-    def with_questions(self, questions: list[Question]) -> 'Game':
-        return Game(
-            self.name,
-            self.settings,
-            questions,
             self.score)

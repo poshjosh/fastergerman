@@ -8,19 +8,22 @@ from .default_questions import DEFAULT_QUESTIONS
 from .game import Score, Settings, Question
 from .game_file import delete_game, get_game_names, get_game_to_load, load_game, save_game, Game
 
-DEFAULT_GAME_NAME = "Game 1"
+INITIAL_GAME_NAME = "Game 1"
 FONT_X_LARGE = ('Helvetica', 24, 'bold')
 FONT_LARGE = ('Helvetica', 20, 'bold')
 FONT_MEDIUM = ('Helvetica', 16, 'bold')
-NO_GAME = "None"
+NO_GAME_NAME_SELECTION = "None"
+PADDING_L = 16
+PADDING_M = 8
+PADDING_S = 4
 QUESTIONS_LEFT = "Questions left"
 STYLE_MEDIUM_TEXT = "Timer.TLabel"
 
 
 class PrepositionTrainer:
-    def __init__(self, root):
+    def __init__(self, root, app_name: str):
         self.root = root
-        self.root.title("PrepMeister Pro - German Preposition Trainer")
+        self.root.title(app_name)
         # self.root.geometry("800x600")
         self.root.geometry("1000x750")
 
@@ -38,7 +41,7 @@ class PrepositionTrainer:
         ##############
 
         # Main container with padding
-        self.main_frame = ttk.Frame(self.root, padding="20")
+        self.main_frame = ttk.Frame(self.root, padding=str(PADDING_L))
         self.main_frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
         # Configure styles
@@ -50,122 +53,103 @@ class PrepositionTrainer:
         # Title
         title_label = ttk.Label(
             self.main_frame,
-            text="PrepMeister Pro",
+            text=app_name,
             font=FONT_X_LARGE
         )
-        title_label.grid(row=0, column=0, columnspan=3, pady=20)
+        title_label.grid(row=0, column=0, columnspan=3, pady=PADDING_L)
 
         # Settings Frame
         settings_frame = ttk.LabelFrame(
             self.main_frame,
             text="Settings",
-            padding="10"
+            padding=str(PADDING_M)
         )
-        settings_frame.grid(row=1, column=0, columnspan=3, pady=20, sticky=(tk.W, tk.E))
+        settings_frame.grid(row=1, column=0, columnspan=3, pady=PADDING_L, sticky=(tk.W, tk.E))
 
         # Game to load settings
         ttk.Label(settings_frame, text="Game to load:").grid(
-            row=0, column=0, padx=5, pady=5
+            row=0, column=0, padx=PADDING_S, pady=PADDING_S
         )
         game_to_load = get_game_to_load()
         self.game_to_load_var = tk.StringVar(value=game_to_load)
         game_names = get_game_names()
-        game_names.insert(0, NO_GAME)
-        game_to_load_combo = ttk.Combobox(
+        game_names.insert(0, NO_GAME_NAME_SELECTION)
+        self.game_to_load_combo = ttk.Combobox(
             settings_frame,
             state="readonly",
             values=game_names)
-        game_to_load_combo.grid(row=0, column=1, padx=5, pady=5)
-        if game_to_load and game_to_load in game_to_load_combo['values']:
-            game_to_load_combo.set(game_to_load)
+        self.game_to_load_combo.grid(row=0, column=1, padx=PADDING_S, pady=PADDING_S)
+        if game_to_load and game_to_load in self.game_to_load_combo['values']:
+            self.game_to_load_combo.set(game_to_load)
 
-        def combo_selected(_):
-            game_name = game_to_load_combo.get()
-            self.game_to_load_var.set(game_name)
-            self._load_game(game_name)
-
-        game_to_load_combo.bind("<<ComboboxSelected>>", combo_selected)
+        self.game_to_load_combo.bind("<<ComboboxSelected>>", self.on_combo_selected)
 
         # Game name settings.
         ttk.Label(settings_frame, text="Save game as:").grid(
-            row=1, column=0, padx=5, pady=5
+            row=1, column=0, padx=PADDING_S, pady=PADDING_S
         )
         game_to_load = self.game_to_load_var.get()
         self.save_game_as_var = tk.StringVar(
-            value=DEFAULT_GAME_NAME if not game_to_load else game_to_load)
+            value=INITIAL_GAME_NAME if not game_to_load else game_to_load)
         save_game_as_text = ttk.Entry(
             settings_frame,
             textvariable=self.save_game_as_var)
-        save_game_as_text.grid(row=1, column=1, padx=5, pady=5)
+        save_game_as_text.grid(row=1, column=1, padx=PADDING_S, pady=PADDING_S)
 
         # Question display time setting
-        ttk.Label(settings_frame, text="Question display time (seconds):").grid(
-            row=2, column=0, padx=5, pady=5
-        )
         self.question_display_time_var = tk.StringVar(
             value=str(self.game.settings.question_display_time))
-        question_display_time_spinbox = ttk.Spinbox(
-            settings_frame,
-            from_=5,
-            to=60,
-            textvariable=self.question_display_time_var,
-            width=5
-        )
-        question_display_time_spinbox.grid(row=2, column=1, padx=5, pady=5)
+        self._add_label_and_spinbox(settings_frame, 2, "Question display time (seconds):",
+                                    5, 60, self.question_display_time_var)
 
         # Number of choices setting
-        ttk.Label(settings_frame, text="Number of choices:").grid(
-            row=3, column=0, padx=5, pady=5
-        )
         self.number_of_choices_var = tk.StringVar(value=str(self.game.settings.number_of_choices))
-        number_of_choices_spinbox = ttk.Spinbox(
-            settings_frame,
-            from_=2,
-            to=5,
-            textvariable=self.number_of_choices_var,
-            width=5
-        )
-        number_of_choices_spinbox.grid(row=3, column=1, padx=5, pady=5)
+        self._add_label_and_spinbox(settings_frame, 3, "Number of choices:",
+                                    2, 5, self.number_of_choices_var)
 
         # Max consecutively correct setting
-        ttk.Label(settings_frame, text="Max consecutively correct:").grid(
-            row=4, column=0, padx=5, pady=5
-        )
         self.max_consecutively_correct_var = tk.StringVar(
             value=str(self.game.settings.max_consecutively_correct))
-        max_consecutively_correct_spinbox = ttk.Spinbox(
-            settings_frame,
-            from_=1,
-            to=5,
-            textvariable=self.max_consecutively_correct_var,
-            width=5
-        )
-        max_consecutively_correct_spinbox.grid(row=4, column=1, padx=5, pady=5)
+        self._add_label_and_spinbox(settings_frame, 4, "Max consecutively correct:",
+                                    1, 5, self.max_consecutively_correct_var)
 
         # Display translation settings
         ttk.Label(settings_frame, text="Display translation:").grid(
-            row=5, column=0, padx=5, pady=5
+            row=5, column=0, padx=PADDING_S, pady=PADDING_S
         )
         self.display_translation_var = tk.BooleanVar(value=self.game.settings.display_translation)
         display_translation_check = ttk.Checkbutton(
             settings_frame,
             variable=self.display_translation_var)
-        display_translation_check.grid(row=5, column=1, padx=5, pady=5)
+        display_translation_check.grid(row=5, column=1, padx=PADDING_S, pady=PADDING_S)
+
+        # Start at question number:
+        self.start_at_question_number_var = tk.StringVar(
+            value=str(self.game.settings.start_at_question_number))
+        self._add_label_and_spinbox(settings_frame, 6, "Start at question number:",
+                                    1, len(DEFAULT_QUESTIONS) - 1,
+                                    self.start_at_question_number_var)
+
+        # Max number of questions
+        self.max_number_of_questions_var = tk.StringVar(
+            value=str(self.game.settings.max_number_of_questions))
+        self._add_label_and_spinbox(settings_frame, 7, "Max number of questions:",
+                                    2, len(DEFAULT_QUESTIONS), self.max_number_of_questions_var)
 
         # Question display area
-        self.question_frame = ttk.Frame(self.main_frame, padding="20")
-        self.question_frame.grid(row=2, column=0, columnspan=3, pady=20)
+        self.question_frame = ttk.Frame(self.main_frame, padding=str(PADDING_L))
+        self.question_frame.grid(row=2, column=0, columnspan=3, pady=PADDING_L)
 
         self.question_label = ttk.Label(
             self.question_frame,
             text="Click Start to begin",
             font=FONT_LARGE
         )
-        self.question_label.grid(row=0, column=0, pady=10)
+        self.question_label.grid(row=0, column=0, pady=PADDING_M)
 
         # Choices frame
         self.choices_frame = ttk.Frame(self.question_frame)
-        self.choices_frame.grid(row=1, column=0, pady=10)
+        self.choices_frame.grid(row=1, column=0, pady=PADDING_M)
 
         # Control buttons
         self.start_button = ttk.Button(
@@ -173,7 +157,7 @@ class PrepositionTrainer:
             text="Start",
             command=self.start_quiz
         )
-        self.start_button.grid(row=3, column=0, pady=20, padx=5)
+        self.start_button.grid(row=3, column=0, pady=PADDING_L, padx=PADDING_S)
 
         self.pause_button = ttk.Button(
             self.main_frame,
@@ -181,7 +165,7 @@ class PrepositionTrainer:
             command=self.pause_quiz,
             state=tk.DISABLED
         )
-        self.pause_button.grid(row=3, column=1, pady=20, padx=5)
+        self.pause_button.grid(row=3, column=1, pady=PADDING_L, padx=PADDING_S)
 
         # Score display
         self.score_var = tk.StringVar(value=f"Score: {self.game.score}")
@@ -190,7 +174,7 @@ class PrepositionTrainer:
             textvariable=self.score_var,
             font=FONT_LARGE
         )
-        score_label.grid(row=4, column=0, columnspan=3, pady=10)
+        score_label.grid(row=4, column=0, columnspan=3, pady=PADDING_M)
 
         # Questions left display
         self.questions_left_label = ttk.Label(
@@ -198,7 +182,7 @@ class PrepositionTrainer:
             text=f"{QUESTIONS_LEFT}: ",
             style=STYLE_MEDIUM_TEXT
         )
-        self.questions_left_label.grid(row=5, column=0, sticky=tk.W, padx=10)
+        self.questions_left_label.grid(row=5, column=0, sticky=tk.W, padx=PADDING_M)
 
         # Timer display
         self.timer_label = ttk.Label(
@@ -206,14 +190,19 @@ class PrepositionTrainer:
             text="Time: --",
             style=STYLE_MEDIUM_TEXT
         )
-        self.timer_label.grid(row=5, column=2, sticky=tk.E, padx=10)
+        self.timer_label.grid(row=5, column=2, sticky=tk.E, padx=PADDING_M)
 
         if game_to_load:
-            self._load_game(game_to_load)
+            self._load_game(game_to_load, self.game.settings)
+
+    def on_combo_selected(self, _):
+        game_name = self.game_to_load_combo.get()
+        self.game_to_load_var.set(game_name)
+        self._load_game(game_name, self.game.settings)
 
     def start_quiz(self):
         self.is_running = True
-        self._load_game(self.game_to_load_var.get())
+        self._load_game(self.game_to_load_var.get(), self._get_settings())
         self.start_button.config(state=tk.DISABLED)
         self.pause_button.config(state=tk.NORMAL)
         self.show_next_question()
@@ -241,8 +230,16 @@ class PrepositionTrainer:
             self.pause_quiz()
             self.question_label.config(
                 text=f"Game Completed. You scored {self.game.score.to_percent()} percent.")
+
+            # Delete game
             delete_game(self.game.name)
-            self.game = PrepositionTrainer._get_default_game()
+            game_to_load_values = list(self.game_to_load_combo['values'])
+            if self.game.name in game_to_load_values:
+                game_to_load_values.remove(self.game.name)
+                self.game_to_load_combo['values'] = game_to_load_values
+
+            # Load default game, but start at next set of questions
+            self._load_game(NO_GAME_NAME_SELECTION, self.game.settings.next())
             return
 
         self._save_game()
@@ -277,7 +274,7 @@ class PrepositionTrainer:
                 text=choice,
                 command=lambda c=choice: self._on_answer(c)
             )
-            btn.grid(row=0, column=i, padx=5)
+            btn.grid(row=0, column=i, padx=PADDING_S)
             self.choice_buttons.append(btn)
             
         # Reset and start timer
@@ -293,14 +290,34 @@ class PrepositionTrainer:
         )
 
     @staticmethod
-    def _get_default_game(game_name: str = DEFAULT_GAME_NAME) -> Game:
-        return Game(game_name, Settings.of_dict({}),
-                    PrepositionTrainer._get_default_questions(), Score(0, 0))
+    def _add_label_and_spinbox(parent, row: int, label_text: str, frm: int, to: int, text_variable):
+        ttk.Label(parent, text=label_text).grid(row=row, column=0, padx=PADDING_S, pady=PADDING_S)
+        spinbox = ttk.Spinbox(
+            parent,
+            from_=frm,
+            to=to,
+            textvariable=text_variable,
+            width=5
+        )
+        spinbox.grid(row=row, column=1, padx=PADDING_S, pady=PADDING_S)
 
     @staticmethod
-    def _get_default_questions() -> List[Question]:
+    def _get_default_game(game_name: str = INITIAL_GAME_NAME,
+                          settings: Settings = Settings.of_dict({})) -> Game:
+        offset = settings.start_at_question_number
+        limit = settings.max_number_of_questions
+        return Game(game_name, settings,
+                    PrepositionTrainer._get_default_questions(offset, limit), Score(0, 0))
+
+    @staticmethod
+    def _get_default_questions(
+            first_question: int = 0, max_questions: int = len(DEFAULT_QUESTIONS)) -> List[Question]:
         questions = [Question.of_dict(e) for e in DEFAULT_QUESTIONS]
-        return [q for q in questions if q.priority != "low"]
+        questions = [q for q in questions if q.priority != "low"]
+        last_question = first_question + max_questions
+        if last_question > len(questions):
+            last_question = len(questions)
+        return questions[first_question:last_question]
 
     @staticmethod
     def _get_choices(correct: str, options: List[str], num_choices: int) -> List[str]:
@@ -314,16 +331,21 @@ class PrepositionTrainer:
         random.shuffle(choices)
         return choices
 
-    def _load_game(self, game_name: str or None = None):
+    def _load_game(self, game_name: str or None, settings: Settings):
+        """
+        Load a game with the specified settings.
+        If the game was loaded from file, the provided settings will be ignored.
+        """
         if game_name:
-            if game_name == NO_GAME:  # reset
+            if game_name == NO_GAME_NAME_SELECTION:  # reset
                 self.game = PrepositionTrainer._get_default_game(
-                    f"Game_{datetime.today().strftime('%Y-%m-%d_%H%M%S')}")
+                    f"Game_{datetime.today().strftime('%Y-%m-%d_%H%M%S')}",
+                    settings)
             else:
                 self.game = load_game(game_name)
             self._update_settings(self.game.settings)
         else:
-            self.game = PrepositionTrainer._get_default_game().with_settings(self._get_settings())
+            self.game = PrepositionTrainer._get_default_game(settings=settings)
         self.save_game_as_var.set(self.game.name)
         self._update_display()
 
@@ -369,13 +391,17 @@ class PrepositionTrainer:
             int(self.question_display_time_var.get()),
             int(self.number_of_choices_var.get()),
             int(self.max_consecutively_correct_var.get()),
-            self.display_translation_var.get())
+            self.display_translation_var.get(),
+            int(self.start_at_question_number_var.get()),
+            int(self.max_number_of_questions_var.get()))
 
     def _update_settings(self, settings: Settings):
         self.question_display_time_var.set(str(settings.question_display_time))
         self.number_of_choices_var.set(str(settings.number_of_choices))
         self.max_consecutively_correct_var.set(str(settings.max_consecutively_correct))
         self.display_translation_var.set(settings.display_translation)
+        self.start_at_question_number_var.set(str(settings.start_at_question_number))
+        self.max_number_of_questions_var.set(str(settings.max_number_of_questions))
 
     def _update_display(self):
         self._update_score()

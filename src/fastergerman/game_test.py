@@ -27,11 +27,10 @@ DEFAULT_QUESTIONS = [
 if __name__ == "__main__":
     """Test that a question is removed after being answered correctly {n} times."""
     max_consecutively_correct = 2
-    game = Game("Test Game", Settings(30, 3, max_consecutively_correct, True),
+    num_questions = len(DEFAULT_QUESTIONS)
+    game = Game("Test Game", Settings(30, 3, max_consecutively_correct, True, 0, num_questions),
                 [Question.of_dict(q) for q in DEFAULT_QUESTIONS],
                 Score(0, 0))
-
-    num_questions = len(game.questions)
 
     for i in range(max_consecutively_correct):
         question = game.questions[0]
