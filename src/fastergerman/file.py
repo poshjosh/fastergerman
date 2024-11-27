@@ -1,5 +1,6 @@
 import json
 import os
+import shutil
 from typing import AnyStr
 
 
@@ -13,6 +14,26 @@ def create_file(path):
     if not os.path.exists(path):
         with open(path, 'a'):
             os.utime(path, None)
+
+
+def delete_file(path):
+    if not os.path.isfile(path):
+        raise ValueError(f"Not a file: {path}")
+    if os.path.exists(path):
+        os.remove(path)
+        return True
+    else:
+        return False
+
+
+def delete_dir(path):
+    if not os.path.isdir(path):
+        raise ValueError(f"Not a directory: {path}")
+    if os.path.exists(path):
+        shutil.rmtree(path)
+        return True
+    else:
+        return False
 
 
 def read_content(file_path):

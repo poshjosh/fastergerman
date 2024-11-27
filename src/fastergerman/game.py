@@ -13,6 +13,9 @@ class Score:
     def advance(self, correct: bool) -> 'Score':
         return Score(self.success + 1 if correct else self.success, self.total + 1)
 
+    def to_percent(self) -> float:
+        return (self.success / self.total) * 100
+
     def __str__(self):
         return f"{self.success}/{self.total}"
 

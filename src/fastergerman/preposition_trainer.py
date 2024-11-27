@@ -6,7 +6,7 @@ from typing import List
 
 from .default_questions import DEFAULT_QUESTIONS
 from .game import Score, Settings, Question
-from .game_file import get_game_names, get_game_to_load, load_game, save_game, Game
+from .game_file import delete_game, get_game_names, get_game_to_load, load_game, save_game, Game
 
 DEFAULT_GAME_NAME = "Game 1"
 FONT_X_LARGE = ('Helvetica', 24, 'bold')
@@ -232,13 +232,21 @@ class PrepositionTrainer:
         if not self.is_running:
             return
 
-        self._save_game()
-
         # Clear previous choices
         for widget in self.choices_frame.winfo_children():
             widget.destroy()
         self.choice_buttons.clear()
-            
+
+        if len(self.game.questions) == 0:
+            self.pause_quiz()
+            self.question_label.config(
+                text=f"Game Completed. You scored {self.game.score.to_percent()} percent.")
+            delete_game(self.game.name)
+            self.game = PrepositionTrainer._get_default_game()
+            return
+
+        self._save_game()
+
         # Select random question
         next_question: Question = random.choice(self.game.questions)
         if next_question == self.current_question:
