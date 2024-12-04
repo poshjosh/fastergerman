@@ -343,10 +343,12 @@ class PrepositionTrainer:
                     settings)
             else:
                 self.game = load_game(game_name)
+            self.save_game_as_var.set(self.game.name)
             self._update_settings(self.game.settings)
         else:
             self.game = PrepositionTrainer._get_default_game(settings=settings)
-        self.save_game_as_var.set(self.game.name)
+            if self.save_game_as_var.get() == INITIAL_GAME_NAME or not self.save_game_as_var.get():
+                self.save_game_as_var.set(self.game.name)
         self._update_display()
 
     def _save_game(self):
