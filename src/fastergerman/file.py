@@ -1,7 +1,11 @@
 import json
+import logging
 import os
 import shutil
-from typing import AnyStr
+import yaml
+from typing import AnyStr, Any
+
+logger = logging.getLogger(__name__)
 
 
 def make_dirs(path):
@@ -54,3 +58,25 @@ def write_content(content: AnyStr, file_path):
 def write_json(python_obj, file_path):
     with open(file_path, 'w+') as outfile:
         json.dump(python_obj, outfile)
+
+
+def load_yaml(yaml_file_path: str, file_open_mode='r') -> Any:
+    logger.debug(f'Will load yaml from: {yaml_file_path}')
+    with open(yaml_file_path, file_open_mode) as yaml_file:
+        config = yaml.full_load(yaml_file)
+        logger.debug(f'Loaded yaml: {config}')
+        return config
+
+
+def load_yaml_str(yaml_str: str) -> Any:
+    config = yaml.full_load(yaml_str)
+    logger.debug(f'Loaded yaml: {config}')
+    return config
+
+
+def save_yaml(obj: Any, yaml_file_path: str, file_open_mode='w') -> Any:
+    logger.debug(f'Will save yaml to: {yaml_file_path}')
+    with open(yaml_file_path, file_open_mode) as yaml_file:
+        config = yaml.dump(obj, yaml_file)
+        logger.debug(f'Saved yaml: {config}')
+        return config

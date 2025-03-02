@@ -1,1 +1,3 @@
-tkinter
+PyYAML>=6.0.2
+flask
+flask-cors

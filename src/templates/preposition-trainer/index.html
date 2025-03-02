@@ -1,0 +1,117 @@
+{% extends "common/page.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/form.css') }}">
+{% endblock %}
+
+{% block heading %}Preposition Trainer{% endblock %}
+
+{% block content %}
+
+    {% macro display_number_input(name, label, val, min, max) %}
+        <p>
+            <label class="inline-label" for="{{ name }}">{{ label }}</label>
+            <input type="number" id="{{ name }}" name="{{ name }}"
+                   class="control" value="{{ val }}" min="{{ min }}" max="{{ max }}"/>
+        </p>
+    {% endmacro %}
+    <form id="game_session_settings" action="/preposition-trainer">
+        <input type="hidden" name="session_id" value="{{ session_id }}"/>
+        <input type="button" value="{{ i18n.settings }}"
+               class="control clickable" onclick="fastergerman.toggleDisplay('settings');"/>
+        <div id="settings">
+            {{ display_number_input("number_of_choices", i18n.number_of_choices, game_session.settings.number_of_choices, 2, 4) }}
+            {{ display_number_input("question_display_time", i18n.question_display_time, game_session.settings.question_display_time, 1, 100) }}
+            {{ display_number_input("max_consecutively_correct", i18n.max_consecutively_correct, game_session.settings.max_consecutively_correct, 1, 100) }}
+            {{ display_number_input("start_at_question_number", i18n.start_at_question_number, game_session.settings.start_at_question_number, 0, 999) }}
+            {{ display_number_input("max_number_of_questions", i18n.max_number_of_questions, game_session.settings.max_number_of_questions, 1, 999) }}
+            <p>
+                <label class="inline-label" for="display_translation">{{ i18n.display_translation }}</label>
+                <input type="checkbox" id="display_translation" name="display_translation"
+                       class="control" value="{{ game_session.settings.display_translation }}" checked/>
+            </p>
+        </div>
+
+        <hr/>
+
+        <p>
+            <label for="game_to_load">{{ i18n.game_to_load }}</label>
+            <br/>
+            <select id="game_to_load" name="game_to_load" class="control"
+                    onchange="sync('#game_to_load', '#save_game_as')">
+                <option value="">{{ i18n.select_game_to_load }}</option>
+                {% for game_name in game_session.game_names %}
+                    {% if game_name == game_session.last_saved_game %}
+                        <option value="{{ game_name }}" selected>{{ game_name }}</option>
+                    {% else %}
+                        <option value="{{ game_name }}">{{ game_name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+            <noscript>
+                <button type="submit" class="clickable button submit_game_to_load">{{ i18n.submit }}</button>
+            </noscript>
+            <script>
+                function sync(sourceQuery, targetQuery) {
+                    const value = document.querySelector(sourceQuery).value
+                    if (value) {
+                        document.querySelector(targetQuery).value = value
+                    }
+                }
+            </script>
+        </p>
+
+        <p>
+            <label for="save_game_as">{{ i18n.save_game_as }}</label>
+            <br/>
+            <input type="text" id="save_game_as" name="save_game_as"
+                   class="control" value="{{ game_session.last_saved_game }}"/>
+        </p>
+        <button type="submit" class="control clickable button">Submit</button>
+    </form>
+    <form id="game_session" action="/preposition-trainer">
+        <input type="hidden" name="session_id" value="{{ session_id }}"/>
+        <div id="game_session_message">
+            {% if game_session.last_answer_correct == true %}
+                <p>Correct</p>
+            {% elif game_session.last_answer_correct == false %}
+                <p>Incorrect</p>
+            {% else %}
+                <p>&nbsp;</p> <!-- To keep the layout consistent -->
+            {% endif %}
+        </div>
+        <div id="game_session_question">
+            {{ game_session.question }}
+        </div>
+        <p>
+            {% for option in game_session.question_options %}
+                <a href="/preposition-trainer?session_id={{ session_id }}&action=answer&answer={{ option|url_quote }}"
+                   class="control clickable">{{ option }}</a>
+            {% endfor %}
+        </p>
+
+        {% if game_session.is_running == true %}
+            <button type="submit" name="action" value="pause"
+                    class="control clickable button">{{ i18n.pause }}</button>
+        {% else %}
+            <button type="submit" name="action" value="start"
+                    class="control clickable button">{{ i18n.start }}</button>
+        {% endif %}
+
+        <p>{{ i18n.score }}: {{ game_session.score }}</p>
+        {{ i18n.questions_left }}: {{ game_session.questions_left }}
+        &emsp;&emsp;
+        {{ i18n.time }}: <span id="time_left">{{ (game_session.time_left/1000)|int }}</span>
+    </form>
+    <form id="game_session_next" action="/preposition-trainer">
+        <input type="hidden" name="session_id" value="{{ session_id }}"/>
+        <input type="hidden" name="action" value="next"/>
+    </form>
+    <script src="{{ url_for('static', filename='scripts/scripts.js') }}"
+            onload="fastergerman.startCountdown(
+                          '{{ 0 if game_session.is_running == false else game_session.end_time }}',
+                          'game_session_next', 'time_left', 'game_session_message', 'page_error')">
+    </script>
+{% endblock %}
+

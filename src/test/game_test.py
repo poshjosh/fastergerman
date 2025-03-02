@@ -1,4 +1,6 @@
-from src.fastergerman.game import Game, Question, Score, Settings
+import unittest
+
+from fastergerman.game import Game, Question, Score, Settings
 
 DEFAULT_QUESTIONS = [
     {
@@ -24,8 +26,9 @@ DEFAULT_QUESTIONS = [
     }
 ]
 
-if __name__ == "__main__":
-    """Test that a question is removed after being answered correctly {n} times."""
+class GameTestCase(unittest.TestCase):
+    def test_question_removal_after_successive_correct_answer(self):
+        """Test that a question is removed after being answered correctly {n} times."""
     max_consecutively_correct = 2
     num_questions = len(DEFAULT_QUESTIONS)
     game = Game("Test Game", Settings(30, 3, max_consecutively_correct, True, 0, num_questions),
@@ -41,3 +44,7 @@ if __name__ == "__main__":
     if len(game.questions) != exp_questions:
         raise ValueError(f"Error: expected {exp_questions} questions, "
                          f"but found {len(game.questions)}")
+
+
+if __name__ == "__main__":
+    unittest.main()

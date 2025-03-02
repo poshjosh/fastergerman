@@ -3,12 +3,12 @@
 from setuptools import setup, find_packages
 
 if __name__ == "__main__":
-    setup(name="automate-idea-to-social",
+    setup(name="fastergerman",
           version="0.0.1",
           description="Learn German faster",
           author="PoshJosh",
           author_email="posh.bc@gmail.com",
-          install_requires=[],
+          install_requires=["PyYAML", "flask", "flask-cors"],
           license="MIT",
           classifiers=[
               "Programming Language :: Python :: 3",

@@ -1,0 +1,8 @@
+app:
+  language: en-GB
+  name: FasterGerman
+  title: FasterGerman | Learn German Faster
+  # [dev|prod]
+  environment: dev
+web:
+  port: 5010

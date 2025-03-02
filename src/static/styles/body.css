@@ -1,0 +1,37 @@
+body {
+    font-size: 1.5rem;
+    font-family: 'Roboto', sans-serif;
+    padding:1rem;
+}
+
+body a { text-decoration: none;}
+
+body .heading {
+    width: 100%;
+    background-color: #def /** THEME_BG_COLOR */;
+    font-size: 2rem;
+    font-weight: 700;
+    padding: 0.5rem;
+}
+
+body .error {
+    width: 100%;
+    background-color: #db4437;
+    color: white;
+    margin: 0.5rem;
+}
+
+body .info {
+    width: 100%;
+    background-color: white;
+    color: navy;
+    margin: 0.5rem;
+}
+
+#page_bottom {
+    width: 100%;
+    font-size: 0.75rem;
+    background-color: #def /** THEME_BG_COLOR */;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+}

@@ -1,5 +1,4 @@
-from dataclasses import dataclass
-
+from dataclasses import dataclass, asdict
 
 @dataclass(frozen=True)
 class Score:
@@ -9,6 +8,9 @@ class Score:
     @staticmethod
     def of_dict(score_dict: dict) -> 'Score':
         return Score(score_dict.get("success", 0), score_dict.get("total", 0))
+
+    def to_dict(self) -> dict[str, int]:
+        return asdict(self)
 
     def advance(self, correct: bool) -> 'Score':
         return Score(self.success + 1 if correct else self.success, self.total + 1)
@@ -32,12 +34,22 @@ class Settings:
     @staticmethod
     def of_dict(settings_dict: dict) -> 'Settings':
         return Settings(
-            settings_dict.get("question_display_time", 30),
-            settings_dict.get("number_of_choices", 3),
-            settings_dict.get("max_consecutively_correct", 2),
-            settings_dict.get("display_translation", True),
-            settings_dict.get("start_at_question_number", 0),
-            settings_dict.get("max_number_of_questions", 20))
+            int(settings_dict.get("question_display_time", 30)),
+            int(settings_dict.get("number_of_choices", 3)),
+            int(settings_dict.get("max_consecutively_correct", 2)),
+            bool(settings_dict.get("display_translation", True)),
+            int(settings_dict.get("start_at_question_number", 0)),
+            int(settings_dict.get("max_number_of_questions", 20)))
+
+    def to_dict(self) -> dict[str, any]:
+        return asdict(self)
+
+    def with_value(self, key: str, value: any) -> 'Settings':
+        settings_dict = self.to_dict()
+        if key not in settings_dict:
+            raise ValueError(f"Invalid key {key}")
+        settings_dict[key] = value
+        return Settings.of_dict(settings_dict)
 
     def next(self) -> 'Settings':
         return Settings(
@@ -67,7 +79,10 @@ class Question:
                         question_dict["translation"],
                         question_dict["choices"],
                         question_dict.get("priority", "medium"),
-                        question_dict.get("consecutively_correct", 0))
+                        int(question_dict.get("consecutively_correct", 0)))
+
+    def to_dict(self) -> dict[str, any]:
+        return asdict(self)
 
     def on_answer(self, answer: str) -> 'Question':
         return Question(self.verb, self.preposition, self.example, self.translation,
@@ -92,6 +107,14 @@ class Game:
                     Settings.of_dict(game_dict["settings"]),
                     [Question.of_dict(q) for q in game_dict["questions"]],
                     Score.of_dict(game_dict["score"]))
+
+    def to_dict(self) -> dict[str, any]:
+        return {
+            "name": self.name,
+            "settings": self.settings.to_dict(),
+            "questions": [q.to_dict() for q in self.questions],
+            "score": self.score.to_dict()
+        }
 
     def on_question_answer(self, question: Question, answer: str) -> 'Game':
         updated_question = question.on_answer(answer)

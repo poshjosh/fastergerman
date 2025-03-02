@@ -1,0 +1,36 @@
+form {
+    width: 40rem;
+    background-color: #def /** THEME_BG_COLOR */;
+    padding: 1rem;
+    border-radius: 0.5rem; }
+
+form .inline-label {
+    min-width: 16rem;
+    width: 24rem;
+    max-width: 32rem;
+    display: inline-block;
+}
+
+form #red-asterix { font-weight:900; color: red; }
+
+form .control { font-size: 1.5rem; margin-top: 0.5rem; margin-bottom:0.5rem; }
+
+form select { width: 16rem; }
+
+form label { color: #369; }
+
+form .clickable {
+    background-color: #0f9df7;
+    padding: 0.5rem 1rem;
+    border: none;
+}
+
+form .button {
+    border-radius: 0.5rem;
+}
+
+form #settings { display: none; }
+
+.submit_game_to_load {
+    vertical-align:top; margin-top:0.5rem;
+}

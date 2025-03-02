@@ -1,22 +1,22 @@
 import dataclasses
+import logging
 import os
 from pathlib import Path
 from typing import Union
 
-from .file import create_file, read_content, write_content, write_json, read_json, \
+from fastergerman.file import create_file, read_content, write_content, write_json, read_json, \
     delete_file, delete_dir
-from .game import Game, Score, Settings
+from fastergerman.game import Game, Score, Settings
+
+logger = logging.getLogger(__name__)
 
 DATA_DIR_PATH = Path.home() / ".fastergerman" / "v0.0.3" / "data"
 GAME_TO_LOAD_FILE_PATH = DATA_DIR_PATH / "game-to-load.txt"
 GAMES_DIR_PATH = DATA_DIR_PATH / "games"
 
-_debug = False
-
 
 def load_game(game_name: str or None = None) -> Game:
-    if _debug is True:
-        print("Loading game: ", game_name)
+    logger.debug(f"Loading game: {game_name}")
     if not game_name:
         game_name = get_game_to_load()
     game_dict = read_json(_get_game_file_path(game_name))
@@ -27,8 +27,7 @@ def load_game(game_name: str or None = None) -> Game:
 
 def save_game(game: Game):
     game_name = game.name
-    if _debug is True:
-        print("Saving game: ", game_name)
+    logger.debug(f"Saving game: '{game_name}' = {game}")
     if not game_name:
         raise ValueError("No game name provided.")
     game_dict = dataclasses.asdict(game)
@@ -40,8 +39,7 @@ def save_game(game: Game):
 
 
 def delete_game(game_name: str):
-    if _debug is True:
-        print("Deleting game: ", game_name)
+    logger.debug(f"Deleting game: {game_name}")
     if not game_name:
         raise ValueError("No game name provided.")
     _delete_from_game_to_load(game_name)
@@ -64,11 +62,9 @@ def get_game_to_load(result_if_none: str or None = None) -> Union[str, None]:
 def _save_json(json, path):
     if not os.path.exists(path):
         create_file(path)
-        if _debug is True:
-            print("Created: ", path)
+        logger.debug(f"Created: {path}")
     write_json(json, path)
-    if _debug is True:
-        print(f"Written {json}\nto {path}")
+    logger.debug(f"Written {json}\nto {path}")
 
 
 def _get_game_file_path(game_name: str):
@@ -82,11 +78,9 @@ def _get_game_dir_path(game_name: str):
 def _save_game_to_load(game_name: str):
     if not os.path.exists(GAME_TO_LOAD_FILE_PATH):
         create_file(GAME_TO_LOAD_FILE_PATH)
-        if _debug is True:
-            print("Created: ", GAME_TO_LOAD_FILE_PATH)
+        logger.debug("Created: %s", GAME_TO_LOAD_FILE_PATH)
     write_content(game_name, GAME_TO_LOAD_FILE_PATH)
-    if _debug is True:
-        print(f"Written {game_name} to {GAME_TO_LOAD_FILE_PATH}")
+    logger.debug(f"Written {game_name} to {GAME_TO_LOAD_FILE_PATH}")
 
 
 def _delete_from_game_to_load(game_name: str):
