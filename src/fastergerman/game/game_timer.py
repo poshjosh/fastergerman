@@ -14,7 +14,7 @@ class TimerError(Exception):
         self.message = args[0]
 
 
-class GameTimer(ABC):
+class AbstractGameTimer(ABC):
     def __init__(self):
         self.__tick_listeners = []
 
@@ -78,7 +78,7 @@ class GameTimerState(Enum):
     RUNNING = "Running"
     STOPPED = "Stopped"
 
-class SimpleGameTimer(GameTimer):
+class GameTimer(AbstractGameTimer):
     def __init__(self, interval_millis: int):
         super().__init__()
         self.__interval_millis = interval_millis
@@ -115,7 +115,7 @@ class SimpleGameTimer(GameTimer):
     def get_time_left_millis(self) -> int:
         if self.__duration is None:
             return 0
-        return self.__duration - self.get_time_spent_millis()
+        return max(0, self.__duration - self.get_time_spent_millis())
 
     def get_time_spent_millis(self) -> int:
         if self.__start_time is None:
@@ -141,7 +141,7 @@ class SimpleGameTimer(GameTimer):
     def is_timed_out(self) -> bool:
         if self.is_started() is False:
             return False
-        return self.get_time_left_millis() <= 0
+        return self.get_time_left_millis() <= 99 # allow for drifts in time
 
     @staticmethod
     def _now_millis() -> int:

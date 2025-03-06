@@ -1,9 +1,8 @@
 import logging
 
 from fastergerman.config import AppConfig
-from fastergerman.game import GameSession
 from fastergerman.i18n import I18n
-from fastergerman.web import LANG_CODE, GameService, ACTION
+from fastergerman.web import LANG_CODE, GameService
 
 logger = logging.getLogger(__name__)
 
@@ -24,15 +23,10 @@ class WebService:
         return self._with_default_page_variables(page_variables)
 
     def preposition_trainer(self, page_variables: dict[str, any]) -> dict[str, any]:
-        return self.with_game_session(
-            page_variables, self.__game_service.preposition_trainer(page_variables))
+        return self._with_default_page_variables(self.__game_service.preposition_trainer(page_variables))
 
-    def with_game_session(
-            self, page_variables: dict[str, any], game_session: GameSession) -> dict[str, any]:
-
-        page_variables["game_session"] = game_session.to_dict(page_variables[LANG_CODE])
-        logger.debug("%s", game_session)
-
+    def with_game_session(self, page_variables: dict[str, any]) -> dict[str, any]:
+        self.__game_service.with_game_session(page_variables)
         return self._with_default_page_variables(page_variables)
 
     def _with_default_page_variables(self, variables: dict[str, any] = None):

@@ -1,3 +1,6 @@
+import traceback
+from datetime import datetime
+
 import jinja2
 from flask import Flask, render_template, request
 from flask_cors import CORS
@@ -17,6 +20,10 @@ PREPOSITION_TRAINER = '/preposition-trainer'
 PREPOSITION_TRAINER_INDEX_TEMPLATE = f'{PREPOSITION_TRAINER}/index.html'[1:]
 
 
+@web_app.template_filter('format_time')
+def format_time_filter(fmt):
+    return datetime.now().strftime(fmt)
+
 @web_app.template_filter('url_quote')
 def url_quote_filter(s):
     return jinja2.utils.url_quote(s)
@@ -24,11 +31,11 @@ def url_quote_filter(s):
 
 @web_app.errorhandler(ValidationError)
 def handle_validation_error(e):
+    print(traceback.format_exc())
     if request.path.startswith(PREPOSITION_TRAINER):
         template = PREPOSITION_TRAINER_INDEX_TEMPLATE
         data = RequestData.preposition_trainer_config(request, False)
-        data = web_service.with_game_session(
-            data, web_service.get_game_service().get_or_create_session(data))
+        data = web_service.with_game_session(data)
     else:
         template = INDEX_TEMPLATE
         data = web_service.index()
@@ -41,7 +48,7 @@ def index():
     return render_template(INDEX_TEMPLATE, **web_service.index())
 
 
-@web_app.route(PREPOSITION_TRAINER)
+@web_app.route(PREPOSITION_TRAINER, methods=['GET', 'POST'])
 def preposition_trainer():
     data = RequestData.preposition_trainer_config(request)
     return render_template(PREPOSITION_TRAINER_INDEX_TEMPLATE,

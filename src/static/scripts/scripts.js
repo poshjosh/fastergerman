@@ -1,6 +1,7 @@
-function Fastergerman() { }
+function Fastergerman() { /** Intentionally empty */ }
 
-const debug = true;
+const production = false; // TODO - use environment
+const debug = production === false;
 
 Fastergerman.prototype.toggleDisplay = function (elementId, flip = 'block', flop = 'none') {
   const element = document.getElementById(elementId);
@@ -23,9 +24,9 @@ function isValidTime(time, errorElementId) {
   }
 }
 
-Fastergerman.prototype.startCountdown = function(endTime, formId, timeLeftElementId,
+Fastergerman.prototype.startCountdown = function(endTime, formId, countdownElementId,
                                                  messageElementId, errorElementId) {
-  if (debug) console.log("End time: " + endTime)
+  if (debug) console.log("End time: " + endTime);
   if (endTime === "0" || endTime === 0) {
     return;
   }
@@ -33,17 +34,16 @@ Fastergerman.prototype.startCountdown = function(endTime, formId, timeLeftElemen
     return;
   }
   console.log("End date: " + Date(parseFloat(endTime)))
+  console.log("Countdown: " + document.getElementById(countdownElementId).innerText)
 
   const intervalId = setInterval(function(){
-    // if (debug) console.log("Tick");
-    const timeLeftElement = document.getElementById(timeLeftElementId);
-    timeLeftElement.innerText = "" + (parseInt(timeLeftElement.innerText) - 1);
+    const countdownElement = document.getElementById(countdownElementId);
+    countdownElement.innerText = "" + (parseInt(countdownElement.innerText) - 1);
   }, 1000);
 
-  const allowance = 1000; // 1 second before timeout
-  const timeout = endTime - Date.now() - allowance;
-  if (debug) console.log("Timeout: " + timeout);
-  if (timeout <= allowance) {
+  const timeLeft = endTime - Date.now();
+  if (debug) console.log("Time left: " + timeLeft);
+  if (timeLeft <= 0) {
     document.getElementById(formId).submit();
     return;
   }
@@ -52,19 +52,19 @@ Fastergerman.prototype.startCountdown = function(endTime, formId, timeLeftElemen
     if (intervalId) {
       clearInterval(intervalId);
     }
-    if (debug) console.log("Clearing countdown timeout");
+    if (debug) console.log("Clearing countdown");
     if (countdownTimeoutId) {
       clearTimeout(countdownTimeoutId);
     }
     document.getElementById(formId).submit();
-  }, timeout);
+  }, timeLeft);
 
   const messageTimeoutId = setTimeout(function() {
-    if (debug) console.log("Clearing " + messageElementId + " timeout");
+    if (debug) console.log("Clearing " + messageElementId);
     if (messageTimeoutId) {
       clearTimeout(messageTimeoutId);
     }
-    document.getElementById(messageElementId).innerHTML = "<p>&nbsp;</p>" // To keep the layout consistent
+    document.getElementById(messageElementId).innerHTML = ""
   }, 2000);
 }
 

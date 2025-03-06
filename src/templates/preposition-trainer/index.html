@@ -16,9 +16,10 @@
                    class="control" value="{{ val }}" min="{{ min }}" max="{{ max }}"/>
         </p>
     {% endmacro %}
-    <form id="game_session_settings" action="/preposition-trainer">
+    <form id="game_session_settings" action="/preposition-trainer"
+          class="form" method="post">
         <input type="hidden" name="session_id" value="{{ session_id }}"/>
-        <input type="button" value="{{ i18n.settings }}"
+        <input type="button" id="settings_tab" value="{{ i18n.settings }}"
                class="control clickable" onclick="fastergerman.toggleDisplay('settings');"/>
         <div id="settings">
             {{ display_number_input("number_of_choices", i18n.number_of_choices, game_session.settings.number_of_choices, 2, 4) }}
@@ -27,9 +28,22 @@
             {{ display_number_input("start_at_question_number", i18n.start_at_question_number, game_session.settings.start_at_question_number, 0, 999) }}
             {{ display_number_input("max_number_of_questions", i18n.max_number_of_questions, game_session.settings.max_number_of_questions, 1, 999) }}
             <p>
-                <label class="inline-label" for="display_translation">{{ i18n.display_translation }}</label>
-                <input type="checkbox" id="display_translation" name="display_translation"
-                       class="control" value="{{ game_session.settings.display_translation }}" checked/>
+                <span class="inline-label">{{ i18n.display_translation }}</span>
+                {% macro display_bool_input(name, value) %}
+                    <label>
+                        {{ value }}
+                        {% if game_session.settings.display_translation == value %}
+                            <input type="radio" id="display_translation_checked" name="display_translation"
+                                   class="control" value="{{ value|lower }}" checked/>
+                        {% else %}
+                            <input type="radio" id="display_translation_unchecked" name="display_translation"
+                                   class="control" value="{{ value|lower }}"/>
+                        {% endif %}
+                    </label>
+                {% endmacro %}
+                {{ display_bool_input("display_translation", true) }}
+                &emsp;
+                {{ display_bool_input("display_translation", false) }}
             </p>
         </div>
 
@@ -40,7 +54,7 @@
             <br/>
             <select id="game_to_load" name="game_to_load" class="control"
                     onchange="sync('#game_to_load', '#save_game_as')">
-                <option value="">{{ i18n.select_game_to_load }}</option>
+                <option value="None">{{ i18n.select_game_to_load }}</option>
                 {% for game_name in game_session.game_names %}
                     {% if game_name == game_session.last_saved_game %}
                         <option value="{{ game_name }}" selected>{{ game_name }}</option>
@@ -68,50 +82,61 @@
             <input type="text" id="save_game_as" name="save_game_as"
                    class="control" value="{{ game_session.last_saved_game }}"/>
         </p>
-        <button type="submit" class="control clickable button">Submit</button>
+        <button type="submit" id="action_update" name="action" value="update"
+                class="control clickable button">Submit</button>
     </form>
-    <form id="game_session" action="/preposition-trainer">
+    <hr/>
+    <form id="game_session_answer" action="/preposition-trainer"
+          class="form" method="post">
         <input type="hidden" name="session_id" value="{{ session_id }}"/>
-        <div id="game_session_message">
-            {% if game_session.last_answer_correct == true %}
-                <p>Correct</p>
-            {% elif game_session.last_answer_correct == false %}
-                <p>Incorrect</p>
-            {% else %}
-                <p>&nbsp;</p> <!-- To keep the layout consistent -->
+        <input type="hidden" name="action" value="answer"/>
+
+        <p id="game_session_message">
+            {% if game_session.is_running == true %}
+                {% if game_session.last_answer_correct == true %}
+                    Correct
+                {% elif game_session.last_answer_correct == false %}
+                    Incorrect
+                {% endif %}
             {% endif %}
-        </div>
+        </p>
         <div id="game_session_question">
             {{ game_session.question }}
         </div>
-        <p>
-            {% for option in game_session.question_options %}
-                <a href="/preposition-trainer?session_id={{ session_id }}&action=answer&answer={{ option|url_quote }}"
-                   class="control clickable">{{ option }}</a>
-            {% endfor %}
-        </p>
+
+        {% for option in game_session.question_options %}
+            <button type="submit" name="answer" value="{{ option }}"
+                    class="control clickable">{{ option }}</button>
+            &emsp;
+        {% endfor %}
+    </form>
+    <form id="game_session" action="/preposition-trainer"
+          class="form" method="post">
+        <input type="hidden" name="session_id" value="{{ session_id }}"/>
 
         {% if game_session.is_running == true %}
-            <button type="submit" name="action" value="pause"
+            <button type="submit" id="action_pause" name="action" value="pause"
                     class="control clickable button">{{ i18n.pause }}</button>
         {% else %}
-            <button type="submit" name="action" value="start"
+            <button type="submit" id="action_start" name="action" value="start"
                     class="control clickable button">{{ i18n.start }}</button>
         {% endif %}
 
-        <p>{{ i18n.score }}: {{ game_session.score }}</p>
-        {{ i18n.questions_left }}: {{ game_session.questions_left }}
+        <p>{{ i18n.score }}: <span id="game_session_score">{{ game_session.score }}</span></p>
+        {{ i18n.questions_left }}: <span id="game_session_questions_left">{{ game_session.questions_left }}</span>
         &emsp;&emsp;
-        {{ i18n.time }}: <span id="time_left">{{ (game_session.time_left/1000)|int }}</span>
+        {{ i18n.time }}: <span id="game_session_countdown">{{ game_session.countdown }}</span>
     </form>
-    <form id="game_session_next" action="/preposition-trainer">
+    <form id="game_session_next" action="/preposition-trainer"
+          class="form" method="post">
         <input type="hidden" name="session_id" value="{{ session_id }}"/>
-        <input type="hidden" name="action" value="next"/>
+        <input type="hidden" id="action_next" name="action" value="next"/>
     </form>
     <script src="{{ url_for('static', filename='scripts/scripts.js') }}"
             onload="fastergerman.startCountdown(
                           '{{ 0 if game_session.is_running == false else game_session.end_time }}',
-                          'game_session_next', 'time_left', 'game_session_message', 'page_error')">
+                          'game_session_next', 'game_session_countdown',
+                          'game_session_message', 'page_error')">
     </script>
 {% endblock %}
 

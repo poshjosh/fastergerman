@@ -33,11 +33,12 @@ class Settings:
 
     @staticmethod
     def of_dict(settings_dict: dict) -> 'Settings':
+        dt = settings_dict.get("display_translation", True)
         return Settings(
             int(settings_dict.get("question_display_time", 30)),
             int(settings_dict.get("number_of_choices", 3)),
             int(settings_dict.get("max_consecutively_correct", 2)),
-            bool(settings_dict.get("display_translation", True)),
+            dt.lower() == "true" if isinstance(dt, str) else bool(dt),
             int(settings_dict.get("start_at_question_number", 0)),
             int(settings_dict.get("max_number_of_questions", 20)))
 

@@ -1,11 +1,11 @@
 import logging
 
-from fastergerman.game import SimpleGameTimer
+from fastergerman.game import GameTimer
 
 logger = logging.getLogger(__name__)
 
 
-class UIGameTimer(SimpleGameTimer):
+class UIGameTimer(GameTimer):
     def __init__(self, root, interval_millis: int):
         super().__init__(interval_millis)
         self.__root = root

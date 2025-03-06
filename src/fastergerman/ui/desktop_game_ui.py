@@ -4,8 +4,8 @@ from tkinter import ttk
 import random
 from typing import List, Callable
 
-from fastergerman.game import Game, GameSession, Question, Settings, GameTimer, GameEventListener
-from fastergerman.game.game_session import NO_GAME_NAME_SELECTION, GameCounters
+from fastergerman.game import Game, GameSession, Question, Settings, AbstractGameTimer, GameEventListener
+from fastergerman.game.game_session import NO_GAME_NAME_SELECTION, GameTimers
 from fastergerman.i18n import DEFAULT_LANGUAGE_CODE, I18n, SETTINGS, GAME_TO_LOAD, \
     QUESTION_DISPLAY_TIME_SECONDS, NUMBER_OF_CHOICES_PER_QUESTION, MAX_CONSECUTIVE_CORRECT_ANSWERS, \
     DISPLAY_QUESTION_TRANSLATION, START_AT_QUESTION_NUMBER, MAX_NUMBER_OF_QUESTIONS, \
@@ -25,22 +25,22 @@ CORRECT_BUTTON_STYLE = "Correct.TButton"
 
 
 class DesktopGameSession(GameSession):
-    def __init__(self, game_counters: GameCounters, handle_question: Callable[[Question], None]):
+    def __init__(self, game_counters: GameTimers, handle_question: Callable[[Question], None]):
         super().__init__()
         self.__game_counters = game_counters
         self.__handle_question = handle_question
 
-    def get_countdown_timer(self) -> GameTimer:
+    def get_countdown_timer(self) -> AbstractGameTimer:
         return self.__game_counters.get_countdown_timer()
 
-    def get_next_ques_timer(self) -> GameTimer:
+    def get_next_ques_timer(self) -> AbstractGameTimer:
         return self.__game_counters.get_next_ques_timer()
     
     def handle_question(self, question: Question):
         self.__handle_question(question)
         
     
-class DesktopGameUI(GameEventListener, GameCounters):
+class DesktopGameUI(GameEventListener, GameTimers):
     def __init__(self, root, app_config):
         super().__init__()
         self.session = DesktopGameSession(self, self.handle_question)
@@ -93,7 +93,7 @@ class DesktopGameUI(GameEventListener, GameCounters):
             row=0, column=0, padx=PADDING_S, pady=PADDING_S
         )
         last_saved_game = self.session.get_game_to_load()
-        game_names = self.session.get_game_names()
+        game_names = self.session.get_game_names_or_default()
         self.game_to_load_combo = ttk.Combobox(
             settings_frame,
             state="readonly",
@@ -294,7 +294,7 @@ class DesktopGameUI(GameEventListener, GameCounters):
         def handle_answer(answer: str):
             self.session.handle_answer(answer)
             # Show next question after a brief delay so the user can see if they are right or wrong.
-            self.root.after(2000, lambda: self.session.next_question(True))
+            self.root.after(2000, lambda: self.session.next_question())
 
         # Create choice buttons
         for i, choice in enumerate(choices):
@@ -306,10 +306,10 @@ class DesktopGameUI(GameEventListener, GameCounters):
             btn.grid(row=0, column=i, padx=PADDING_S)
             self.choice_buttons.append(btn)
 
-    def get_countdown_timer(self) -> GameTimer:
+    def get_countdown_timer(self) -> AbstractGameTimer:
         return self.countdown_timer
 
-    def get_next_ques_timer(self) -> GameTimer:
+    def get_next_ques_timer(self) -> AbstractGameTimer:
         return self.next_ques_timer
 
     @staticmethod
@@ -338,14 +338,14 @@ class DesktopGameUI(GameEventListener, GameCounters):
         random.shuffle(choices)
         return choices
 
-    def _create_countdown_timer(self) -> GameTimer:
+    def _create_countdown_timer(self) -> AbstractGameTimer:
         timer = UIGameTimer(self.root, 1000)
         def update_countdown(time_remaining: int):
             self.timer_label.config(text=f"{I18n.translate(self.lang_code, TIME)}: {int(time_remaining/1000)}")
         timer.add_tick_listener(update_countdown)
         return timer
 
-    def _create_next_ques_timer(self) -> GameTimer:
+    def _create_next_ques_timer(self) -> AbstractGameTimer:
         timer = UIGameTimer(self.root, int(self.question_display_time_var.get()) * 1000)
         timer.add_tick_listener(lambda _: self.session.next_question(False))
         return timer

@@ -7,7 +7,7 @@ from enum import unique, Enum
 from typing import List
 
 from fastergerman.game import DEFAULT_QUESTIONS, Question, Score, Settings, delete_game, \
-    get_game_names, get_game_to_load, load_game, save_game, Game, GameTimer
+    get_game_names, get_game_to_load, load_game, save_game, Game, AbstractGameTimer
 from fastergerman.i18n import START_GAME_PROMPT, GAME_COMPLETED_MESSAGE, I18n, DEFAULT_LANGUAGE_CODE
 
 NO_GAME_NAME_SELECTION = "None"
@@ -55,7 +55,7 @@ class BaseGameSession:
         self.__game_state = GameState.PENDING
         self.__current_question: Question or None = None
         self.__current_answer: str or None = None
-        self.__game = BaseGameSession._get_default_game()
+        self.__game: Game = BaseGameSession._get_default_game()
         self.__game_to_load = None
         self.__game_event_listeners = []
         self.__lock = threading.Lock()
@@ -65,17 +65,20 @@ class BaseGameSession:
         # TODO - Implement this method to save the game. Don't forget to log.
         raise NotImplementedError("close must be implemented by subclasses")
 
-    def to_dict(self, lang_code: str) -> dict[str, any]:
+    def to_dict(self, lang_code: str, last_answer_correct: bool = None,
+                question: Question = None) -> dict[str, any]:
+        if question is None:
+            question = self.__current_question
         return {
             "is_running": self.__game_state == GameState.RUNNING,
-            "game_names": self.get_game_names(),
+            "game_names": self.get_game_names_or_default(),
             "last_saved_game": self.__game_to_load,
-            "settings": self.__game.settings.to_dict(),
-            "score": str(self.__game.score),
-            "question": self._get_question_message(lang_code),
-            "question_options": self.__current_question.choices if self.__current_question else [],
-            "questions_left": len(self.__game.questions),
-            "last_answer_correct": self.__current_question.is_answer(self.__current_answer) if self.__current_question else None
+            "settings": Settings.of_dict({}) if self.__game is None else self.__game.settings.to_dict(),
+            "score": Score.of_dict({}) if self.__game is None else str(self.__game.score),
+            "question": self._get_question_message(lang_code, question),
+            "question_options": question.choices if self.__current_question else [],
+            "questions_left": [] if self.__game is None else len(self.__game.questions),
+            "last_answer_correct": last_answer_correct
         }
 
     def load_default_game(self, settings: Settings):
@@ -122,7 +125,7 @@ class BaseGameSession:
         else:
             [e.on_game_started(self.__game) for e in self.__game_event_listeners]
 
-    def handle_answer(self, answer: str):
+    def handle_answer(self, answer: str) -> bool:
         with self.__lock:
             # Updates score etc
             score_before = self.__game.score
@@ -132,6 +135,7 @@ class BaseGameSession:
             save_game(self.__game)
             [e.on_question_answered(self.__game, self.__current_question, answer)
              for e in self.__game_event_listeners]
+            return self.__current_question.is_answer(answer)
 
     def pause_game(self):
         logger.debug(f"Pausing game: {self.__game.name} = {self.__game}")
@@ -181,10 +185,15 @@ class BaseGameSession:
 
     @staticmethod
     def get_game_names() -> [str]:
+        return get_game_names()
+
+    @staticmethod
+    def get_game_names_or_default() -> [str]:
         game_names = get_game_names()
         if len(game_names) == 0:
-            game_names.insert(0, NO_GAME_NAME_SELECTION)
+            game_names.append(NO_GAME_NAME_SELECTION)
         return game_names
+
 
     @staticmethod
     def _get_default_game(game_name: str = INITIAL_GAME_NAME,
@@ -235,14 +244,16 @@ class BaseGameSession:
 
         return next_question
 
-    def _get_question_message(self, language_code) -> str:
+    def _get_question_message(self, language_code, question: Question = None) -> str:
+        if question is None:
+            question = self.__current_question
         if self.is_pending() is True:
             return I18n.translate(language_code, START_GAME_PROMPT)
         if self.is_completed() is False:
             if self.__game.settings.display_translation is True:
-                return f"{self.__current_question.example}\n\n({self.__current_question.translation})"
+                return f"{question.example}\n\n({question.translation})"
             else:
-                return self.__current_question.example
+                return question.example
         return I18n.translate(language_code, GAME_COMPLETED_MESSAGE).format(
             self.__game.score.to_percent())
 
@@ -250,34 +261,35 @@ class BaseGameSession:
         return f"GameSession{self.to_dict(DEFAULT_LANGUAGE_CODE)}"
 
 
-class GameCounters(ABC):
+class GameTimers(ABC):
     @abstractmethod
-    def get_countdown_timer(self) -> GameTimer:
+    def get_countdown_timer(self) -> AbstractGameTimer:
         raise NotImplementedError("get_countdown_timer must be implemented by subclasses")
 
     @abstractmethod
-    def get_next_ques_timer(self) -> GameTimer:
+    def get_next_ques_timer(self) -> AbstractGameTimer:
         raise NotImplementedError("get_next_ques_timer must be implemented by subclasses")
 
 
-class GameSession(BaseGameSession, GameCounters):
+class GameSession(BaseGameSession, GameTimers):
     def __init__(self):
         super().__init__()
 
     @abstractmethod
-    def get_countdown_timer(self) -> GameTimer:
+    def get_countdown_timer(self) -> AbstractGameTimer:
         raise NotImplementedError("get_countdown_timer must be implemented by subclasses")
 
     @abstractmethod
-    def get_next_ques_timer(self) -> GameTimer:
+    def get_next_ques_timer(self) -> AbstractGameTimer:
         raise NotImplementedError("get_next_ques_timer must be implemented by subclasses")
 
     def handle_question(self, question: Question):
         raise NotImplementedError("handle_question must be implemented by subclasses")
 
-    def to_dict(self, lang_code: str) -> dict[str, any]:
-        data = super().to_dict(lang_code)
-        data["time_left"] = self.get_countdown_timer().get_time_left_millis()
+    def to_dict(self, lang_code: str, last_answer_correct: bool = None,
+                question: Question = None) -> dict[str, any]:
+        data = super().to_dict(lang_code, last_answer_correct, question)
+        data["countdown"] = int(self.get_countdown_timer().get_time_left_millis() / 1000)
         data["end_time"] = self.get_countdown_timer().get_end_time_millis()
         return data
 
@@ -289,18 +301,18 @@ class GameSession(BaseGameSession, GameCounters):
             self.get_countdown_timer().resume()
             self.get_next_ques_timer().resume()
         else:
-            self.next_question(True)
+            self.next_question()
 
     def pause_game(self):
         super().pause_game()
         self.get_countdown_timer().stop()
         self.get_next_ques_timer().stop()
 
-    def next_question(self, reset: bool):
+    def next_question(self, reset: bool = True) -> Question or None:
         logger.debug("Showing next question, triggered by timer: %1s", reset is False)
         if self.is_running() is False:
             self.pause_game()
-            return
+            return None
 
         countdown_timed_out = self.get_countdown_timer().is_timed_out()
         logger.debug("Is countdown timed out: %1s, %2s",
@@ -313,13 +325,14 @@ class GameSession(BaseGameSession, GameCounters):
         # Select random question
         question: Question = self._next_question()
         if question is None:
-            return
+            return None
 
         self.get_countdown_timer().start(self.get_game().settings.question_display_time * 1000)
         if reset is True:
             self.get_next_ques_timer().start()
 
         self.handle_question(question)
+        return question
 
     def handle_game_selection(self, game_name):
         self.set_game_to_load(game_name)

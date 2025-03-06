@@ -49,7 +49,11 @@ def delete_game(game_name: str):
 def get_game_names():
     if not os.path.exists(GAMES_DIR_PATH):
         return []
-    return os.listdir(GAMES_DIR_PATH)
+    def format_for_sorting(fname):
+        return os.path.getmtime(os.path.join(GAMES_DIR_PATH, fname))
+    game_names = os.listdir(GAMES_DIR_PATH)
+    game_names.sort(key=format_for_sorting, reverse=True) # most recent first
+    return game_names
 
 
 def get_game_to_load(result_if_none: str or None = None) -> Union[str, None]:

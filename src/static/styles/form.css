@@ -1,8 +1,9 @@
-form {
+.form {
     width: 40rem;
     background-color: #def /** THEME_BG_COLOR */;
     padding: 1rem;
-    border-radius: 0.5rem; }
+    border-radius: 0.5rem;
+}
 
 form .inline-label {
     min-width: 16rem;
@@ -11,7 +12,7 @@ form .inline-label {
     display: inline-block;
 }
 
-form #red-asterix { font-weight:900; color: red; }
+form .red-asterix { font-weight:900; color: red; }
 
 form .control { font-size: 1.5rem; margin-top: 0.5rem; margin-bottom:0.5rem; }
 
@@ -34,3 +35,5 @@ form #settings { display: none; }
 .submit_game_to_load {
     vertical-align:top; margin-top:0.5rem;
 }
+
+form #game_session_message { height: 2rem; }

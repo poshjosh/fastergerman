@@ -1,0 +1,32 @@
+{
+  "name": "fastergerman",
+  "version": "0.0.1",
+  "description": "Learn German faster",
+  "main": "src/index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "app:run": "cd shell && ./run.sh",
+    "cy:open": "cypress open",
+    "cy:test": "(cd shell && ./run.sh) & cypress run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/poshjosh/fastergerman.git"
+  },
+  "keywords": [
+    "learn",
+    "german",
+    "faster"
+  ],
+  "author": "https://github.com/poshjosh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/poshjosh/fastergerman/issues"
+  },
+  "homepage": "https://github.com/poshjosh/fastergerman#readme",
+  "devDependencies": {
+    "cypress": "^14.1.0"
+  }
+}

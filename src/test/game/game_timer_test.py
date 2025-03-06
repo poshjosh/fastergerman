@@ -1,7 +1,7 @@
 import time
 import unittest
 
-from fastergerman.game import SimpleGameTimer, TimerError, GameTimer
+from fastergerman.game import GameTimer, TimerError, AbstractGameTimer
 
 
 class GameTimerCommon:
@@ -10,7 +10,7 @@ class GameTimerCommon:
             super().__init__(*args, **kwargs)
             self.tolerance = 10
 
-        def _create_timer(self, interval_millis: int = 1000) -> GameTimer:
+        def _create_timer(self, interval_millis: int = 1000) -> AbstractGameTimer:
             raise NotImplementedError("Please implement me")
 
         def test_timings(self):
@@ -102,8 +102,8 @@ class SimpleGameTimerTest(GameTimerCommon.GameTimerTest):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
     
-    def _create_timer(self, interval_millis: int = 1000) -> GameTimer:
-        return SimpleGameTimer(interval_millis)
+    def _create_timer(self, interval_millis: int = 1000) -> AbstractGameTimer:
+        return GameTimer(interval_millis)
 
 
 if __name__ == '__main__':

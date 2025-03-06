@@ -2,7 +2,9 @@ import logging
 import uuid
 from typing import Union
 
-from fastergerman.i18n import I18n
+from fastergerman.game.game_session import NO_GAME_NAME_SELECTION
+from fastergerman.i18n import I18n, DEFAULT_LANGUAGE_CODE, REQUIRED, SAVE_GAME_AS, INVALID, \
+    GAME_TO_LOAD
 
 logger = logging.getLogger(__name__)
 
@@ -46,6 +48,7 @@ class RequestData:
 
             if validate is True:
                 RequestData.validate_form_data(request_data)
+                RequestData.require_save_game_as_is_not_reserved_name(request_data)
 
             logger.debug(f"Output request data: {request_data}")
             return request_data
@@ -66,7 +69,20 @@ class RequestData:
         return data
 
     @staticmethod
-    def validate_form_data(form_data: dict[str, any]):
-        for k, v in form_data.items():
+    def validate_form_data(data: dict[str, any]):
+        for k, v in data.items():
             if v == '':
-                raise ValidationError(f"'{k}' is required")
+                raise RequestData.error(data, REQUIRED, k)
+
+    @staticmethod
+    def require_save_game_as_is_not_reserved_name(data: dict[str, any]):
+        if data.get(GAME_TO_LOAD) != NO_GAME_NAME_SELECTION:
+            save_game_as = data.get(SAVE_GAME_AS, "")
+            if save_game_as.lower() == NO_GAME_NAME_SELECTION.lower():
+                raise RequestData.error(data, INVALID, SAVE_GAME_AS)
+
+    @staticmethod
+    def error(data: dict[str, any], message_key, candidate_key: str) -> ValidationError:
+        lang_code = data.get(LANG_CODE, DEFAULT_LANGUAGE_CODE)
+        return ValidationError(f"{I18n.translate(lang_code, message_key)}: "
+                               f"{I18n.translate(lang_code, candidate_key)}")

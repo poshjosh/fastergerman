@@ -16,11 +16,13 @@ supported_language_code_to_display_name = {
     "zh":"中文"
 }
 
+INVALID = "invalid"
 PLEASE_ENTER_NAME = "please_enter_name"
 SETTINGS = "settings"
 GAME_TO_LOAD = "game_to_load"
 SAVE_GAME_AS = "save_game_as"
 QUESTION_DISPLAY_TIME_SECONDS = "question_display_time"
+REQUIRED = "required"
 NUMBER_OF_CHOICES_PER_QUESTION = "number_of_choices"
 MAX_CONSECUTIVE_CORRECT_ANSWERS = "max_consecutively_correct"
 DISPLAY_QUESTION_TRANSLATION = "display_translation"
@@ -41,11 +43,13 @@ config = {
         "dir": "ltr",
         "display_name": "English",
         "translations": {
+            INVALID: "Not valid",
             PLEASE_ENTER_NAME: "Please enter a name",
             SETTINGS: "Settings",
             GAME_TO_LOAD: "Game to load",
             SAVE_GAME_AS: "Save game as",
             QUESTION_DISPLAY_TIME_SECONDS: "Question display time (seconds)",
+            REQUIRED: "Required",
             NUMBER_OF_CHOICES_PER_QUESTION: "Number of choices per question",
             MAX_CONSECUTIVE_CORRECT_ANSWERS: "Max consecutive correct answers",
             DISPLAY_QUESTION_TRANSLATION: "Display question translation",

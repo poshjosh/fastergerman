@@ -18,3 +18,7 @@
 
 - App was originally generated using [this prompt](./docs/prompt.md)
 
+### Tests
+
+- Run `shell/run.tests.sh`
+
