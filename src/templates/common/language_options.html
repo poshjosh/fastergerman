@@ -1,0 +1,13 @@
+<form id="language_options" action="{{ request.path }}">
+    <label>
+        <select name="lang_code" onchange="document.getElementById('language_options').submit()">
+            {% for lang in i18n.supported_languages %}
+                {% if lang.code == i18n.lang_code %}
+                    <option value="{{ lang.code }}" selected>{{ lang.display_name }}</option>
+                {% else %}
+                    <option value="{{ lang.code }}">{{ lang.display_name }}</option>
+                {% endif %}
+            {% endfor %}
+        </select>
+    </label>
+</form>

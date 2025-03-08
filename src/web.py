@@ -6,66 +6,64 @@ from flask import Flask, render_template, request
 from flask_cors import CORS
 import logging.config
 
-from fastergerman.app import App
-from fastergerman.config import WebAppConfig
-from fastergerman.file import load_yaml
-from fastergerman.web import RequestData, ValidationError, WebService, GameService
+from fastergerman.i18n import I18n, UNEXPECTED_ERROR
+from fastergerman.web import RequestData, ValidationError, WebApp
 
-web_app = Flask(__name__)
-CORS(web_app)
+# AWS elastic beanstalk requires that we name this `application`, not `app` or any other thing.
+# AWS elastic beanstalk requires that the app be fully initialized in the global scope.
+# (in particular, not within the main block below).
+print(f"{datetime.now()} | Flask(__name__)")
+application = Flask(__name__)
+CORS(application)
 
+app: WebApp = WebApp(application)
+logging.config.dictConfig(app.logging_config.to_dict())
 
 INDEX_TEMPLATE = 'index.html'
 PREPOSITION_TRAINER = '/preposition-trainer'
 PREPOSITION_TRAINER_INDEX_TEMPLATE = f'{PREPOSITION_TRAINER}/index.html'[1:]
 
 
-@web_app.template_filter('format_time')
-def format_time_filter(fmt):
-    return datetime.now().strftime(fmt)
-
-@web_app.template_filter('url_quote')
+@application.template_filter('url_quote')
 def url_quote_filter(s):
     return jinja2.utils.url_quote(s)
 
 
-@web_app.errorhandler(ValidationError)
-def handle_validation_error(e):
+def _handle_exception(message):
     print(traceback.format_exc())
+    data = app.web_service.default()
     if request.path.startswith(PREPOSITION_TRAINER):
         template = PREPOSITION_TRAINER_INDEX_TEMPLATE
-        data = RequestData.preposition_trainer_config(request, False)
-        data = web_service.with_game_session(data)
     else:
         template = INDEX_TEMPLATE
-        data = web_service.index()
-    data["error"] = e.message
+    data["error"] = message
     return render_template(template, **data), 400
 
 
-@web_app.route('/')
+@application.errorhandler(Exception)
+def handle_exception(_):
+    lang_code = RequestData.get_language_code(request)
+    return _handle_exception(I18n.translate(lang_code, UNEXPECTED_ERROR))
+
+
+@application.errorhandler(ValidationError)
+def handle_validation_error(e):
+    return _handle_exception(e.message)
+
+
+@application.route('/')
 def index():
-    return render_template(INDEX_TEMPLATE, **web_service.index())
+    data = RequestData.collect(request)
+    return render_template(INDEX_TEMPLATE, **app.web_service.default(data))
 
 
-@web_app.route(PREPOSITION_TRAINER, methods=['GET', 'POST'])
+@application.route(PREPOSITION_TRAINER, methods=['GET', 'POST'])
 def preposition_trainer():
-    data = RequestData.preposition_trainer_config(request)
+    data = RequestData.preposition_trainer(request)
     return render_template(PREPOSITION_TRAINER_INDEX_TEMPLATE,
-                           **web_service.preposition_trainer(data))
+                           **app.web_service.preposition_trainer(data))
+
 
 if __name__ == '__main__':
-
-    logging.config.dictConfig(load_yaml('resources/config/logging.yaml'))
-
-    app_config = WebAppConfig(load_yaml('resources/config/app.yaml'))
-
-    web_service = WebService(app_config, GameService())
-
-    App.add_shutdown_callback(web_service.close)
-
-    web_app.run(
-        host='0.0.0.0',
-        port=app_config.get_web_port(),
-        debug=app_config.is_production() is False)
-
+    print(f"{datetime.now()} | __main__")
+    app.start()

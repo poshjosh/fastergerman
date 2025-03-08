@@ -2,7 +2,9 @@ import logging
 import uuid
 from typing import Union
 
-from fastergerman.game.game_session import NO_GAME_NAME_SELECTION
+from flask import session
+
+from fastergerman.game import NO_GAME_NAME_SELECTION
 from fastergerman.i18n import I18n, DEFAULT_LANGUAGE_CODE, REQUIRED, SAVE_GAME_AS, INVALID, \
     GAME_TO_LOAD
 
@@ -11,6 +13,7 @@ logger = logging.getLogger(__name__)
 LANG_CODE = "lang_code"
 SESSION_ID = "session_id"
 ACTION = "action"
+GAME_SESSION = "game_session"
 
 
 class ValidationError(Exception):
@@ -35,31 +38,38 @@ class RequestData:
         return result_if_none if not val else val
 
     @staticmethod
-    def preposition_trainer_config(request, validate: bool = True) -> dict[str, any]:
+    def collect(request) -> dict[str, any]:
 
         request_data = {**dict(request.form), **dict(request.args)}
 
-        try:
-            request_data = RequestData.strip_values(request_data)
-            logger.debug(f"Input form data: {request_data}")
+        logger.debug(f"Input form data: {request_data}")
+        request_data = RequestData.strip_values(request_data)
 
-            request_data[LANG_CODE] = RequestData.get_language_code(request)
-            request_data[SESSION_ID] = RequestData.get(request, SESSION_ID, str(uuid.uuid4().hex))
+        session[SESSION_ID] = session.get(SESSION_ID, str(uuid.uuid4().hex))
+        session[LANG_CODE] = request_data.get(LANG_CODE, RequestData.get_language_code(request))
+        logger.debug(f"Session: {session.items()}")
+        for k, v in session.items():
+            request_data[k] = v
 
-            if validate is True:
-                RequestData.validate_form_data(request_data)
-                RequestData.require_save_game_as_is_not_reserved_name(request_data)
-
-            logger.debug(f"Output request data: {request_data}")
-            return request_data
-        except ValueError as value_ex:
-            logger.exception(value_ex)
-            raise ValidationError(value_ex.args[0])
+        logger.debug(f"Output request data: {request_data}")
+        return request_data
 
     @staticmethod
-    def get_language_code(request) -> str or None:
+    def preposition_trainer(request) -> dict[str, any]:
+        request_data = RequestData.collect(request)
+        RequestData.validate_form_data(request_data)
+        RequestData.require_save_game_as_is_not_reserved_name(request_data)
+        return request_data
+
+    @staticmethod
+    def get_language_code(request, default: str = DEFAULT_LANGUAGE_CODE) -> str:
+        return session.get(LANG_CODE, RequestData._request_lang_code(request, default))
+
+    @staticmethod
+    def _request_lang_code(request, default: str = DEFAULT_LANGUAGE_CODE) -> str:
         supported_lang_codes = I18n.get_supported_language_codes()
-        return request.accept_languages.best_match(supported_lang_codes)
+        best_match = request.accept_languages.best_match(supported_lang_codes)
+        return best_match if best_match and I18n.is_supported(best_match) else default
 
     @staticmethod
     def strip_values(data: dict[str, any]):
@@ -86,3 +96,12 @@ class RequestData:
         lang_code = data.get(LANG_CODE, DEFAULT_LANGUAGE_CODE)
         return ValidationError(f"{I18n.translate(lang_code, message_key)}: "
                                f"{I18n.translate(lang_code, candidate_key)}")
+
+    @staticmethod
+    def sync_game_session(data: dict[str, any]):
+        game_session = data.get(GAME_SESSION)
+        if game_session:
+            session[GAME_SESSION] = game_session
+        else:
+            data[GAME_SESSION] = session.get(GAME_SESSION)
+

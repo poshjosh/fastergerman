@@ -4,7 +4,9 @@ from tkinter import ttk
 import random
 from typing import List, Callable
 
-from fastergerman.game import Game, GameSession, Question, Settings, AbstractGameTimer, GameEventListener
+from fastergerman.config import AppConfig
+from fastergerman.game import Game, GameSession, Question, QuestionsLoader, Settings, \
+    AbstractGameTimer, GameEventListener, GameFile
 from fastergerman.game.game_session import NO_GAME_NAME_SELECTION, GameTimers
 from fastergerman.i18n import DEFAULT_LANGUAGE_CODE, I18n, SETTINGS, GAME_TO_LOAD, \
     QUESTION_DISPLAY_TIME_SECONDS, NUMBER_OF_CHOICES_PER_QUESTION, MAX_CONSECUTIVE_CORRECT_ANSWERS, \
@@ -23,10 +25,13 @@ PADDING_S = 4
 LABEL_STYLE = "Medium.TLabel"
 CORRECT_BUTTON_STYLE = "Correct.TButton"
 
-
 class DesktopGameSession(GameSession):
-    def __init__(self, game_counters: GameTimers, handle_question: Callable[[Question], None]):
-        super().__init__()
+    def __init__(self,
+                 game_file: GameFile,
+                 game_counters: GameTimers,
+                 questions: List[Question],
+                 handle_question: Callable[[Question], None]):
+        super().__init__(game_file, questions)
         self.__game_counters = game_counters
         self.__handle_question = handle_question
 
@@ -41,9 +46,13 @@ class DesktopGameSession(GameSession):
         
     
 class DesktopGameUI(GameEventListener, GameTimers):
-    def __init__(self, root, app_config):
+    def __init__(self, root, app_config: AppConfig):
         super().__init__()
-        self.session = DesktopGameSession(self, self.handle_question)
+        self.session = DesktopGameSession(
+            GameFile(app_config.get_app_dir()),
+            self,
+            QuestionsLoader().load_questions(app_config.get_preposition_trainer_question_src()),
+            self.handle_question)
         self.session.add_game_event_listener(self)
         app_name = app_config.get_app_name()
         self.root = root
@@ -252,6 +261,7 @@ class DesktopGameUI(GameEventListener, GameTimers):
         logger.debug("Game paused: %s", game.name)
         self.start_button.config(state=tk.NORMAL)
         self.pause_button.config(state=tk.DISABLED)
+        # TODO - Disable question choice buttons
 
     def on_question(self, game: Game, question: Question):
         logger.debug("on_question, Game: %1s, question: %2s", game.name, question)

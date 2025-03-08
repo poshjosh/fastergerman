@@ -1,37 +1,105 @@
+body, html { height: 100%; }
+
 body {
+    background-color: #024 /** THEME_BG_COLOR */;
+    color: #def;
     font-size: 1.5rem;
     font-family: 'Roboto', sans-serif;
-    padding:1rem;
+    padding: 0;
+    margin: 0;
 }
 
-body a { text-decoration: none;}
+body a {
+    text-decoration: none;
+    color: #abc;
+}
 
-body .heading {
-    width: 100%;
-    background-color: #def /** THEME_BG_COLOR */;
+body .fixed-top {
+    background-color: #012 /** THEME_BG_COLOR */;
     font-size: 2rem;
     font-weight: 700;
-    padding: 0.5rem;
+    height: 2.5rem; /** Must be the same as #page_messages margin-top */
+    margin: 0;
+    overflow: hidden;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%;
+    z-index: 1000;
+}
+
+.fixed-top .left {
+    float: left;
+    margin-left: 1rem;
+    text-align: center;
+    vertical-align: center;
+}
+
+.fixed-top .right {
+    float: right;
+    margin-right: 1rem;
+    text-align: center;
+    vertical-align: center;
+}
+
+.fixed-top select { font-size: 1.5rem; }
+
+/* The hero image */
+.hero-image {
+    /** If the banner is not in the custom location, fallback to the default */
+    background-image: url("../assets/banner.jpg");
+
+    /* Set a specific height */
+    height: 50%;
+
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+    font-family: Montserrat, sans-serif;
+    text-align: center;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background: rgb(0, 0, 0); /* Fallback color */
+    background: rgba(0, 0, 0, 0.3); /* Black background with 0.5 opacity */
+    padding: 1rem;
+}
+
+body #page_messages { margin-top: 2.5rem; /** Must be the same as .fixed-top height */ }
+
+body #content {
+    background-color: #012;
+    border-radius: 1rem;
+    margin-top: 0.5rem;
+    padding: 1rem;
+    width: 100%;
 }
 
 body .error {
-    width: 100%;
-    background-color: #db4437;
-    color: white;
+    background-color: #def;
+    color: red;
     margin: 0.5rem;
+    width: 100%;
 }
 
 body .info {
-    width: 100%;
-    background-color: white;
-    color: navy;
+    background-color: #def;
+    color: green;
     margin: 0.5rem;
+    width: 100%;
 }
 
 #page_bottom {
-    width: 100%;
+    background-color: #012 /** THEME_BG_COLOR */;
     font-size: 0.75rem;
-    background-color: #def /** THEME_BG_COLOR */;
     margin-top: 0.5rem;
-    padding: 0.5rem;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    width: 100%;
 }

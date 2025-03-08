@@ -2,7 +2,11 @@ import logging
 import signal
 import sys
 from datetime import datetime
+from pathlib import Path
 from typing import Callable
+
+from fastergerman.config import LoggingConfig, AppConfig
+from fastergerman.file import load_yaml
 
 logger = logging.getLogger(__name__)
 
@@ -11,6 +15,21 @@ class App:
     __shutdown = False
 
     __shutdown_callbacks = [Callable[[], None]]
+
+    def __init__(self,
+                 app_config_path: str = None,
+                 logging_config_path: str = None):
+        app_config_path = 'resources/config/app.yaml' if not app_config_path else app_config_path
+        logging_config_path = 'resources/config/logging.yaml' if not logging_config_path \
+            else logging_config_path
+        self.config = AppConfig(load_yaml(app_config_path))
+        self.logging_config = LoggingConfig(load_yaml(logging_config_path))
+        log_file = Path(self.logging_config.get_filename())
+        if log_file.exists() is False:
+            log_file.parent.mkdir(parents=True, exist_ok=True)
+
+    def start(self):
+        raise NotImplementedError("Subclasses should implement the start method")
 
     @staticmethod
     def add_shutdown_callback(callback: Callable[[], None]):

@@ -1,5 +1,11 @@
 {% extends "common/page.html" %}
 
+{% block hero_image %}
+    <div class="hero-image"><h1 class="hero-text">{{ i18n.t.app_short_description }}</h1></div>
+{% endblock %}
+
 {% block content %}
-    <a id="preposition-trainer" href="preposition-trainer">Click here to start</a>
+    <p>
+        <a id="preposition_trainer" href="preposition-trainer">{{ i18n.t.preposition_trainer }}</a>
+    </p>
 {% endblock %}

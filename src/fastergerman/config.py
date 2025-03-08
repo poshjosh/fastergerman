@@ -1,35 +1,76 @@
-from typing import Union
+import os
+import uuid
+from pathlib import Path
 
-
-class AppConfig:
+class Config:
     def __init__(self, config: dict[str, any]):
-        self.__config = config if config is not None else {}
+        self._config = config if config is not None else {}
 
     def to_dict(self) -> dict[str, any]:
-        return {**self.__config}
+        return {**self._config}
+
+    @staticmethod
+    def _path(val: str) -> str:
+        return os.path.expanduser(os.path.expandvars(val))
+
+class AppConfig(Config):
+    def __init__(self, config: dict[str, any]):
+        super().__init__(config)
 
     def app(self) -> dict[str, any]:
-        return self.__config.get('app', {})
+        return self._config.get('app', {})
+
+    def web(self) -> dict[str, any]:
+        return self._config.get('web', {})
 
     def get_app_name(self) -> str:
         return self.app()['name']
 
-    def get_app_language(self, default: str or None) -> str or None:
-        return self.app().get('language', default)
+    def get_app_version(self) -> str:
+        return self.app()['version']
 
-    def get_title(self, default: Union[str, None] = None) -> str:
-        return self.app().get('title', default)
+    def get_app_language(self, default: str or None) -> str or None:
+        env = os.environ.get("APP_LANGUAGE_CODE")
+        return env if env else self.app().get('language-code', default)
 
     def is_production(self) -> bool:
-        return self.app().get('environment') == 'prod'
+        return 'prod' in self.get_app_profiles()
 
-class WebAppConfig(AppConfig):
-    def __init__(self, config: dict[str, any]):
-        super().__init__(config)
-        self.__config = config if config is not None else {}
+    def is_docker(self) -> bool:
+        return "docker" in self.get_app_profiles()
 
-    def web(self) -> dict[str, any]:
-        return self.__config.get('web', {})
+    def get_app_profiles(self) -> [str]:
+        env = os.environ.get("APP_PROFILES")
+        val = env if env else self.app().get('profiles', 'dev')
+        return val.split(',')
+
+    def get_app_dir(self) -> str:
+        env = os.environ.get("APP_DIR")
+        val = env if env else self.app().get(
+            'dir', os.path.join(Path.home(), f".{self.get_app_name().lower()}", f"v{self.get_app_version()}"))
+        return self._path(val)
+
+    def get_preposition_trainer_question_src(self) -> str:
+        env = os.environ.get("APP_PREPOSITION_TRAINER_QUESTION_SRC")
+        return self._path(env if env else self.app()['preposition-trainer']['question-src'])
 
     def get_web_port(self) -> int:
-        return self.web().get('port', 5000)
+        env = os.environ.get("APP_PORT")
+        return env if env else self.web().get('port', 5000)
+
+    def get_secret_key(self) -> str:
+        secret_key = os.environ.get('APP_SECRET_KEY')
+        if secret_key:
+            return secret_key
+        if self.is_production() is True:
+            raise ValueError('APP_SECRET_KEY is required')
+        else:
+            return str(uuid.uuid4().hex)
+
+class LoggingConfig(Config):
+    def __init__(self, config: dict[str, any]):
+        super().__init__(config)
+
+    def get_filename(self) -> str:
+        return self._path(self._config["handlers"]["file"]["filename"])
+

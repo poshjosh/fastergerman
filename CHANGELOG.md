@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add AWS deployment
 - cypress based e2e tests
 - web application implementation
 - setup.py

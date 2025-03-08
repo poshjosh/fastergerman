@@ -2,10 +2,15 @@
 
 from setuptools import setup, find_packages
 
+from fastergerman.config import AppConfig
+from fastergerman.file import load_yaml
+from fastergerman.i18n import I18n, DEFAULT_LANGUAGE_CODE, APP_SHORT_DESCRIPTION
+
 if __name__ == "__main__":
-    setup(name="fastergerman",
-          version="0.0.1",
-          description="Learn German faster",
+    app_config = AppConfig(load_yaml('resources/config/app.yaml'))
+    setup(name=app_config.get_app_name(),
+          version=app_config.get_app_version(),
+          description=I18n.translate(DEFAULT_LANGUAGE_CODE, APP_SHORT_DESCRIPTION),
           author="PoshJosh",
           author_email="posh.bc@gmail.com",
           install_requires=["PyYAML", "flask", "flask-cors"],

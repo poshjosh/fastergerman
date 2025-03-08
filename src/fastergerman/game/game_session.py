@@ -6,8 +6,7 @@ from datetime import datetime
 from enum import unique, Enum
 from typing import List
 
-from fastergerman.game import DEFAULT_QUESTIONS, Question, Score, Settings, delete_game, \
-    get_game_names, get_game_to_load, load_game, save_game, Game, AbstractGameTimer
+from fastergerman.game import Question, Score, Settings, AbstractGameTimer, Game, GameFile
 from fastergerman.i18n import START_GAME_PROMPT, GAME_COMPLETED_MESSAGE, I18n, DEFAULT_LANGUAGE_CODE
 
 NO_GAME_NAME_SELECTION = "None"
@@ -51,14 +50,16 @@ class GameState(Enum):
 
 
 class BaseGameSession:
-    def __init__(self):
+    def __init__(self, game_file: GameFile, questions: List[Question]):
         self.__game_state = GameState.PENDING
         self.__current_question: Question or None = None
         self.__current_answer: str or None = None
-        self.__game: Game = BaseGameSession._get_default_game()
         self.__game_to_load = None
         self.__game_event_listeners = []
         self.__lock = threading.Lock()
+        self.__game_file = game_file
+        self.__questions = [q for q in questions]  # use a copy
+        self.__game: Game = self._get_default_game(self.__questions)
 
     def close(self):
         logger.debug("Closing session")
@@ -69,15 +70,16 @@ class BaseGameSession:
                 question: Question = None) -> dict[str, any]:
         if question is None:
             question = self.__current_question
+        game_names = self.get_game_names_or_default()
         return {
             "is_running": self.__game_state == GameState.RUNNING,
-            "game_names": self.get_game_names_or_default(),
-            "last_saved_game": self.__game_to_load,
-            "settings": Settings.of_dict({}) if self.__game is None else self.__game.settings.to_dict(),
-            "score": Score.of_dict({}) if self.__game is None else str(self.__game.score),
-            "question": self._get_question_message(lang_code, question),
+            "game_names": game_names,
+            "game_to_load": self.__game_to_load if self.__game_to_load else game_names[0],
+            "settings": self.__game.settings.to_dict(),
+            "score": str(self.__game.score),
+            "question": self._get_question(lang_code, question),
             "question_options": question.choices if self.__current_question else [],
-            "questions_left": [] if self.__game is None else len(self.__game.questions),
+            "questions_left": len(self.__game.questions),
             "last_answer_correct": last_answer_correct
         }
 
@@ -92,13 +94,14 @@ class BaseGameSession:
         if game_name:
             if game_name == NO_GAME_NAME_SELECTION:  # reset
                 self.__game = self._get_default_game(
+                    self.__questions,
                     f"Game_{datetime.today().strftime('%Y-%m-%d_%H%M%S')}",
                     settings)
             else:
-                self.__game = load_game(game_name)
+                self.__game = self.__game_file.load_game(game_name)
             self.set_game_to_load(self.__game.name)
         else:
-            self.__game = self._get_default_game(settings=settings)
+            self.__game = self._get_default_game(self.__questions, settings=settings)
             if self.__game_to_load == INITIAL_GAME_NAME or not self.__game_to_load:
                 self.set_game_to_load(self.__game.name)
         [e.on_game_loaded(self.__game) for e in self.__game_event_listeners]
@@ -111,7 +114,7 @@ class BaseGameSession:
 
     def save_game_as(self, game_name: str):
         self.__game = self.__game.with_name(game_name)
-        save_game(self.__game)
+        self.__game_file.save_game(self.__game)
         [e.on_game_saved(self.__game) for e in self.__game_event_listeners]
 
     def start_game(self):
@@ -132,7 +135,7 @@ class BaseGameSession:
             self.__current_answer = answer
             self.__game = self.__game.on_question_answer(self.__current_question, answer)
             logger.debug(f"Handled answer: {answer}. Score -> before: {score_before}, after: {self.__game.score}")
-            save_game(self.__game)
+            self.__game_file.save_game(self.__game)
             [e.on_question_answered(self.__game, self.__current_question, answer)
              for e in self.__game_event_listeners]
             return self.__current_question.is_answer(answer)
@@ -170,47 +173,41 @@ class BaseGameSession:
     def is_completed(self) -> bool:
         return self.__game_state == GameState.COMPLETED
 
-    @staticmethod
-    def get_game_to_load():
-        return get_game_to_load()
+    def get_game_to_load(self):
+        return self.__game_file.get_game_to_load()
 
-    @staticmethod
-    def get_max_questions() -> int:
-        return len(DEFAULT_QUESTIONS)
-
-    @staticmethod
-    def get_game_to_load_or_default():
-        last_saved_game = get_game_to_load()
+    def get_game_to_load_or_default(self):
+        last_saved_game = self.__game_file.get_game_to_load()
         return INITIAL_GAME_NAME if not last_saved_game else last_saved_game
 
-    @staticmethod
-    def get_game_names() -> [str]:
-        return get_game_names()
+    def get_game_names(self) -> [str]:
+        return self.__game_file.get_game_names()
 
-    @staticmethod
-    def get_game_names_or_default() -> [str]:
-        game_names = get_game_names()
+    def get_game_names_or_default(self) -> [str]:
+        game_names = self.__game_file.get_game_names()
         if len(game_names) == 0:
             game_names.append(NO_GAME_NAME_SELECTION)
         return game_names
 
+    def get_max_questions(self) -> int:
+        return len(self.__questions)
 
-    @staticmethod
-    def _get_default_game(game_name: str = INITIAL_GAME_NAME,
+    def _get_default_game(self,
+                          questions: List[Question],
+                          game_name: str = INITIAL_GAME_NAME,
                           settings: Settings = Settings.of_dict({})) -> Game:
         offset = settings.start_at_question_number
         limit = settings.max_number_of_questions
-        return Game(game_name, settings,
-                    BaseGameSession._get_default_questions(offset, limit), Score(0, 0))
+        return Game(game_name, settings, self._get_questions(questions, offset, limit), Score(0, 0))
 
     @staticmethod
-    def _get_default_questions(
-            first_question: int = 0, max_questions: int = len(DEFAULT_QUESTIONS)) -> List[Question]:
-        questions = [Question.of_dict(e) for e in DEFAULT_QUESTIONS]
-        questions = [q for q in questions if q.priority != "low"]
+    def _get_questions(questions: List[Question], first_question: int = 0, max_questions: int = None) -> List[Question]:
+        number_of_ques = len(questions)
+        if max_questions is None:
+            max_questions = number_of_ques
         last_question = first_question + max_questions
-        if last_question > len(questions):
-            last_question = len(questions)
+        if last_question > number_of_ques:
+            last_question = number_of_ques
         return questions[first_question:last_question]
 
     def _next_question(self) -> Question or None:
@@ -223,7 +220,7 @@ class BaseGameSession:
             [e.on_game_completed(self.__game) for e in self.__game_event_listeners]
 
             # Delete game
-            delete_game(self.__game.name)
+            self.__game_file.delete_game(self.__game.name)
 
             # Load default game, but start at next set of questions
             self.load_default_game(self.__game.settings.next())
@@ -244,18 +241,20 @@ class BaseGameSession:
 
         return next_question
 
-    def _get_question_message(self, language_code, question: Question = None) -> str:
+    def _get_question(self, language_code, question: Question = None) -> dict[str, str]:
         if question is None:
             question = self.__current_question
+        translation = ""
         if self.is_pending() is True:
-            return I18n.translate(language_code, START_GAME_PROMPT)
-        if self.is_completed() is False:
+            example = I18n.translate(language_code, START_GAME_PROMPT)
+        elif self.is_completed() is False:
+            example = question.example
             if self.__game.settings.display_translation is True:
-                return f"{question.example}\n\n({question.translation})"
-            else:
-                return question.example
-        return I18n.translate(language_code, GAME_COMPLETED_MESSAGE).format(
-            self.__game.score.to_percent())
+                translation = question.translation
+        else:
+            example = I18n.translate(
+                language_code, GAME_COMPLETED_MESSAGE).format(self.__game.score.to_percent())
+        return {"example": example, "translation": translation}
 
     def __str__(self):
         return f"GameSession{self.to_dict(DEFAULT_LANGUAGE_CODE)}"
@@ -272,8 +271,8 @@ class GameTimers(ABC):
 
 
 class GameSession(BaseGameSession, GameTimers):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, game_file: GameFile, questions: List[Question]):
+        super().__init__(game_file, questions)
 
     @abstractmethod
     def get_countdown_timer(self) -> AbstractGameTimer:

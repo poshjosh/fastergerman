@@ -13,7 +13,8 @@ class CloseGameDialog:
         self.prompt = I18n.translate(lang_code, PLEASE_ENTER_NAME)
 
     def ask(self, value: str, on_ok: Callable[[str], None]):
-        game_name = simpledialog.askstring(self.title, self.title, initialvalue=value.strip())
+        game_name = simpledialog.askstring(self.title, self.title,
+                                           initialvalue=value.strip() if value else None)
         logger.debug(f"Entered game name: {game_name}")
         if game_name is None:
             return

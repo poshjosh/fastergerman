@@ -1,89 +1,121 @@
 DEFAULT_LANGUAGE_CODE="en"
-supported_language_code_to_display_name = {
-    "ar":"العربية",
-    "bn":"বাংলা",
-    "de":"Deutsch",
-    "en":"English",
-    "es":"Español",
-    "fr":"Français",
-    "hi":"हिन्दी",
-    "it":"Italiano",
-    "ja":"日本語",
-    "ko":"한국어",
-    "ru":"Русский",
-    "tr":"Türkçe",
-    "uk":"українська",
-    "zh":"中文"
-}
 
-INVALID = "invalid"
-PLEASE_ENTER_NAME = "please_enter_name"
-SETTINGS = "settings"
-GAME_TO_LOAD = "game_to_load"
-SAVE_GAME_AS = "save_game_as"
-QUESTION_DISPLAY_TIME_SECONDS = "question_display_time"
-REQUIRED = "required"
-NUMBER_OF_CHOICES_PER_QUESTION = "number_of_choices"
-MAX_CONSECUTIVE_CORRECT_ANSWERS = "max_consecutively_correct"
+APP_SHORT_DESCRIPTION="app_short_description"
 DISPLAY_QUESTION_TRANSLATION = "display_translation"
-START_AT_QUESTION_NUMBER = "start_at_question_number"
+GAME_COMPLETED_MESSAGE = "Game completed. You scored {0} percent."
+GAME_TO_LOAD = "game_to_load"
+INVALID = "invalid"
+MAX_CONSECUTIVE_CORRECT_ANSWERS = "max_consecutively_correct"
 MAX_NUMBER_OF_QUESTIONS = "max_number_of_questions"
-SELECT_GAME_TO_LOAD = "select_game_to_load"
-START_GAME_PROMPT = "start_game_prompt"
-QUESTIONS_LEFT = "questions_left"
-START = "start"
+NUMBER_OF_CHOICES_PER_QUESTION = "number_of_choices"
 PAUSE = "pause"
+PLEASE_ENTER_NAME = "please_enter_name"
+PREPOSITION_TRAINER = "preposition_trainer"
+QUESTION_DISPLAY_TIME_SECONDS = "question_display_time"
+QUESTIONS_LEFT = "questions_left"
+REQUIRED = "required"
+SAVE_GAME_AS = "save_game_as"
 SCORE = "score"
+SELECT_GAME_TO_LOAD = "select_game_to_load"
+SETTINGS = "settings"
+START = "start"
+START_AT_QUESTION_NUMBER = "start_at_question_number"
+START_GAME_PROMPT = "start_game_prompt"
 SUBMIT = "submit"
 TIME = "time"
-GAME_COMPLETED_MESSAGE = "Game completed. You scored {0} percent."
+UNEXPECTED_ERROR = "unexpected_error"
 
 config = {
-    "en": {
-        "dir": "ltr",
+    DEFAULT_LANGUAGE_CODE: {
         "display_name": "English",
+        "dir": "ltr",
         "translations": {
-            INVALID: "Not valid",
-            PLEASE_ENTER_NAME: "Please enter a name",
-            SETTINGS: "Settings",
-            GAME_TO_LOAD: "Game to load",
-            SAVE_GAME_AS: "Save game as",
-            QUESTION_DISPLAY_TIME_SECONDS: "Question display time (seconds)",
-            REQUIRED: "Required",
-            NUMBER_OF_CHOICES_PER_QUESTION: "Number of choices per question",
-            MAX_CONSECUTIVE_CORRECT_ANSWERS: "Max consecutive correct answers",
+            APP_SHORT_DESCRIPTION: "Learn german faster",
             DISPLAY_QUESTION_TRANSLATION: "Display question translation",
-            START_AT_QUESTION_NUMBER: "Start at question number",
+            GAME_COMPLETED_MESSAGE: "Game completed. You scored {} percent.",
+            GAME_TO_LOAD: "Game to load",
+            INVALID: "Not valid",
+            MAX_CONSECUTIVE_CORRECT_ANSWERS: "Max consecutive correct answers",
             MAX_NUMBER_OF_QUESTIONS: "Max number of questions",
-            SELECT_GAME_TO_LOAD: "Select game to load",
-            START_GAME_PROMPT: "Click Start to begin",
-            QUESTIONS_LEFT: "Questions left",
-            START: "Start",
+            NUMBER_OF_CHOICES_PER_QUESTION: "Number of choices per question",
             PAUSE: "Pause",
+            PLEASE_ENTER_NAME: "Please enter a name",
+            PREPOSITION_TRAINER: "Preposition Trainer",
+            QUESTION_DISPLAY_TIME_SECONDS: "Question display time (seconds)",
+            QUESTIONS_LEFT: "Questions left",
+            REQUIRED: "Required",
+            SAVE_GAME_AS: "Save game as",
             SCORE: "Score",
+            SELECT_GAME_TO_LOAD: "Select game to load",
+            SETTINGS: "Settings",
+            START: "Start",
+            START_AT_QUESTION_NUMBER: "Start at question number",
+            START_GAME_PROMPT: "Click Start to begin",
             SUBMIT: "Submit",
             TIME: "Time",
-            GAME_COMPLETED_MESSAGE: "Game completed. You scored {} percent."
+            UNEXPECTED_ERROR: "Unexpected problem"
         }
-    }
+    },
+    "ar":{ "display_name": "العربية", "dir": "rtl" },
+    "bn":{"display_name": "বাংলা"},
+    "de":{
+        "display_name": "Deutsch",
+        "translations": {
+            APP_SHORT_DESCRIPTION: "Schneller Deutsch lernen",
+            DISPLAY_QUESTION_TRANSLATION: "Frageübersetzung anzeigen",
+            GAME_COMPLETED_MESSAGE: "Spiel beendet. Du hast {} Prozent erreicht.",
+            GAME_TO_LOAD: "Spiel zu laden",
+            INVALID: "Nicht gültig",
+            MAX_CONSECUTIVE_CORRECT_ANSWERS: "Max. aufeinanderfolgende richtige Antworten",
+            MAX_NUMBER_OF_QUESTIONS: "Maximale Anzahl von Fragen",
+            NUMBER_OF_CHOICES_PER_QUESTION: "Anzahl der Auswahlmöglichkeiten pro Frage",
+            PAUSE: "Pause",
+            PLEASE_ENTER_NAME: "Bitte geben Sie einen Namen ein",
+            PREPOSITION_TRAINER: "Präpositionstrainer",
+            QUESTION_DISPLAY_TIME_SECONDS: "Frage-Anzeigezeit (Sekunden)",
+            QUESTIONS_LEFT: "Verbleibende Fragen",
+            REQUIRED: "Erforderlich",
+            SAVE_GAME_AS: "Spiel speichern unter",
+            SCORE: "Punktestand",
+            SELECT_GAME_TO_LOAD: "Spiel zum Laden auswählen",
+            SETTINGS: "Einstellungen",
+            START: "Start",
+            START_AT_QUESTION_NUMBER: "Start bei Fragenummer",
+            START_GAME_PROMPT: "Klicken Sie auf Start, um zu beginnen",
+            SUBMIT: "Abschicken",
+            TIME: "Zeit",
+            UNEXPECTED_ERROR: "Unerwartetes Problem"
+        }
+     },
+    "es":{"display_name": "Español"},
+    "fr":{"display_name": "Français"},
+    "hi":{"display_name": "हिन्दी"},
+    "it":{"display_name": "Italiano"},
+    "ja":{"display_name": "日本語"},
+    "ko":{"display_name": "한국어"},
+    "ru":{"display_name": "Русский"},
+    "tr":{"display_name": "Türkçe"},
+    "uk":{"display_name": "українська"},
+    "zh":{"display_name": "中文"}
 }
     
 
 class I18n:
     @staticmethod
-    def get_supported_languages():
-        supported_languages = []
-        codes: [str] = [str(k) for k,v in supported_language_code_to_display_name.items()]
-        for code in codes:
-            if not code:
-                continue
-            lang = {"code":code, "display_name":supported_language_code_to_display_name.get(code, code)}
-            supported_languages.append(lang)
-        return supported_languages
+    def is_supported(lang_code: str):
+        return I18n.get_config(lang_code).get("translations", None) is not None
 
     @staticmethod
     def get_supported_language_codes():
-        return [e["code"] for e in I18n.get_supported_languages()]
+        return [e for e in config.keys() if I18n.is_supported(e) is True]
+
+    @staticmethod
+    def get_supported_languages():
+        supported_languages = []
+        for k in I18n.get_supported_language_codes():
+            v = config[k]
+            supported_languages.append({"code": k, "display_name": v["display_name"]})
+        return supported_languages
 
     @staticmethod
     def get_config(lang: str) -> dict[str, any]:
@@ -108,12 +140,18 @@ class I18n:
         if val:
             return str(val).format(*args) if args else val
         else:
-            return key
+            val = I18n.translate(DEFAULT_LANGUAGE_CODE, key, *args)
+            return val if val else key
 
     @staticmethod
     def get_dir(lang) -> str:
         return I18n.get_config(lang).get("dir", "ltr")
 
     @staticmethod
-    def get_translations(lang) -> str:
-        return I18n.get_config(lang)["translations"]
+    def get_translations(lang) -> dict[str, str]:
+        translation_keys = I18n.get_config(DEFAULT_LANGUAGE_CODE)["translations"].keys()
+        result = {}
+        for k in translation_keys:
+            result[k] = I18n.translate(lang, k)
+        return result
+

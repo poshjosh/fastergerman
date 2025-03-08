@@ -1,7 +1,11 @@
 function Fastergerman() { /** Intentionally empty */ }
 
-const production = false; // TODO - use environment
-const debug = production === false;
+Fastergerman.prototype.syncValues = function (sourceId, targetId) {
+  const value = document.getElementById(sourceId)?.value
+  if (value) {
+    document.getElementById(targetId).value = value
+  }
+}
 
 Fastergerman.prototype.toggleDisplay = function (elementId, flip = 'block', flop = 'none') {
   const element = document.getElementById(elementId);
@@ -12,29 +16,30 @@ Fastergerman.prototype.toggleDisplay = function (elementId, flip = 'block', flop
   }
 }
 
-function isValidTime(time, errorElementId) {
+function isValidTime(time, errorElementId, errorMessage) {
   try {
     new Date(parseFloat(time));
     return true;
   } catch (e) {
-    console.error("Invalid time: " + time + "\n" + e);
-    // TODO - i18n
-    document.getElementById(errorElementId).innerText = "Unexpected problem";
+    console.error("Invalid time: " + time + ", caused by -> \n" + e);
+    document.getElementById(errorElementId).innerText = errorMessage;
     return false;
   }
 }
 
 Fastergerman.prototype.startCountdown = function(endTime, formId, countdownElementId,
-                                                 messageElementId, errorElementId) {
+                                                 messageElementId, errorElementId, errorMessage,
+                                                 debug) {
+  debug = debug === true || debug === "true";
   if (debug) console.log("End time: " + endTime);
   if (endTime === "0" || endTime === 0) {
     return;
   }
-  if (!isValidTime(endTime, errorElementId)) {
+  if (!isValidTime(endTime, errorElementId, errorMessage)) {
     return;
   }
-  console.log("End date: " + Date(parseFloat(endTime)))
-  console.log("Countdown: " + document.getElementById(countdownElementId).innerText)
+  if (debug) console.log("End date: " + Date(parseFloat(endTime)))
+  if (debug) console.log("Countdown: " + document.getElementById(countdownElementId).innerText)
 
   const intervalId = setInterval(function(){
     const countdownElement = document.getElementById(countdownElementId);
