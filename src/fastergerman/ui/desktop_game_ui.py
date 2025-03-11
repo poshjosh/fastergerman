@@ -5,7 +5,7 @@ import random
 from typing import List, Callable
 
 from fastergerman.config import AppConfig
-from fastergerman.game import Game, GameSession, Question, QuestionsLoader, Settings, \
+from fastergerman.game import Game, GameSession, Question, FileQuestionsSource, Settings, \
     AbstractGameTimer, GameEventListener, GameFile
 from fastergerman.game.game_session import NO_GAME_NAME_SELECTION, GameTimers
 from fastergerman.i18n import DEFAULT_LANGUAGE_CODE, I18n, SETTINGS, GAME_TO_LOAD, \
@@ -51,7 +51,7 @@ class DesktopGameUI(GameEventListener, GameTimers):
         self.session = DesktopGameSession(
             GameFile(app_config.get_app_dir()),
             self,
-            QuestionsLoader().load_questions(app_config.get_preposition_trainer_question_src()),
+            FileQuestionsSource(app_config.get_preposition_trainer_question_src()).get_questions(),
             self.handle_question)
         self.session.add_game_event_listener(self)
         app_name = app_config.get_app_name()
@@ -102,7 +102,9 @@ class DesktopGameUI(GameEventListener, GameTimers):
             row=0, column=0, padx=PADDING_S, pady=PADDING_S
         )
         last_saved_game = self.session.get_game_to_load()
-        game_names = self.session.get_game_names_or_default()
+        game_names = self.session.get_game_names()
+        if len(game_names) == 0:
+            game_names.append(NO_GAME_NAME_SELECTION)
         self.game_to_load_combo = ttk.Combobox(
             settings_frame,
             state="readonly",

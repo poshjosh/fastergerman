@@ -11,8 +11,6 @@ from fastergerman.i18n import START_GAME_PROMPT, GAME_COMPLETED_MESSAGE, I18n, D
 
 NO_GAME_NAME_SELECTION = "None"
 
-INITIAL_GAME_NAME = "Game 1"
-
 logger = logging.getLogger(__name__)
 
 class GameEventListener:
@@ -54,12 +52,11 @@ class BaseGameSession:
         self.__game_state = GameState.PENDING
         self.__current_question: Question or None = None
         self.__current_answer: str or None = None
-        self.__game_to_load = None
         self.__game_event_listeners = []
         self.__lock = threading.Lock()
         self.__game_file = game_file
         self.__questions = [q for q in questions]  # use a copy
-        self.__game: Game = self._get_default_game(self.__questions)
+        self.__game: Game = self._create_new_game(questions=self.__questions)
 
     def close(self):
         logger.debug("Closing session")
@@ -70,11 +67,14 @@ class BaseGameSession:
                 question: Question = None) -> dict[str, any]:
         if question is None:
             question = self.__current_question
-        game_names = self.get_game_names_or_default()
+        game_names = self.get_game_names()
+        game_to_load = self.get_game_to_load()
+        if not game_to_load and len(game_names) > 0:
+            game_to_load = game_names[0]
         return {
             "is_running": self.__game_state == GameState.RUNNING,
             "game_names": game_names,
-            "game_to_load": self.__game_to_load if self.__game_to_load else game_names[0],
+            "game_to_load": game_to_load,
             "settings": self.__game.settings.to_dict(),
             "score": str(self.__game.score),
             "question": self._get_question(lang_code, question),
@@ -83,27 +83,21 @@ class BaseGameSession:
             "last_answer_correct": last_answer_correct
         }
 
-    def load_default_game(self, settings: Settings):
-        self.load_game(NO_GAME_NAME_SELECTION, settings)
-        
-    def load_game(self, game_name: str or None, settings: Settings):
-        """
-        Load a game with the specified settings.
-        If the game was loaded from file, the provided settings will be ignored.
-        """
-        if game_name:
-            if game_name == NO_GAME_NAME_SELECTION:  # reset
-                self.__game = self._get_default_game(
-                    self.__questions,
-                    f"Game_{datetime.today().strftime('%Y-%m-%d_%H%M%S')}",
-                    settings)
-            else:
-                self.__game = self.__game_file.load_game(game_name)
-            self.set_game_to_load(self.__game.name)
+    @staticmethod
+    def new_game_name():
+        return f"Game_{datetime.today().strftime('%Y-%m-%d_%H%M%S')}"
+
+    def load_game(self, game_name: str or None, settings: Settings or None = None):
+        if game_name == NO_GAME_NAME_SELECTION:
+            game_name = None
+
+        if not game_name or self.__game_file.exists(game_name) is False:
+            self.__game = self._create_new_game(game_name, settings, self.__questions)
         else:
-            self.__game = self._get_default_game(self.__questions, settings=settings)
-            if self.__game_to_load == INITIAL_GAME_NAME or not self.__game_to_load:
-                self.set_game_to_load(self.__game.name)
+            self.__game = self.__game_file.load_game(game_name)
+            if settings:
+                self.__game = self.__game.with_settings(settings)
+
         [e.on_game_loaded(self.__game) for e in self.__game_event_listeners]
 
     def update_settings_value(self, name: str, value: any):
@@ -158,9 +152,6 @@ class BaseGameSession:
     def get_current_answer(self) -> str or None:
         return self.__current_answer
 
-    def set_game_to_load(self, value: str):
-        self.__game_to_load = value
-
     def is_pending(self) -> bool:
         return self.__game_state == GameState.PENDING
 
@@ -174,31 +165,31 @@ class BaseGameSession:
         return self.__game_state == GameState.COMPLETED
 
     def get_game_to_load(self):
-        return self.__game_file.get_game_to_load()
-
-    def get_game_to_load_or_default(self):
-        last_saved_game = self.__game_file.get_game_to_load()
-        return INITIAL_GAME_NAME if not last_saved_game else last_saved_game
+        return self.__game_file.read_game_to_load()
 
     def get_game_names(self) -> [str]:
         return self.__game_file.get_game_names()
 
-    def get_game_names_or_default(self) -> [str]:
-        game_names = self.__game_file.get_game_names()
-        if len(game_names) == 0:
-            game_names.append(NO_GAME_NAME_SELECTION)
-        return game_names
+    def get_game_names(self) -> [str]:
+        return self.__game_file.get_game_names()
 
     def get_max_questions(self) -> int:
         return len(self.__questions)
 
-    def _get_default_game(self,
-                          questions: List[Question],
-                          game_name: str = INITIAL_GAME_NAME,
-                          settings: Settings = Settings.of_dict({})) -> Game:
+    def _create_new_game(self,
+                         game_name: str or None = None,
+                         settings: Settings or None = None,
+                         questions: List[Question] or None = None) -> Game:
+        if game_name is None:
+            game_name = self.new_game_name()
+        if settings is None:
+            settings = Settings.of_dict({})
+        if questions is None:
+            questions = self.__questions
         offset = settings.start_at_question_number
         limit = settings.max_number_of_questions
-        return Game(game_name, settings, self._get_questions(questions, offset, limit), Score(0, 0))
+        return Game(game_name, settings,
+                    self._get_questions(questions, offset, limit), Score(0, 0))
 
     @staticmethod
     def _get_questions(questions: List[Question], first_question: int = 0, max_questions: int = None) -> List[Question]:
@@ -223,7 +214,7 @@ class BaseGameSession:
             self.__game_file.delete_game(self.__game.name)
 
             # Load default game, but start at next set of questions
-            self.load_default_game(self.__game.settings.next())
+            self.load_game(NO_GAME_NAME_SELECTION, self.__game.settings.next())
             return None
 
         self.update_settings(self.__game.settings)
@@ -334,5 +325,4 @@ class GameSession(BaseGameSession, GameTimers):
         return question
 
     def handle_game_selection(self, game_name):
-        self.set_game_to_load(game_name)
         self.load_game(game_name, self.get_game().settings)

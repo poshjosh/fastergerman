@@ -6,9 +6,15 @@
 # To terminate, from within "$TARGET_DIR" run: `eb terminate "${APP_NAME}-env" --all`
 
 APP_NAME="${APP_NAME:-fastergerman}"
+EXISTING_ENV="${EXISTING_ENV:-fastergerman-default-env}"
 DEPLOY="${DEPLOY:-true}"
+DRY_RUN="${DRY_RUN:-false}"
 TARGET_DIR="${TARGET_DIR:-output/aws}"
 ZIP="${ZIP:-true}"
+
+is_not_dry_run() {
+  [ "$DRY_RUN" != true ] && [ "$DRY_RUN" != "true" ]
+}
 
 #set -euo pipefail # No need for this in this script, we want logs to show what went wrong
 
@@ -21,12 +27,12 @@ printf "\nExported environment\n"
 
 if [ -d "$TARGET_DIR" ]; then
   rm -Rf "$TARGET_DIR"
-  printf "\nDeleted existing output dir: %s\n" "$TARGET_DIR"
+  printf "\nDeleted existing output dir: '%s'\n" "$TARGET_DIR"
 fi
 
 if [ ! -d "$TARGET_DIR" ]; then
   mkdir -p "$TARGET_DIR"
-  printf "\nCreated output dir: %s\n" "$TARGET_DIR"
+  printf "\nCreated output dir: '%s'\n" "$TARGET_DIR"
 fi
 
 cp -R src/ "${TARGET_DIR}/"
@@ -34,7 +40,7 @@ cp -R src/ "${TARGET_DIR}/"
 cp src/fastergerman/requirements.txt "${TARGET_DIR}/"
 
 cp .ebignore "${TARGET_DIR}/"
-printf "\nCopied files to %s\n" "${TARGET_DIR}/"
+printf "\nCopied files to '%s'\n" "${TARGET_DIR}/"
 
 # Delete user interface related modules and files
 rm "${TARGET_DIR}/main.py"
@@ -50,11 +56,11 @@ mv output/aws/web.py "${TARGET_DIR}/application.py"
 printf "\nChanged web.py to application.py\n"
 
 cd "${TARGET_DIR}" || exit 1
-printf "\nChanged to dir: %s\n" "${TARGET_DIR}"
+printf "\nChanged to dir: '%s'\n" "${TARGET_DIR}"
 
 if [ "$ZIP" = true ] || [ "$ZIP" = "true" ] ; then
   zip -r ../aws.zip .
-  printf "\nZipped %s to ../aws.zip\n" "${TARGET_DIR}"
+  printf "\nZipped '%s' to: '../aws.zip'\n" "${TARGET_DIR}"
 fi
 
 if [ "$DEPLOY" != true ] && [ "$DEPLOY" != "true" ] ; then
@@ -62,36 +68,45 @@ if [ "$DEPLOY" != true ] && [ "$DEPLOY" != "true" ] ; then
   exit 0
 fi
 
-eb init -p python-3.9 "${APP_NAME}" --region us-east-2
+is_not_dry_run && eb init -p python-3.9 "${APP_NAME}" --region us-east-2
 printf "\nInitialized Elastic Beanstalk\n"
 
 # (optional) Run eb init again to configure a default keypair
 # so that you can connect to the EC2 instance running your application with SSH:
 # Select a key pair if you have one already, or follow the prompts to create a new one.
 # If you don't see the prompt or need to change your settings later, run `eb init -i`.
-eb init
+is_not_dry_run && eb init
 
-eb create "${APP_NAME}-env"
-printf "\nCreated Elastic Beanstalk environment\n"
-
-function set_eb_env() {
-    local key="${1}"
-    local val
-    val=$(printenv "$key")
-    if [[ -z "${val}" ]]; then
-      printf "\nNot set, environment variable: %s\n" "${key}"
-    else
-      eb setenv "${key}=${val}" # "APP_PROFILES=dev" "APP_PORT=5000" "APP_DIR=sessions"
-      printf "\nSuccessfully set eb env: %s=%s\n" "$key" "$val"
-    fi
+function eb_set_optional_env() {
+  local key="${1}"
+  local val
+  val=$(printenv "$key")
+  if [[ -z "${val}" ]]; then
+    printf "\nNot set, environment variable: '%s'\n" "${key}"
+  else
+    eb setenv "${key}=${val}" # "APP_PROFILES=dev" "APP_PORT=5000" "APP_DIR=sessions"
+    printf "\nSuccessfully set eb env: %s=%s\n" "$key" "$val"
+  fi
 }
 
-eb setenv APP_PROFILES=aws,dev
-eb setenv APP_PORT=5000
-eb setenv APP_DIR=sessions
-set_eb_env APP_SECRET_KEY
-#set_eb_env APP_LANGUAGE_CODE
-#set_eb_env APP_PREPOSITION_TRAINER_QUESTION_SRC
+if [[ -z "${EXISTING_ENV}" ]]; then
+  selected_env="${APP_NAME}-env"
+  is_not_dry_run && eb create "${APP_NAME}-env"
+  printf "\nCreated Elastic Beanstalk environment\n"
 
-printf "\nOpening deployed environment: %s\n" "${APP_NAME}-env"
-eb open "${APP_NAME}-env"
+  if is_not_dry_run; then
+    eb setenv APP_PROFILES=aws,dev
+    eb setenv APP_PORT=5000
+    eb setenv APP_DIR=sessions
+    eb_set_optional_env APP_SECRET_KEY
+    eb_set_optional_env APP_LANGUAGE_CODE
+    eb_set_optional_env APP_PREPOSITION_TRAINER_QUESTION_SRC
+  fi
+else
+  selected_env="${EXISTING_ENV}"
+  is_not_dry_run && eb use "${EXISTING_ENV}"
+  printf "\nUsing Elastic Beanstalk environment: '%s'\n" "${EXISTING_ENV}"
+fi
+
+printf "\nOpening deployed environment: '%s'\n" "${selected_env}"
+is_not_dry_run && eb open "${selected_env}"

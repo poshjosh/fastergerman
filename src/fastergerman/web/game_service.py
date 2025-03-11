@@ -78,14 +78,10 @@ class GameService:
     @staticmethod
     def _update(config: dict[str, any], game_session: GameSession):
         game_to_load = config.get("game_to_load")
-        if game_to_load:
-            game_session.set_game_to_load(game_to_load)
-            game_session.load_game(game_to_load, Settings.of_dict(config))
-            save_game_as = config.get("save_game_as", game_to_load)
-        else:
-            save_game_as = config.get("save_game_as")
+        save_game_as = config.get("save_game_as", game_to_load)
+        logger.debug("Game to load: %s, Save game as: %s", game_to_load, save_game_as)
 
-        game_session.update_settings(Settings.of_dict(config))
+        game_session.load_game(game_to_load, Settings.of_dict(config))
 
         if save_game_as:
             game_session.save_game_as(save_game_as)

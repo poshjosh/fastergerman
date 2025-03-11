@@ -149,3 +149,8 @@ class Game:
             settings,
             self.questions,
             self.score)
+
+    def __str__(self):
+        data = self.to_dict()
+        data["questions"] = len(self.questions)
+        return str(data)

@@ -3,7 +3,7 @@ import logging
 from flask import Flask
 
 from fastergerman.app import App
-from fastergerman.game import QuestionsLoader
+from fastergerman.game import FileQuestionsSource
 from fastergerman.web import GameService, WebService
 
 logger = logging.getLogger(__name__)
@@ -14,7 +14,7 @@ class WebApp(App):
         super().__init__(app_config_path, logging_config_path)
         game_service = GameService(
             self.config.get_app_dir(),
-            QuestionsLoader().load_questions(self.config.get_preposition_trainer_question_src()))
+            FileQuestionsSource(self.config.get_preposition_trainer_question_src()).get_questions())
 
         self.web_service = WebService(self.config, game_service)
 

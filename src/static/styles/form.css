@@ -15,6 +15,11 @@
     }
 }
 
+.settings-form { width:93%; border:0; margin: 0; padding:0; }
+@media only screen and (min-width: 760px) {
+    .settings-form { width:42rem; border:0; margin: 0; padding:0; }
+}
+
 form .inline-label {
     display: block;
 }
@@ -60,3 +65,5 @@ form .settings-input {
 form #game_session_message { height: 2rem; }
 
 .question-text { margin-bottom: 1rem; }
+
+.italic { font-style: italic; }

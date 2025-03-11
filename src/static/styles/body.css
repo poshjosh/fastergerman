@@ -14,6 +14,9 @@ body a {
     color: #abc;
 }
 
+.left { float: left; }
+.right { float: right; }
+
 body .fixed-top {
     background-color: #012 /** THEME_BG_COLOR */;
     font-size: 2rem;
@@ -27,16 +30,8 @@ body .fixed-top {
     z-index: 1000;
 }
 
-.fixed-top .left {
-    float: left;
+.fixed-top {
     margin-left: 1rem;
-    text-align: center;
-    vertical-align: center;
-}
-
-.fixed-top .right {
-    float: right;
-    margin-right: 1rem;
     text-align: center;
     vertical-align: center;
 }
@@ -46,7 +41,7 @@ body .fixed-top {
 /* The hero image */
 .hero-image {
     /** If the banner is not in the custom location, fallback to the default */
-    background-image: url("../assets/banner.jpg");
+    background-image: url("../assets/images/banner.jpg");
 
     /* Set a specific height */
     height: 50%;

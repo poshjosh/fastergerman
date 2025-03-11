@@ -20,5 +20,6 @@
 
 ### Tests
 
-- Run `shell/run.tests.sh`
+- Tests - run `shell/run.tests.sh`
+- End-to-end tests - `shell/run.e2e.tests.sh`
 

@@ -50,6 +50,9 @@ def handle_exception(_):
 def handle_validation_error(e):
     return _handle_exception(e.message)
 
+@application.route('/health')
+def health():
+    return "ok", 200
 
 @application.route('/')
 def index():
