@@ -104,7 +104,9 @@ if [[ -z "${EXISTING_ENV}" ]]; then
   fi
 else
   selected_env="${EXISTING_ENV}"
-  is_not_dry_run && eb use "${EXISTING_ENV}"
+#  is_not_dry_run && eb use "${EXISTING_ENV}"
+#  is_not_dry_run && eb appversion -c -a "${APP_NAME}" -l "v0.0.4"
+  is_not_dry_run && eb deploy "${EXISTING_ENV}" -l "v0.0.4"
   printf "\nUsing Elastic Beanstalk environment: '%s'\n" "${EXISTING_ENV}"
 fi
 
