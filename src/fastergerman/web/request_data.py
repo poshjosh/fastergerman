@@ -12,8 +12,10 @@ logger = logging.getLogger(__name__)
 
 LANG_CODE = "lang_code"
 SESSION_ID = "session_id"
+TRAINER = "trainer"
 ACTION = "action"
 GAME_SESSION = "game_session"
+TRAINER_TYPES = "trainer_types"
 
 
 class ValidationError(Exception):
@@ -55,7 +57,7 @@ class RequestData:
         return request_data
 
     @staticmethod
-    def preposition_trainer(request) -> dict[str, any]:
+    def trainers(request) -> dict[str, any]:
         request_data = RequestData.collect(request)
         RequestData.validate_form_data(request_data)
         RequestData.require_save_game_as_is_not_reserved_name(request_data)

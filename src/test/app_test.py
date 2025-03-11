@@ -3,7 +3,8 @@ from unittest import mock
 
 from flask import Flask
 
-from fastergerman.app import App, WebApp
+from fastergerman.app import App
+from fastergerman.web import WebApp
 
 
 class AppTestCase(unittest.TestCase):

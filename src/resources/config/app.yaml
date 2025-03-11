@@ -6,5 +6,5 @@ app:
   language-code: en-GB
   # [dev|prod]
   profiles: dev
-  preposition-trainer:
-      question-src: resources/config/preposition-trainer-default-questions.json
+  questions:
+      src: resources/config/questions

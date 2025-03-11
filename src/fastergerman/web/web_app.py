@@ -12,11 +12,10 @@ logger = logging.getLogger(__name__)
 class WebApp(App):
     def __init__(self, application: Flask, app_config_path: str = None, logging_config_path: str = None):
         super().__init__(app_config_path, logging_config_path)
-        game_service = GameService(
-            self.config.get_app_dir(),
-            FileQuestionsSource(self.config.get_preposition_trainer_question_src()).get_questions())
+        questions = FileQuestionsSource(self.config.get_questions_src()).load_questions()
+        game_service = GameService(self.config.get_app_dir(), questions)
 
-        self.web_service = WebService(self.config, game_service)
+        self.web_service = WebService(self.config, game_service, questions.keys())
 
         App.add_shutdown_callback(self.web_service.close)
 

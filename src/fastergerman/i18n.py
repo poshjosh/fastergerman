@@ -8,6 +8,7 @@ INVALID = "invalid"
 MAX_CONSECUTIVE_CORRECT_ANSWERS = "max_consecutively_correct"
 MAX_NUMBER_OF_QUESTIONS = "max_number_of_questions"
 NEW_GAME = "new_game"
+NOT_FOUND = "not_found"
 NUMBER_OF_CHOICES_PER_QUESTION = "number_of_choices"
 PAUSE = "pause"
 PLEASE_ENTER_NAME = "please_enter_name"
@@ -39,6 +40,7 @@ config = {
             MAX_CONSECUTIVE_CORRECT_ANSWERS: "Max consecutive correct answers",
             MAX_NUMBER_OF_QUESTIONS: "Max number of questions",
             NEW_GAME: "New game",
+            NOT_FOUND: "Not found",
             NUMBER_OF_CHOICES_PER_QUESTION: "Number of choices per question",
             PAUSE: "Pause",
             PLEASE_ENTER_NAME: "Please enter a name",
@@ -71,6 +73,7 @@ config = {
             MAX_CONSECUTIVE_CORRECT_ANSWERS: "Max. aufeinanderfolgende richtige Antworten",
             MAX_NUMBER_OF_QUESTIONS: "Maximale Anzahl von Fragen",
             NEW_GAME: "Neues Spiel",
+            NOT_FOUND: "Nicht gefunden",
             NUMBER_OF_CHOICES_PER_QUESTION: "Anzahl der Auswahlmöglichkeiten pro Frage",
             PAUSE: "Pause",
             PLEASE_ENTER_NAME: "Bitte geben Sie einen Namen ein",

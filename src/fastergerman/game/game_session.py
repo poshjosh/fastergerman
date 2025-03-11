@@ -170,9 +170,6 @@ class BaseGameSession:
     def get_game_names(self) -> [str]:
         return self.__game_file.get_game_names()
 
-    def get_game_names(self) -> [str]:
-        return self.__game_file.get_game_names()
-
     def get_max_questions(self) -> int:
         return len(self.__questions)
 

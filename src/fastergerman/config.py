@@ -50,9 +50,9 @@ class AppConfig(Config):
             'dir', os.path.join(Path.home(), f".{self.get_app_name().lower()}", f"v{self.get_app_version()}"))
         return self._path(val)
 
-    def get_preposition_trainer_question_src(self) -> str:
-        env = os.environ.get("APP_PREPOSITION_TRAINER_QUESTION_SRC")
-        return self._path(env if env else self.app()['preposition-trainer']['question-src'])
+    def get_questions_src(self) -> str:
+        env = os.environ.get("APP_QUESTIONS_SRC")
+        return self._path(env if env else self.app()['questions']['src'])
 
     def get_web_port(self) -> int:
         env = os.environ.get("APP_PORT")

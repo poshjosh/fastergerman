@@ -1,11 +1,14 @@
 {% extends "common/page.html" %}
 
-{% block hero_image %}
-    <div class="hero-image"><h1 class="hero-text">{{ i18n.t.app_short_description }}</h1></div>
-{% endblock %}
+{% block hero_image %}{% include 'common/hero.html' %}{% endblock %}
 
 {% block content %}
-    <p>
-        <a id="preposition_trainer" href="preposition-trainer">{{ i18n.t.preposition_trainer }}</a>
-    </p>
+
+    {% for trainer in app.trainer_types %}
+        {% with trainer_id = trainer + '_trainer' %}
+            <p>
+                <a id="{{ trainer_id }}" href="trainers/{{ trainer }}">{{ i18n.t[trainer_id] }}</a>
+            </p>
+        {% endwith %}
+    {% endfor %}
 {% endblock %}

@@ -51,7 +51,7 @@ class DesktopGameUI(GameEventListener, GameTimers):
         self.session = DesktopGameSession(
             GameFile(app_config.get_app_dir()),
             self,
-            FileQuestionsSource(app_config.get_preposition_trainer_question_src()).get_questions(),
+            FileQuestionsSource(app_config.get_questions_src()).load_questions()["preposition"],
             self.handle_question)
         self.session.add_game_event_listener(self)
         app_name = app_config.get_app_name()

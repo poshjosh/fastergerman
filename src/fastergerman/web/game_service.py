@@ -2,9 +2,12 @@ import logging
 import os
 from typing import List
 
+from werkzeug.exceptions import NotFound
+
 from fastergerman.game import GameSession, GameTimer, Settings, Question, AbstractGameTimer, \
     GameFile
 from fastergerman.web import SESSION_ID, ACTION, LANG_CODE, GAME_SESSION
+from fastergerman.web.request_data import TRAINER
 
 logger = logging.getLogger(__name__)
 
@@ -34,7 +37,7 @@ class WebGameSession(GameSession):
         return self.get_game().settings.question_display_time * 1000
 
 class GameService:
-    def __init__(self, app_dir: str, questions: List[Question]):
+    def __init__(self, app_dir: str, questions: dict[str, List[Question]]):
         self.__app_dir = app_dir
         self.__game_sessions = dict[str, GameSession]()
         self.__questions = questions
@@ -44,15 +47,18 @@ class GameService:
             session.close()
         self.__game_sessions.clear()
 
-    def get_or_create_session(self, session_id: str) -> GameSession:
-        if session_id not in self.__game_sessions.keys():
+    def _get_or_create_session(self, session_id: str, trainer: str) -> GameSession:
+        key = f"{session_id}_{trainer}"
+        if key not in self.__game_sessions.keys():
             game_file = GameFile(os.path.join(self.__app_dir, session_id))
-            self.__game_sessions[session_id] = WebGameSession(game_file, self.__questions)
-        return self.__game_sessions[session_id]
+            if trainer not in self.__questions.keys():
+                raise NotFound(f"Trainer not found: {trainer}")
+            self.__game_sessions[key] = WebGameSession(game_file, self.__questions[trainer])
+        return self.__game_sessions[key]
 
-    def preposition_trainer(self, config: dict[str, any]) -> dict[str, any]:
+    def trainers(self, config: dict[str, any]) -> dict[str, any]:
 
-        game_session: GameSession = self.get_or_create_session(config[SESSION_ID])
+        game_session: GameSession = self._get_or_create_session(config[SESSION_ID], config[TRAINER])
         action = config.get(ACTION, None)
         logger.debug("Action: %s", action)
 

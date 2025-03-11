@@ -100,7 +100,7 @@ if [[ -z "${EXISTING_ENV}" ]]; then
     eb setenv APP_DIR=sessions
     eb_set_optional_env APP_SECRET_KEY
     eb_set_optional_env APP_LANGUAGE_CODE
-    eb_set_optional_env APP_PREPOSITION_TRAINER_QUESTION_SRC
+    eb_set_optional_env APP_QUESTIONS_SRC
   fi
 else
   selected_env="${EXISTING_ENV}"
