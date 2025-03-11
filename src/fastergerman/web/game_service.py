@@ -29,7 +29,6 @@ class WebGameSession(GameSession):
         if self.__next_ques_timer is None:
             logger.debug(f"Creating next question timer. Question display time millis: "
                          f"{self._get_question_display_time_millis()}")
-            # TODO - This timer should change, anytime game settings.question_display_time changes
             self.__next_ques_timer = GameTimer(self._get_question_display_time_millis())
         return self.__next_ques_timer
 

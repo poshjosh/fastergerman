@@ -230,7 +230,6 @@ class DesktopGameUI(GameEventListener, GameTimers):
             self.session.load_game(self.session.get_game_to_load(), game.settings)
 
         self.countdown_timer = self._create_countdown_timer()
-        # TODO - This timer should change, anytime game settings.question_display_time changes.
         self.next_ques_timer = self._create_next_ques_timer()
 
     def close_window(self):
