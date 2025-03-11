@@ -7,6 +7,7 @@
 
 APP_NAME="${APP_NAME:-fastergerman}"
 EXISTING_ENV="${EXISTING_ENV:-fastergerman-default-env}"
+NEW_APP_VERSION="${NEW_APP_VERSION:-v0.0.4}"
 DEPLOY="${DEPLOY:-true}"
 DRY_RUN="${DRY_RUN:-false}"
 TARGET_DIR="${TARGET_DIR:-output/aws}"
@@ -104,10 +105,8 @@ if [[ -z "${EXISTING_ENV}" ]]; then
   fi
 else
   selected_env="${EXISTING_ENV}"
-#  is_not_dry_run && eb use "${EXISTING_ENV}"
-#  is_not_dry_run && eb appversion -c -a "${APP_NAME}" -l "v0.0.4"
-  is_not_dry_run && eb deploy "${EXISTING_ENV}" -l "v0.0.4"
-  printf "\nUsing Elastic Beanstalk environment: '%s'\n" "${EXISTING_ENV}"
+  is_not_dry_run && eb deploy "${EXISTING_ENV}" -l "${NEW_APP_VERSION}"
+  printf "\nDeploying new application version: %s to existing Elastic Beanstalk environment: '%s'\n" "${NEW_APP_VERSION}" "${EXISTING_ENV}"
 fi
 
 printf "\nOpening deployed environment: '%s'\n" "${selected_env}"
