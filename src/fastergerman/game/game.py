@@ -1,4 +1,6 @@
 from dataclasses import dataclass, asdict
+from typing import List
+
 
 @dataclass(frozen=True)
 class Score:
@@ -144,11 +146,32 @@ class Game:
             self.score)
 
     def with_settings(self, settings: Settings) -> 'Game':
+        """
+        Update the game with the provided settings.
+        Will reset the score.
+        :param settings: The settings
+        :return: The updated game.
+        """
+        offset = settings.start_at_question_number
+        limit = settings.max_number_of_questions
         return Game(
             self.name,
             settings,
-            self.questions,
-            self.score)
+            self._get_questions(self.questions, offset, limit),
+            Score.of_dict({}))
+
+    def sync_with_settings(self) -> 'Game':
+        return self.with_settings(self.settings)
+
+    @staticmethod
+    def _get_questions(questions: List[Question], first_question: int = 0, max_questions: int = None) -> List[Question]:
+        number_of_ques = len(questions)
+        if max_questions is None:
+            max_questions = number_of_ques
+        last_question = first_question + max_questions
+        if last_question > number_of_ques:
+            last_question = number_of_ques
+        return questions[first_question:last_question]
 
     def __str__(self):
         data = self.to_dict()

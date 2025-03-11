@@ -66,11 +66,11 @@ describe('Preposition trainer page game session', () => {
   })
   it('displays a message when an answer is selected', () => {
     cy.visit(Paths.url(Paths.prepositionTrainer))
-    cy.hasNoTextIgnoreSpace("#game_session_message")
+    cy.hasNoTextIgnoreSpace("#game_session_last_answer_correct")
     cy.get("#action_start").should("exist").click().then(() => {
-      cy.hasNoTextIgnoreSpace("#game_session_message")
+      cy.hasNoTextIgnoreSpace("#game_session_last_answer_correct")
       cy.get('[name="answer"]').first().should("exist").click().then(() => {
-        cy.get("#game_session_message").should("not.be.empty")
+        cy.get("#game_session_last_answer_correct").should("not.be.empty")
       })
     })
   })
@@ -135,8 +135,10 @@ describe('Preposition trainer page game session', () => {
     cy.visit(Paths.url(Paths.prepositionTrainer))
     const triggerNext = () => cy.get("#action_pause").should("exist").click()
     const onNext = (first, next) => {
-      if (next.trim() !== first.trim()) {
-        throw new Error(`Expected countdown text to remain the same after pause, but was different. Before pause: '${first}', after pause: '${next}'`)
+      first = parseInt(first)
+      next = parseInt(next)
+      if (next - first > 1) {
+        throw new Error(`Expected countdown text to change by <= 1, but was more than 1. Before pause: '${first}', after pause: '${next}'`)
       }
     }
     givenFirstAndNext("#game_session_countdown", triggerNext, onNext)

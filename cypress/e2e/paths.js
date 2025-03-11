@@ -1,7 +1,7 @@
 import { Env } from "./env";
 
 export const Paths = {
-  prepositionTrainer: '/preposition-trainer',
+  prepositionTrainer: '/trainers/preposition',
   baseUrl: function() {
     return Cypress.env(Env.baseUrl)
   },

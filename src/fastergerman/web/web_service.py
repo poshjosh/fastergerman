@@ -37,7 +37,7 @@ class WebService:
             "t": I18n.get_translations(lang_code)
         }
 
-        RequestData.sync_game_session(variables)
+        RequestData.sync_to_session(variables)
 
         for key, value in self.__default_page_variables.items():
             if key not in variables.keys():

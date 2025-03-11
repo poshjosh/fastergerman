@@ -5,7 +5,7 @@
                class="control" value="{{ val }}" min="{{ min }}" max="{{ max }}"/>
     </p>
 {% endmacro %}
-<form id="game_session_settings" action="/preposition-trainer"
+<form id="game_session_settings" action="/trainers/{{ trainer }}"
       class="form settings-form" method="post">
     <input type="hidden" name="action" value="update"/>
     <input type="button" id="settings_tab" value="{{ i18n.t.settings }} &#9660;"

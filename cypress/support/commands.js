@@ -50,8 +50,13 @@ Cypress.Commands.add('updateSettings', settings => {
         cy.get(`[name="${key}"]`).should("exist").clear().type(settings[key])
       }
     }
+    cy.get("#save_game_as").should("exist").type("TestGame_" + Date.now().toString())
     cy.get("#action_update").should("exist").click().then(() => {
-      cy.get("#page_error").should("not.have.text")
+      cy.get("#page_error").invoke("text").then(text => {
+        if (text) {
+          throw new Error("Should not have error. But found: " + text)
+        }
+      })
       for (let key in settings) {
         const val = settings[key]
         if (typeof val === "boolean") {

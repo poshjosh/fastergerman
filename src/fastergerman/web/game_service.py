@@ -47,24 +47,36 @@ class GameService:
             session.close()
         self.__game_sessions.clear()
 
+    @staticmethod
+    def _to_session_key(session_id: str, trainer: str) -> str:
+        return f"{session_id}_{trainer}"
+
+    def _create_session(self, session_id: str, trainer: str) -> GameSession:
+        key = self._to_session_key(session_id, trainer)
+        game_file = GameFile(os.path.join(self.__app_dir, session_id))
+        if trainer not in self.__questions.keys():
+            raise NotFound(f"Trainer not found: {trainer}")
+        self.__game_sessions[key] = WebGameSession(game_file, self.__questions[trainer])
+        return self.__game_sessions[key]
+
     def _get_or_create_session(self, session_id: str, trainer: str) -> GameSession:
-        key = f"{session_id}_{trainer}"
+        key = self._to_session_key(session_id, trainer)
         if key not in self.__game_sessions.keys():
-            game_file = GameFile(os.path.join(self.__app_dir, session_id))
-            if trainer not in self.__questions.keys():
-                raise NotFound(f"Trainer not found: {trainer}")
-            self.__game_sessions[key] = WebGameSession(game_file, self.__questions[trainer])
+            self._create_session(session_id, trainer)
         return self.__game_sessions[key]
 
     def trainers(self, config: dict[str, any]) -> dict[str, any]:
 
-        game_session: GameSession = self._get_or_create_session(config[SESSION_ID], config[TRAINER])
         action = config.get(ACTION, None)
         logger.debug("Action: %s", action)
 
+        if action == "update":
+            game_session: GameSession = self._create_session(config[SESSION_ID], config[TRAINER])
+        else:
+            game_session: GameSession = self._get_or_create_session(config[SESSION_ID], config[TRAINER])
+
         last_answer_correct = None
         if action == "start":
-            self._update(config, game_session)
             game_session.start_game()
         elif action == "pause":
             game_session.pause_game()

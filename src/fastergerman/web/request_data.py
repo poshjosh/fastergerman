@@ -100,10 +100,14 @@ class RequestData:
                                f"{I18n.translate(lang_code, candidate_key)}")
 
     @staticmethod
-    def sync_game_session(data: dict[str, any]):
-        game_session = data.get(GAME_SESSION)
-        if game_session:
-            session[GAME_SESSION] = game_session
-        else:
-            data[GAME_SESSION] = session.get(GAME_SESSION)
+    def sync_to_session(data: dict[str, any]):
+        RequestData._sync_to_session(data, GAME_SESSION)
+        RequestData._sync_to_session(data, TRAINER)
 
+    @staticmethod
+    def _sync_to_session(data: dict[str, any], key: str):
+        val = data.get(key)
+        if val:
+            session[key] = val
+        else:
+            data[key] = session.get(key)

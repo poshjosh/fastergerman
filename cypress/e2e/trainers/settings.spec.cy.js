@@ -3,8 +3,10 @@ import { Paths } from "../paths"
 describe('Preposition trainer page settings', () => {
   it('has default values that cause no error', () => {
     cy.visit(Paths.url(Paths.prepositionTrainer))
-    cy.get("#action_update").should("exist").click().then(() => {
-      cy.get("#page_error").should("not.have.text")
+    cy.get("#settings_tab").should("exist").click().then(() => {
+      cy.get("#action_update").should("exist").click().then(() => {
+        cy.get("#page_error").should("not.have.text")
+      })
     })
   })
   it('is hidden on page load', () => {

@@ -94,16 +94,28 @@ class BaseGameSession:
         if not game_name or self.__game_file.exists(game_name) is False:
             self.__game = self._create_new_game(game_name, settings, self.__questions)
         else:
-            self.__game = self.__game_file.load_game(game_name)
-            if settings:
-                self.__game = self.__game.with_settings(settings)
+            self.__game = self._load_existing_game(game_name, settings)
 
+        logger.debug(f"Loaded game: {game_name} = {self.__game}")
         [e.on_game_loaded(self.__game) for e in self.__game_event_listeners]
 
     def update_settings_value(self, name: str, value: any):
+        """
+        Update the current game with the named setting.
+        Will reset the score.
+        :param name: The settings name
+        :param value: The settings value
+        :return: None
+        """
         self.update_settings(self.__game.settings.with_value(name, value))
 
     def update_settings(self, settings: Settings):
+        """
+        Update the current game with the provided settings.
+        Will reset the score.
+        :param settings: The settings
+        :return: None
+        """
         self.__game = self.__game.with_settings(settings)
 
     def save_game_as(self, game_name: str):
@@ -137,7 +149,7 @@ class BaseGameSession:
     def pause_game(self):
         logger.debug(f"Pausing game: {self.__game.name} = {self.__game}")
         self.__game_state = GameState.PAUSED
-        self.update_settings(self.__game.settings)
+        # self.update_settings(self.__game.settings)
         [e.on_game_paused(self.__game) for e in self.__game_event_listeners]
 
     def add_game_event_listener(self, listener: GameEventListener):
@@ -183,20 +195,16 @@ class BaseGameSession:
             settings = Settings.of_dict({})
         if questions is None:
             questions = self.__questions
-        offset = settings.start_at_question_number
-        limit = settings.max_number_of_questions
-        return Game(game_name, settings,
-                    self._get_questions(questions, offset, limit), Score(0, 0))
+        return Game(game_name, settings, questions, Score(0, 0)).sync_with_settings()
 
-    @staticmethod
-    def _get_questions(questions: List[Question], first_question: int = 0, max_questions: int = None) -> List[Question]:
-        number_of_ques = len(questions)
-        if max_questions is None:
-            max_questions = number_of_ques
-        last_question = first_question + max_questions
-        if last_question > number_of_ques:
-            last_question = number_of_ques
-        return questions[first_question:last_question]
+    def _load_existing_game(self,
+                            game_name: str or None = None,
+                            settings: Settings or None = None) -> Game:
+        self.__game = self.__game_file.load_game(game_name)
+        if settings:
+            return self.__game.with_settings(settings)
+        else:
+            return self.__game.sync_with_settings()
 
     def _next_question(self) -> Question or None:
         if self.is_running() is False:
@@ -214,7 +222,7 @@ class BaseGameSession:
             self.load_game(NO_GAME_NAME_SELECTION, self.__game.settings.next())
             return None
 
-        self.update_settings(self.__game.settings)
+        # self.update_settings(self.__game.settings)
 
         # Select random question
         next_question: Question = random.choice(self.__game.questions)
