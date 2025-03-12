@@ -65,7 +65,7 @@ describe('Preposition trainer page game session', () => {
     cy.get("#action_start").should("exist").click().then(() => {
       cy.get("#action_pause").should("exist").click().then(() => {
         cy.get("#action_start").should("exist").click().then(() => {
-          cy.hasNoTextIgnoreSpace("#game_session_last_answer_correct")
+          cy.hasNoTextIgnoreSpace("#game_session_previous_answer_message")
         })
       })
     })
@@ -86,11 +86,11 @@ describe('Preposition trainer page game session', () => {
   })
   it('displays a message when an answer is selected', () => {
     cy.visit(Paths.url(Paths.prepositionTrainer))
-    cy.hasNoTextIgnoreSpace("#game_session_last_answer_correct")
+    cy.hasNoTextIgnoreSpace("#game_session_previous_answer_message")
     cy.get("#action_start").should("exist").click().then(() => {
-      cy.hasNoTextIgnoreSpace("#game_session_last_answer_correct")
+      cy.hasNoTextIgnoreSpace("#game_session_previous_answer_message")
       cy.get('[name="answer"]').first().should("exist").click().then(() => {
-        cy.hasTextIgnoreSpace("#game_session_last_answer_correct")
+        cy.hasTextIgnoreSpace("#game_session_previous_answer_message")
       })
     })
   })

@@ -18,7 +18,7 @@
 
         <p id="game_session_message">
             <span class="left">
-                <span id="game_session_last_answer_correct">
+                <span id="game_session_previous_answer_message">
                     {% if game_session.is_running == true %}
                         {% if game_session.question.previous.answer_correct == true %}
                             &emsp;&#9989
@@ -82,7 +82,7 @@
                     fastergerman.startCountdown(
                           '{{ 0 if game_session.is_running == false else game_session.end_time }}',
                           'game_session_next', 'game_session_countdown',
-                          'game_session_last_answer_correct', '{{ game_session.question.previous.answer_correct }}',
+                          'game_session_previous_answer_message', '{{ game_session.question.previous.answer_correct }}',
                           'page_error', '{{ i18n.t.unexpected_error }}', '{{ app.is_production }}');">
     </script>
 {% endblock %}
