@@ -32,7 +32,7 @@ describe('Preposition trainer page game session', () => {
     cy.get("#game_session_question").should("exist").then(questionElement => {
       const startPrompt = questionElement.text();
       cy.get("#action_start").should("exist").click().then(() => {
-        cy.get("#game_session_question").invoke("text").should("not.be.empty")
+        cy.hasTextIgnoreSpace("#game_session_question")
         cy.get("#game_session_question").should("not.have.text", startPrompt)
       })
     })
@@ -48,6 +48,26 @@ describe('Preposition trainer page game session', () => {
     cy.get("#action_pause").should("not.exist")
     cy.get("#action_start").should("exist").click().then(() => {
       cy.get("#action_pause").should("exist")
+    })
+  })
+  it('displays start button when pause is clicked', () => {
+    cy.visit(Paths.url(Paths.prepositionTrainer))
+    cy.get("#action_pause").should("not.exist")
+    cy.get("#action_start").should("exist").click().then(() => {
+      cy.get("#action_pause").should("exist").click().then(() => {
+        cy.get("#action_start").should("exist")
+      })
+    })
+  })
+  it('displays no message when resumed after pause', () => {
+    cy.visit(Paths.url(Paths.prepositionTrainer))
+    cy.get("#action_pause").should("not.exist")
+    cy.get("#action_start").should("exist").click().then(() => {
+      cy.get("#action_pause").should("exist").click().then(() => {
+        cy.get("#action_start").should("exist").click().then(() => {
+          cy.hasNoTextIgnoreSpace("#game_session_last_answer_correct")
+        })
+      })
     })
   })
   it('displays a countdown when start is clicked', () => {
@@ -70,10 +90,16 @@ describe('Preposition trainer page game session', () => {
     cy.get("#action_start").should("exist").click().then(() => {
       cy.hasNoTextIgnoreSpace("#game_session_last_answer_correct")
       cy.get('[name="answer"]').first().should("exist").click().then(() => {
-        cy.get("#game_session_last_answer_correct").should("not.be.empty")
+        cy.hasTextIgnoreSpace("#game_session_last_answer_correct")
       })
     })
   })
+  // it('displays a success message when the correct answer is selected', () => {
+  //   cy.log("We currently have no way of telling if the answer we selected is correct or not")
+  // })
+  // it('displays an error message when the correct answer is selected', () => {
+  //   cy.log("We currently have no way of telling if the answer we selected is correct or not")
+  // })
   //@PossibleFlakyTest("Probability of displaying the same question twice depends on the number of available questions")
   it('displays a different question when an answer is selected', () => {
     cy.visit(Paths.url(Paths.prepositionTrainer))

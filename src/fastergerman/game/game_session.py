@@ -50,6 +50,8 @@ class GameState(Enum):
 class BaseGameSession:
     def __init__(self, game_file: GameFile, questions: List[Question]):
         self.__game_state = GameState.PENDING
+        self.__previous_question: Question or None = None
+        self.__previous_answer: str or None = None
         self.__current_question: Question or None = None
         self.__current_answer: str or None = None
         self.__game_event_listeners = []
@@ -63,10 +65,7 @@ class BaseGameSession:
         # TODO - Implement this method to save the game. Don't forget to log.
         raise NotImplementedError("close must be implemented by subclasses")
 
-    def to_dict(self, lang_code: str, last_answer_correct: bool = None,
-                question: Question = None) -> dict[str, any]:
-        if question is None:
-            question = self.__current_question
+    def to_dict(self, lang_code: str) -> dict[str, any]:
         game_names = self.get_game_names()
         game_to_load = self.get_game_to_load()
         if not game_to_load and len(game_names) > 0:
@@ -77,10 +76,11 @@ class BaseGameSession:
             "game_to_load": game_to_load,
             "settings": self.__game.settings.to_dict(),
             "score": str(self.__game.score),
-            "question": self._get_question(lang_code, question),
-            "question_options": question.choices if self.__current_question else [],
-            "questions_left": len(self.__game.questions),
-            "last_answer_correct": last_answer_correct
+            "question": {
+                "current": self.to_ques_dict(lang_code, self.__current_question, self.__current_answer),
+                "previous": self.to_ques_dict(lang_code, self.__previous_question, self.__previous_answer)
+            },
+            "questions_left": len(self.__game.questions)
         }
 
     @staticmethod
@@ -138,6 +138,7 @@ class BaseGameSession:
         with self.__lock:
             # Updates score etc
             score_before = self.__game.score
+            self.__previous_answer = self.__current_answer
             self.__current_answer = answer
             self.__game = self.__game.on_question_answer(self.__current_question, answer)
             logger.debug(f"Handled answer: {answer}. Score -> before: {score_before}, after: {self.__game.score}")
@@ -148,6 +149,8 @@ class BaseGameSession:
 
     def pause_game(self):
         logger.debug(f"Pausing game: {self.__game.name} = {self.__game}")
+        self.__previous_question = None
+        self.__previous_answer = None
         self.__game_state = GameState.PAUSED
         # self.update_settings(self.__game.settings)
         [e.on_game_paused(self.__game) for e in self.__game_event_listeners]
@@ -163,6 +166,12 @@ class BaseGameSession:
 
     def get_current_answer(self) -> str or None:
         return self.__current_answer
+
+    def get_previous_question(self) -> Question or None:
+        return self.__previous_question
+
+    def get_previous_answer(self) -> str or None:
+        return self.__previous_answer
 
     def is_pending(self) -> bool:
         return self.__game_state == GameState.PENDING
@@ -222,35 +231,48 @@ class BaseGameSession:
             self.load_game(NO_GAME_NAME_SELECTION, self.__game.settings.next())
             return None
 
-        # self.update_settings(self.__game.settings)
+        self.__previous_question = self.__current_question
+        self.__current_question = self._random_next_question()
 
-        # Select random question
-        next_question: Question = random.choice(self.__game.questions)
+        self.__previous_answer = self.__current_answer
+        self.__current_answer = None
 
-        if next_question == self.__current_question:
-            # If the same question is selected, try once more
-            next_question: Question = random.choice(self.__game.questions)
+        [e.on_question(self.__game, self.__current_question) for e in self.__game_event_listeners]
 
-        self.__current_question = next_question
+        return self.__current_question
 
-        [e.on_question(self.__game, next_question) for e in self.__game_event_listeners]
-
+    def _random_next_question(self) -> Question or None:
+        if len(self.__game.questions) == 0: # Should not happen
+            raise ValueError("No questions left")
+        if len(self.__game.questions) == 1:
+            return self.__game.questions[0]
+        next_question = None
+        for _ in range(0, 5):
+            next_question: Question or None = random.choice(self.__game.questions)
+            if next_question != self.__current_question:
+                break
         return next_question
 
-    def _get_question(self, language_code, question: Question = None) -> dict[str, str]:
-        if question is None:
-            question = self.__current_question
-        translation = ""
+    def to_ques_dict(self, language_code, question: Question = None, answer: str = None) -> dict[str, str]:
+        translation = None
+        choices = []
+        correct_answer = None
+        answer_correct = None
         if self.is_pending() is True:
             example = I18n.translate(language_code, START_GAME_PROMPT)
         elif self.is_completed() is False:
-            example = question.example
+            example = question.example if question else None
             if self.__game.settings.display_translation is True:
-                translation = question.translation
+                translation = question.translation if question else None
+            choices = question.choices if question else []
+            correct_answer = question.preposition if question else None
+            answer_correct = question.is_answer(answer) is True if question else None
         else:
             example = I18n.translate(
                 language_code, GAME_COMPLETED_MESSAGE).format(self.__game.score.to_percent())
-        return {"example": example, "translation": translation}
+        return {"example": example, "translation": translation,
+                "choices": choices, "correct_answer": correct_answer,
+                "answer": answer, "answer_correct": answer_correct}
 
     def __str__(self):
         return f"GameSession{self.to_dict(DEFAULT_LANGUAGE_CODE)}"
@@ -266,24 +288,24 @@ class GameTimers(ABC):
         raise NotImplementedError("get_next_ques_timer must be implemented by subclasses")
 
 
-class GameSession(BaseGameSession, GameTimers):
-    def __init__(self, game_file: GameFile, questions: List[Question]):
+class GameSession(BaseGameSession):
+    def __init__(self, game_file: GameFile, questions: List[Question], game_timers: GameTimers):
         super().__init__(game_file, questions)
-
-    @abstractmethod
-    def get_countdown_timer(self) -> AbstractGameTimer:
-        raise NotImplementedError("get_countdown_timer must be implemented by subclasses")
-
-    @abstractmethod
-    def get_next_ques_timer(self) -> AbstractGameTimer:
-        raise NotImplementedError("get_next_ques_timer must be implemented by subclasses")
+        self.__game_timers = game_timers
 
     def handle_question(self, question: Question):
-        raise NotImplementedError("handle_question must be implemented by subclasses")
+        """"
+        Subclasses may implement this for further question handling
+        """
 
-    def to_dict(self, lang_code: str, last_answer_correct: bool = None,
-                question: Question = None) -> dict[str, any]:
-        data = super().to_dict(lang_code, last_answer_correct, question)
+    def get_countdown_timer(self) -> AbstractGameTimer:
+        return self.__game_timers.get_countdown_timer()
+
+    def get_next_ques_timer(self) -> AbstractGameTimer:
+        return self.__game_timers.get_next_ques_timer()
+
+    def to_dict(self, lang_code: str) -> dict[str, any]:
+        data = super().to_dict(lang_code)
         data["countdown"] = int(self.get_countdown_timer().get_time_left_millis() / 1000)
         data["end_time"] = self.get_countdown_timer().get_end_time_millis()
         return data
@@ -308,14 +330,6 @@ class GameSession(BaseGameSession, GameTimers):
         if self.is_running() is False:
             self.pause_game()
             return None
-
-        countdown_timed_out = self.get_countdown_timer().is_timed_out()
-        logger.debug("Is countdown timed out: %1s, %2s",
-                     countdown_timed_out, self.get_countdown_timer())
-
-        if countdown_timed_out is True:
-            # timeout -> no answer -> wrong answer
-            self.handle_answer("")
 
         # Select random question
         question: Question = self._next_question()

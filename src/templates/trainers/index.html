@@ -20,10 +20,10 @@
             <span class="left">
                 <span id="game_session_last_answer_correct">
                     {% if game_session.is_running == true %}
-                        {% if game_session.last_answer_correct == true %}
+                        {% if game_session.question.previous.answer_correct == true %}
                             &emsp;&#9989
-                        {% elif game_session.last_answer_correct == false %}
-                            &emsp;&#10060
+                        {% elif game_session.question.previous.answer_correct == false %}
+                            &emsp;&#10060 &nbsp; &#8702; &nbsp; {{ game_session.question.previous.correct_answer }}
                         {% endif %}
                     {% endif %}
                 </span>
@@ -34,13 +34,13 @@
             </span>
         </p>
         <div id="game_session_question">
-            <div class="question-text">{{ game_session.question.example }}</div>
-            {% if game_session.question.translation %}
-                <div class="question-text italic">{{ game_session.question.translation }}</div>
+            <div class="question-text">{{ game_session.question.current.example }}</div>
+            {% if game_session.question.current.translation %}
+                <div class="question-text italic">{{ game_session.question.current.translation }}</div>
             {% endif %}
         </div>
 
-        {% for option in game_session.question_options %}
+        {% for option in game_session.question.current.choices %}
             {% if game_session.is_running == true %}
                 <button type="submit" name="answer" value="{{ option }}"
                         class="control clickable">{{ option }}</button>
@@ -82,7 +82,7 @@
                     fastergerman.startCountdown(
                           '{{ 0 if game_session.is_running == false else game_session.end_time }}',
                           'game_session_next', 'game_session_countdown',
-                          'game_session_last_answer_correct', '{{ game_session.last_answer_correct }}',
+                          'game_session_last_answer_correct', '{{ game_session.question.previous.answer_correct }}',
                           'page_error', '{{ i18n.t.unexpected_error }}', '{{ app.is_production }}');">
     </script>
 {% endblock %}

@@ -1,26 +1,23 @@
 import logging
 import os
-from typing import List
+from typing import List, Callable
 
 from werkzeug.exceptions import NotFound
 
 from fastergerman.game import GameSession, GameTimer, Settings, Question, AbstractGameTimer, \
-    GameFile
+    GameFile, GameTimers
 from fastergerman.web import SESSION_ID, ACTION, LANG_CODE, GAME_SESSION
 from fastergerman.web.request_data import TRAINER
 
 logger = logging.getLogger(__name__)
 
 
-class WebGameSession(GameSession):
-    def __init__(self, game_file: GameFile, questions: List[Question]):
-        super().__init__(game_file, questions)
+class WebGameTimers(GameTimers):
+    def __init__(self, get_question_display_time_millis: Callable[[], int]):
+        super().__init__()
         self.__countdown_timer = GameTimer(1000)
         self.__next_ques_timer = None
-
-    def handle_question(self, question: Question):
-        """Subclasses should implement this method to process the Question."""
-        logger.debug(f"Please implement handling questions. Question: {question}")
+        self.__get_question_display_time_millis = get_question_display_time_millis
 
     def get_countdown_timer(self) -> AbstractGameTimer:
         return self.__countdown_timer
@@ -28,9 +25,14 @@ class WebGameSession(GameSession):
     def get_next_ques_timer(self) -> AbstractGameTimer:
         if self.__next_ques_timer is None:
             logger.debug(f"Creating next question timer. Question display time millis: "
-                         f"{self._get_question_display_time_millis()}")
-            self.__next_ques_timer = GameTimer(self._get_question_display_time_millis())
+                         f"{self.__get_question_display_time_millis()}")
+            self.__next_ques_timer = GameTimer(self.__get_question_display_time_millis())
         return self.__next_ques_timer
+
+
+class WebGameSession(GameSession):
+    def __init__(self, game_file: GameFile, questions: List[Question]):
+        super().__init__(game_file, questions, WebGameTimers(self._get_question_display_time_millis))
 
     def _get_question_display_time_millis(self) -> int:
         return self.get_game().settings.question_display_time * 1000
@@ -74,20 +76,20 @@ class GameService:
         else:
             game_session: GameSession = self._get_or_create_session(config[SESSION_ID], config[TRAINER])
 
-        last_answer_correct = None
         if action == "start":
             game_session.start_game()
         elif action == "pause":
             game_session.pause_game()
         elif action == "next":
+            game_session.handle_answer("") # timeout -> no answer -> wrong answer
             game_session.next_question()
         elif action == "answer":
-            last_answer_correct = game_session.handle_answer(config.get("answer", ""))
+            game_session.handle_answer(config.get("answer", ""))
             game_session.next_question()
         elif action == "update":
             self._update(config, game_session)
 
-        config[GAME_SESSION] = game_session.to_dict(config[LANG_CODE], last_answer_correct)
+        config[GAME_SESSION] = game_session.to_dict(config[LANG_CODE])
         logger.debug("%s", game_session)
 
         return config

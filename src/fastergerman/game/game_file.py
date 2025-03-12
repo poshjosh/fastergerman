@@ -11,10 +11,7 @@ logger = logging.getLogger(__name__)
 
 class GameFile:
     def __init__(self, app_dir: str):
-        app_dir = os.path.expanduser(os.path.expandvars(app_dir))
-        data_dir = os.path.join(app_dir, "data")
-        if os.path.exists(data_dir) is False:
-            os.makedirs(data_dir)
+        data_dir = self._require_data_dir(os.path.expanduser(os.path.expandvars(app_dir)))
         self.__game_to_load_file = os.path.join(data_dir, "game-to-load.txt")
         self.__games_dir = os.path.join(data_dir, "games")
 
@@ -80,6 +77,13 @@ class GameFile:
             logger.debug("Created: %s", self._get_game_to_load_file_path())
         write_content(game_name, self._get_game_to_load_file_path())
         logger.debug(f"Written {game_name} to {self._get_game_to_load_file_path()}")
+
+    @staticmethod
+    def _require_data_dir(app_dir: str) -> str:
+        data_dir = os.path.join(app_dir, "data")
+        if os.path.exists(data_dir) is False:
+            os.makedirs(data_dir)
+        return data_dir
 
     @staticmethod
     def _save_json(json, path):

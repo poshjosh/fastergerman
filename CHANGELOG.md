@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Highlight the correct answer so the user can know.
+- GameSession tests.
+
 ## [0.0.4] - 2025-03-11
 
 ### Added

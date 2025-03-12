@@ -28,30 +28,23 @@ CORRECT_BUTTON_STYLE = "Correct.TButton"
 class DesktopGameSession(GameSession):
     def __init__(self,
                  game_file: GameFile,
-                 game_counters: GameTimers,
                  questions: List[Question],
+                 game_timers: GameTimers,
                  handle_question: Callable[[Question], None]):
-        super().__init__(game_file, questions)
-        self.__game_counters = game_counters
+        super().__init__(game_file, questions, game_timers)
         self.__handle_question = handle_question
 
-    def get_countdown_timer(self) -> AbstractGameTimer:
-        return self.__game_counters.get_countdown_timer()
-
-    def get_next_ques_timer(self) -> AbstractGameTimer:
-        return self.__game_counters.get_next_ques_timer()
-    
     def handle_question(self, question: Question):
         self.__handle_question(question)
-        
+
     
 class DesktopGameUI(GameEventListener, GameTimers):
     def __init__(self, root, app_config: AppConfig):
         super().__init__()
         self.session = DesktopGameSession(
             GameFile(app_config.get_app_dir()),
-            self,
             FileQuestionsSource(app_config.get_questions_src()).load_questions()["preposition"],
+            self,
             self.handle_question)
         self.session.add_game_event_listener(self)
         app_name = app_config.get_app_name()
@@ -358,7 +351,10 @@ class DesktopGameUI(GameEventListener, GameTimers):
 
     def _create_next_ques_timer(self) -> AbstractGameTimer:
         timer = UIGameTimer(self.root, int(self.question_display_time_var.get()) * 1000)
-        timer.add_tick_listener(lambda _: self.session.next_question(False))
+        def trigger_wrong_answer_then_next_question():
+            self.session.handle_answer("")  # timeout -> no answer -> wrong answer
+            self.session.next_question(False)
+        timer.add_tick_listener(lambda _: trigger_wrong_answer_then_next_question())
         return timer
 
     def _update_settings(self, settings: Settings):
