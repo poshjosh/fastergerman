@@ -9,6 +9,28 @@ describe('Preposition trainer page settings', () => {
       })
     })
   })
+  it('shows error if out of range questions selected', () => {
+    const settings = {
+      "number_of_choices": 2,
+      "question_display_time": 2,
+      "max_consecutively_correct": 2,
+      // a number larger than the max available question usually less than 500.
+      // 999 is the max the input allows for now.
+      "start_at_question_number": 999,
+      "max_number_of_questions": 2,
+      "display_translation": false,
+    }
+    cy.visit(Paths.url(Paths.prepositionTrainer))
+    cy.setSettings(settings, () => {
+      cy.get("#action_update").should("exist").click().then(() => {
+        cy.get("#page_error").invoke("text").then(text => {
+          if (!text) {
+            throw new Error("Should have error. But found: " + text)
+          }
+        })
+      })
+    })
+  })
   it('is hidden on page load', () => {
     cy.visit(Paths.url(Paths.prepositionTrainer))
     cy.get("#settings").should("have.css", "display", "none")

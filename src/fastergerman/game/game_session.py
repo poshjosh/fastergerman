@@ -6,8 +6,7 @@ from datetime import datetime
 from enum import unique, Enum
 from typing import List
 
-from fastergerman.game import Question, Score, Settings, AbstractGameTimer, Game, GameFile
-from fastergerman.i18n import START_GAME_PROMPT, GAME_COMPLETED_MESSAGE, I18n, DEFAULT_LANGUAGE_CODE
+from fastergerman.game import Question, Score, Settings, AbstractGameStore, AbstractGameTimer, Game
 
 NO_GAME_NAME_SELECTION = "None"
 
@@ -48,7 +47,7 @@ class GameState(Enum):
 
 
 class BaseGameSession:
-    def __init__(self, game_file: GameFile, questions: List[Question]):
+    def __init__(self, game_store: AbstractGameStore, questions: List[Question]):
         self.__game_state = GameState.PENDING
         self.__previous_question: Question or None = None
         self.__previous_answer: str or None = None
@@ -56,29 +55,34 @@ class BaseGameSession:
         self.__current_answer: str or None = None
         self.__game_event_listeners = []
         self.__lock = threading.Lock()
-        self.__game_file = game_file
+        self.__game_store = game_store
         self.__questions = [q for q in questions]  # use a copy
-        self.__game: Game = self._create_new_game(questions=self.__questions)
+        self.__previous_game_score = None
+        self.__game: Game = self.create_new_game()
 
     def close(self):
         logger.debug("Closing session")
         # TODO - Implement this method to save the game. Don't forget to log.
         raise NotImplementedError("close must be implemented by subclasses")
 
-    def to_dict(self, lang_code: str) -> dict[str, any]:
+    def to_dict(self) -> dict[str, any]:
         game_names = self.get_game_names()
         game_to_load = self.get_game_to_load()
         if not game_to_load and len(game_names) > 0:
             game_to_load = game_names[0]
         return {
+            "is_pending": self.__game_state == GameState.PENDING,
             "is_running": self.__game_state == GameState.RUNNING,
+            "is_completed": self.__game_state == GameState.COMPLETED,
             "game_names": game_names,
             "game_to_load": game_to_load,
             "settings": self.__game.settings.to_dict(),
             "score": str(self.__game.score),
+            "previous_score_percent": self.__previous_game_score.to_percent() if self.__previous_game_score else None,
+            "previous_score": str(self.__previous_game_score) if self.__previous_game_score else None,
             "question": {
-                "current": self.to_ques_dict(lang_code, self.__current_question, self.__current_answer),
-                "previous": self.to_ques_dict(lang_code, self.__previous_question, self.__previous_answer)
+                "current": self.to_ques_dict(self.__current_question, self.__current_answer),
+                "previous": self.to_ques_dict(self.__previous_question, self.__previous_answer)
             },
             "questions_left": len(self.__game.questions)
         }
@@ -87,48 +91,32 @@ class BaseGameSession:
     def new_game_name():
         return f"Game_{datetime.today().strftime('%Y-%m-%d_%H%M%S')}"
 
-    def load_game(self, game_name: str or None, settings: Settings or None = None):
+    def load_game(self, game_name: str or None):
         if game_name == NO_GAME_NAME_SELECTION:
             game_name = None
 
-        if not game_name or self.__game_file.exists(game_name) is False:
-            self.__game = self._create_new_game(game_name, settings, self.__questions)
+        if not game_name or self.__game_store.exists(game_name) is False:
+            self.__game = self.create_new_game(game_name, self.__game.settings)
         else:
-            self.__game = self._load_existing_game(game_name, settings)
+            self.__game = self.load_existing_game(game_name)
 
         logger.debug(f"Loaded game: {game_name} = {self.__game}")
         [e.on_game_loaded(self.__game) for e in self.__game_event_listeners]
 
-    def update_settings_value(self, name: str, value: any):
-        """
-        Update the current game with the named setting.
-        Will reset the score.
-        :param name: The settings name
-        :param value: The settings value
-        :return: None
-        """
-        self.update_settings(self.__game.settings.with_value(name, value))
-
-    def update_settings(self, settings: Settings):
-        """
-        Update the current game with the provided settings.
-        Will reset the score.
-        :param settings: The settings
-        :return: None
-        """
-        self.__game = self.__game.with_settings(settings)
+    def save_game(self):
+        self.__game_store.save_game(self.__game)
+        [e.on_game_saved(self.__game) for e in self.__game_event_listeners]
 
     def save_game_as(self, game_name: str):
         self.__game = self.__game.with_name(game_name)
-        self.__game_file.save_game(self.__game)
-        [e.on_game_saved(self.__game) for e in self.__game_event_listeners]
+        self.save_game()
 
     def start_game(self):
         game_name = self.get_game_to_load()
         logger.debug("Starting game: %s", game_name)
         prev_state = self.__game_state
         self.__game_state = GameState.RUNNING
-        self.load_game(game_name, self.__game.settings)
+        self.load_game(game_name)
         if prev_state == GameState.PAUSED:
             [e.on_game_resumed(self.__game) for e in self.__game_event_listeners]
         else:
@@ -142,9 +130,9 @@ class BaseGameSession:
             self.__current_answer = answer
             self.__game = self.__game.on_question_answer(self.__current_question, answer)
             logger.debug(f"Handled answer: {answer}. Score -> before: {score_before}, after: {self.__game.score}")
-            self.__game_file.save_game(self.__game)
             [e.on_question_answered(self.__game, self.__current_question, answer)
              for e in self.__game_event_listeners]
+            self.save_game()
             return self.__current_question.is_answer(answer)
 
     def pause_game(self):
@@ -152,7 +140,6 @@ class BaseGameSession:
         self.__previous_question = None
         self.__previous_answer = None
         self.__game_state = GameState.PAUSED
-        # self.update_settings(self.__game.settings)
         [e.on_game_paused(self.__game) for e in self.__game_event_listeners]
 
     def add_game_event_listener(self, listener: GameEventListener):
@@ -186,34 +173,28 @@ class BaseGameSession:
         return self.__game_state == GameState.COMPLETED
 
     def get_game_to_load(self):
-        return self.__game_file.read_game_to_load()
+        return self.__game_store.read_game_to_load()
 
     def get_game_names(self) -> [str]:
-        return self.__game_file.get_game_names()
+        return self.__game_store.load_game_names()
 
     def get_max_questions(self) -> int:
         return len(self.__questions)
 
-    def _create_new_game(self,
-                         game_name: str or None = None,
-                         settings: Settings or None = None,
-                         questions: List[Question] or None = None) -> Game:
+    def create_new_game(self,
+                        game_name: str or None = None,
+                        settings: Settings or None = None) -> Game:
         if game_name is None:
             game_name = self.new_game_name()
         if settings is None:
             settings = Settings.of_dict({})
-        if questions is None:
-            questions = self.__questions
-        return Game(game_name, settings, questions, Score(0, 0)).sync_with_settings()
+        # use a copy of the questions, which match the settings
+        self.__game = Game(game_name, settings, settings.get_questions_from(self.__questions), Score(0, 0))
+        return self.__game
 
-    def _load_existing_game(self,
-                            game_name: str or None = None,
-                            settings: Settings or None = None) -> Game:
-        self.__game = self.__game_file.load_game(game_name)
-        if settings:
-            return self.__game.with_settings(settings)
-        else:
-            return self.__game.sync_with_settings()
+    def load_existing_game(self, game_name: str or None = None) -> Game:
+        self.__game = self.__game_store.load_game(game_name)
+        return self.__game
 
     def _next_question(self) -> Question or None:
         if self.is_running() is False:
@@ -224,11 +205,13 @@ class BaseGameSession:
             self.__game_state = GameState.COMPLETED
             [e.on_game_completed(self.__game) for e in self.__game_event_listeners]
 
+            self.__previous_game_score = self.__game.score
+
             # Delete game
-            self.__game_file.delete_game(self.__game.name)
+            self.__game_store.delete_game(self.__game.name)
 
             # Load default game, but start at next set of questions
-            self.load_game(NO_GAME_NAME_SELECTION, self.__game.settings.next())
+            self.create_new_game(NO_GAME_NAME_SELECTION, self.__game.settings.next())
             return None
 
         self.__previous_question = self.__current_question
@@ -253,29 +236,25 @@ class BaseGameSession:
                 break
         return next_question
 
-    def to_ques_dict(self, language_code, question: Question = None, answer: str = None) -> dict[str, str]:
-        translation = None
+    def to_ques_dict(self, question: Question = None, answer: str = None) -> dict[str, str]:
+        example = ""
+        translation = ""
         choices = []
-        correct_answer = None
+        correct_answer = ""
         answer_correct = None
-        if self.is_pending() is True:
-            example = I18n.translate(language_code, START_GAME_PROMPT)
-        elif self.is_completed() is False:
+        if self.is_running() is True or self.is_paused() is True:
             example = question.example if question else None
             if self.__game.settings.display_translation is True:
                 translation = question.translation if question else None
             choices = question.choices if question else []
             correct_answer = question.preposition if question else None
             answer_correct = question.is_answer(answer) is True if question else None
-        else:
-            example = I18n.translate(
-                language_code, GAME_COMPLETED_MESSAGE).format(self.__game.score.to_percent())
         return {"example": example, "translation": translation,
                 "choices": choices, "correct_answer": correct_answer,
                 "answer": answer, "answer_correct": answer_correct}
 
     def __str__(self):
-        return f"GameSession{self.to_dict(DEFAULT_LANGUAGE_CODE)}"
+        return f"GameSession{self.to_dict()}"
 
 
 class GameTimers(ABC):
@@ -289,8 +268,8 @@ class GameTimers(ABC):
 
 
 class GameSession(BaseGameSession):
-    def __init__(self, game_file: GameFile, questions: List[Question], game_timers: GameTimers):
-        super().__init__(game_file, questions)
+    def __init__(self, game_store: AbstractGameStore, questions: List[Question], game_timers: GameTimers):
+        super().__init__(game_store, questions)
         self.__game_timers = game_timers
 
     def handle_question(self, question: Question):
@@ -304,8 +283,8 @@ class GameSession(BaseGameSession):
     def get_next_ques_timer(self) -> AbstractGameTimer:
         return self.__game_timers.get_next_ques_timer()
 
-    def to_dict(self, lang_code: str) -> dict[str, any]:
-        data = super().to_dict(lang_code)
+    def to_dict(self) -> dict[str, any]:
+        data = super().to_dict()
         data["countdown"] = int(self.get_countdown_timer().get_time_left_millis() / 1000)
         data["end_time"] = self.get_countdown_timer().get_end_time_millis()
         return data
@@ -342,6 +321,3 @@ class GameSession(BaseGameSession):
 
         self.handle_question(question)
         return question
-
-    def handle_game_selection(self, game_name):
-        self.load_game(game_name, self.get_game().settings)

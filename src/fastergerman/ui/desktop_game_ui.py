@@ -6,7 +6,7 @@ from typing import List, Callable
 
 from fastergerman.config import AppConfig
 from fastergerman.game import Game, GameSession, Question, FileQuestionsSource, Settings, \
-    AbstractGameTimer, GameEventListener, GameFile
+    AbstractGameTimer, GameEventListener, FileGameStore, AbstractGameStore
 from fastergerman.game.game_session import NO_GAME_NAME_SELECTION, GameTimers
 from fastergerman.i18n import DEFAULT_LANGUAGE_CODE, I18n, SETTINGS, GAME_TO_LOAD, \
     QUESTION_DISPLAY_TIME_SECONDS, NUMBER_OF_CHOICES_PER_QUESTION, MAX_CONSECUTIVE_CORRECT_ANSWERS, \
@@ -27,11 +27,11 @@ CORRECT_BUTTON_STYLE = "Correct.TButton"
 
 class DesktopGameSession(GameSession):
     def __init__(self,
-                 game_file: GameFile,
+                 game_store: AbstractGameStore,
                  questions: List[Question],
                  game_timers: GameTimers,
                  handle_question: Callable[[Question], None]):
-        super().__init__(game_file, questions, game_timers)
+        super().__init__(game_store, questions, game_timers)
         self.__handle_question = handle_question
 
     def handle_question(self, question: Question):
@@ -42,7 +42,7 @@ class DesktopGameUI(GameEventListener, GameTimers):
     def __init__(self, root, app_config: AppConfig):
         super().__init__()
         self.session = DesktopGameSession(
-            GameFile(app_config.get_app_dir()),
+            FileGameStore.of_dir(app_config.get_app_dir()),
             FileQuestionsSource(app_config.get_questions_src()).load_questions()["preposition"],
             self,
             self.handle_question)
@@ -107,11 +107,12 @@ class DesktopGameUI(GameEventListener, GameTimers):
             self.game_to_load_combo.set(last_saved_game)
 
         def on_game_selected(_):
-            self.session.handle_game_selection(self.game_to_load_combo.get())
+            self.session.load_game(self.game_to_load_combo.get())
         self.game_to_load_combo.bind("<<ComboboxSelected>>", on_game_selected)
 
         def update_settings(name: str, value: any):
-            self.session.update_settings_value(name, value)
+            settings = self.session.get_game().settings.with_value(name, value)
+            self.session.create_new_game(self.session.get_game().name, settings)
 
         # Question display time setting
         self.question_display_time_var = tk.StringVar(
@@ -220,7 +221,7 @@ class DesktopGameUI(GameEventListener, GameTimers):
         self.timer_label.grid(row=5, column=2, sticky=tk.E, padx=PADDING_M)
 
         if self.session.get_game_to_load():
-            self.session.load_game(self.session.get_game_to_load(), game.settings)
+            self.session.load_game(self.session.get_game_to_load())
 
         self.countdown_timer = self._create_countdown_timer()
         self.next_ques_timer = self._create_next_ques_timer()

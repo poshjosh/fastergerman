@@ -8,7 +8,9 @@ import logging.config
 
 from werkzeug.exceptions import NotFound
 
-from fastergerman.i18n import I18n, UNEXPECTED_ERROR, NOT_FOUND
+from fastergerman import i18n
+from fastergerman.game.game import NoMoreQuestionsError
+from fastergerman.i18n import I18n, UNEXPECTED_ERROR, NOT_FOUND, NO_MORE_QUESTIONS
 from fastergerman.web import RequestData, ValidationError, WebApp
 from fastergerman.web.request_data import TRAINER
 
@@ -57,6 +59,12 @@ def handle_exception(_):
 @application.errorhandler(ValidationError)
 def handle_validation_error(e):
     return _handle_exception(e.message)
+
+@application.errorhandler(NoMoreQuestionsError)
+def handle_no_more_questions_error(e):
+    lang_code = RequestData.get_language_code(request)
+    message = I18n.translate(lang_code, NO_MORE_QUESTIONS, e.total, e.start, e.end)
+    return _handle_exception(message)
 
 @application.route('/health')
 def health():

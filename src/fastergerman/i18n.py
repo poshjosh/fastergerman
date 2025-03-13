@@ -2,12 +2,13 @@ DEFAULT_LANGUAGE_CODE="en"
 
 APP_SHORT_DESCRIPTION="app_short_description"
 DISPLAY_QUESTION_TRANSLATION = "display_translation"
-GAME_COMPLETED_MESSAGE = "Game completed. You scored {0} percent."
+GAME_COMPLETED_MESSAGE = "game_completed_message"
 GAME_TO_LOAD = "game_to_load"
 INVALID = "invalid"
 MAX_CONSECUTIVE_CORRECT_ANSWERS = "max_consecutively_correct"
 MAX_NUMBER_OF_QUESTIONS = "max_number_of_questions"
 NEW_GAME = "new_game"
+NO_MORE_QUESTIONS = "no_more_questions"
 NOT_FOUND = "not_found"
 NUMBER_OF_CHOICES_PER_QUESTION = "number_of_choices"
 PAUSE = "pause"
@@ -40,6 +41,7 @@ config = {
             MAX_CONSECUTIVE_CORRECT_ANSWERS: "Max consecutive correct answers",
             MAX_NUMBER_OF_QUESTIONS: "Max number of questions",
             NEW_GAME: "New game",
+            NO_MORE_QUESTIONS: "No more questions available from total: {}, for range: {} to {}",
             NOT_FOUND: "Not found",
             NUMBER_OF_CHOICES_PER_QUESTION: "Number of choices per question",
             PAUSE: "Pause",
@@ -73,6 +75,7 @@ config = {
             MAX_CONSECUTIVE_CORRECT_ANSWERS: "Max. aufeinanderfolgende richtige Antworten",
             MAX_NUMBER_OF_QUESTIONS: "Maximale Anzahl von Fragen",
             NEW_GAME: "Neues Spiel",
+            NO_MORE_QUESTIONS: "Keine weiter Fragen verfügbar von insgesamt: {}, für Bereich: {} bis {}",
             NOT_FOUND: "Nicht gefunden",
             NUMBER_OF_CHOICES_PER_QUESTION: "Anzahl der Auswahlmöglichkeiten pro Frage",
             PAUSE: "Pause",
@@ -145,9 +148,11 @@ class I18n:
         val = I18n.get_config(lang).get("translations", {}).get(key, None)
         if val:
             return str(val).format(*args) if args else val
-        else:
+        elif lang != DEFAULT_LANGUAGE_CODE:
             val = I18n.translate(DEFAULT_LANGUAGE_CODE, key, *args)
             return val if val else key
+        else:
+            raise ValueError(f"{lang} translation not found for key {key}")
 
     @staticmethod
     def get_dir(lang) -> str:

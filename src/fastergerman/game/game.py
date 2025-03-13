@@ -23,46 +23,12 @@ class Score:
     def __str__(self):
         return f"{self.success}/{self.total}"
 
-
-@dataclass(frozen=True)
-class Settings:
-    question_display_time: int = 30
-    number_of_choices: int = 3
-    max_consecutively_correct: int = 2
-    display_translation: bool = True
-    start_at_question_number: int = 0
-    max_number_of_questions: int = 20
-
-    @staticmethod
-    def of_dict(settings_dict: dict) -> 'Settings':
-        dt = settings_dict.get("display_translation", True)
-        return Settings(
-            int(settings_dict.get("question_display_time", 30)),
-            int(settings_dict.get("number_of_choices", 3)),
-            int(settings_dict.get("max_consecutively_correct", 2)),
-            dt.lower() == "true" if isinstance(dt, str) else bool(dt),
-            int(settings_dict.get("start_at_question_number", 0)),
-            int(settings_dict.get("max_number_of_questions", 20)))
-
-    def to_dict(self) -> dict[str, any]:
-        return asdict(self)
-
-    def with_value(self, key: str, value: any) -> 'Settings':
-        settings_dict = self.to_dict()
-        if key not in settings_dict:
-            raise ValueError(f"Invalid key {key}")
-        settings_dict[key] = value
-        return Settings.of_dict(settings_dict)
-
-    def next(self) -> 'Settings':
-        return Settings(
-            self.question_display_time,
-            self.number_of_choices,
-            self.max_consecutively_correct,
-            self.display_translation,
-            self.start_at_question_number + self.max_number_of_questions,
-            self.max_number_of_questions)
-
+class NoMoreQuestionsError(Exception):
+    def __init__(self, total, start, end, *args):
+        super().__init__(total, start, end, *args)
+        self.total = total
+        self.start = start
+        self.end = end
 
 @dataclass(frozen=True)
 class Question:
@@ -95,6 +61,57 @@ class Question:
     def is_answer(self, answer: str) -> bool:
         return answer == self.preposition
 
+
+@dataclass(frozen=True)
+class Settings:
+    question_display_time: int = 30
+    number_of_choices: int = 3
+    max_consecutively_correct: int = 2
+    display_translation: bool = True
+    start_at_question_number: int = 0
+    max_number_of_questions: int = 20
+
+    @staticmethod
+    def of_dict(settings_dict: dict) -> 'Settings':
+        dt = settings_dict.get("display_translation", True)
+        return Settings(
+            int(settings_dict.get("question_display_time", 30)),
+            int(settings_dict.get("number_of_choices", 3)),
+            int(settings_dict.get("max_consecutively_correct", 2)),
+            dt.lower() == "true" if isinstance(dt, str) else bool(dt),
+            int(settings_dict.get("start_at_question_number", 0)),
+            int(settings_dict.get("max_number_of_questions", 20)))
+
+    def to_dict(self) -> dict[str, any]:
+        return asdict(self)
+
+    def get_questions_from(self, questions: List) -> List:
+        first_question = self.start_at_question_number
+        max_questions = self.max_number_of_questions
+        number_of_ques = len(questions)
+        last_question = first_question + max_questions
+        if last_question > number_of_ques:
+            last_question = number_of_ques
+        result = questions[first_question:last_question]
+        if len(result) == 0:
+            raise NoMoreQuestionsError(number_of_ques, first_question, last_question)
+        return result
+
+    def with_value(self, key: str, value: any) -> 'Settings':
+        settings_dict = self.to_dict()
+        if key not in settings_dict:
+            raise ValueError(f"Invalid key {key}")
+        settings_dict[key] = value
+        return Settings.of_dict(settings_dict)
+
+    def next(self) -> 'Settings':
+        return Settings(
+            self.question_display_time,
+            self.number_of_choices,
+            self.max_consecutively_correct,
+            self.display_translation,
+            self.start_at_question_number + self.max_number_of_questions,
+            self.max_number_of_questions)
 
 @dataclass(frozen=True)
 class Game:
@@ -144,34 +161,6 @@ class Game:
             self.settings,
             self.questions,
             self.score)
-
-    def with_settings(self, settings: Settings) -> 'Game':
-        """
-        Update the game with the provided settings.
-        Will reset the score.
-        :param settings: The settings
-        :return: The updated game.
-        """
-        offset = settings.start_at_question_number
-        limit = settings.max_number_of_questions
-        return Game(
-            self.name,
-            settings,
-            self._get_questions(self.questions, offset, limit),
-            Score.of_dict({}))
-
-    def sync_with_settings(self) -> 'Game':
-        return self.with_settings(self.settings)
-
-    @staticmethod
-    def _get_questions(questions: List[Question], first_question: int = 0, max_questions: int = None) -> List[Question]:
-        number_of_ques = len(questions)
-        if max_questions is None:
-            max_questions = number_of_ques
-        last_question = first_question + max_questions
-        if last_question > number_of_ques:
-            last_question = number_of_ques
-        return questions[first_question:last_question]
 
     def __str__(self):
         data = self.to_dict()

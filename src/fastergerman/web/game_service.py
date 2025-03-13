@@ -5,8 +5,8 @@ from typing import List, Callable
 from werkzeug.exceptions import NotFound
 
 from fastergerman.game import GameSession, GameTimer, Settings, Question, AbstractGameTimer, \
-    GameFile, GameTimers
-from fastergerman.web import SESSION_ID, ACTION, LANG_CODE, GAME_SESSION
+    AbstractGameStore, GameTimers, FileGameStore
+from fastergerman.web import SESSION_ID, ACTION, GAME_SESSION
 from fastergerman.web.request_data import TRAINER
 
 logger = logging.getLogger(__name__)
@@ -31,8 +31,8 @@ class WebGameTimers(GameTimers):
 
 
 class WebGameSession(GameSession):
-    def __init__(self, game_file: GameFile, questions: List[Question]):
-        super().__init__(game_file, questions, WebGameTimers(self._get_question_display_time_millis))
+    def __init__(self, game_store: AbstractGameStore, questions: List[Question]):
+        super().__init__(game_store, questions, WebGameTimers(self._get_question_display_time_millis))
 
     def _get_question_display_time_millis(self) -> int:
         return self.get_game().settings.question_display_time * 1000
@@ -54,10 +54,10 @@ class GameService:
 
     def _create_session(self, session_id: str, trainer: str) -> GameSession:
         key = self._to_session_key(session_id, trainer)
-        game_file = GameFile(os.path.join(self.__app_dir, session_id))
+        game_store = FileGameStore.of_dir(os.path.join(self.__app_dir, session_id))
         if trainer not in self.__questions.keys():
             raise NotFound(f"Trainer not found: {trainer}")
-        self.__game_sessions[key] = WebGameSession(game_file, self.__questions[trainer])
+        self.__game_sessions[key] = WebGameSession(game_store, self.__questions[trainer])
         return self.__game_sessions[key]
 
     def _get_or_create_session(self, session_id: str, trainer: str) -> GameSession:
@@ -89,18 +89,18 @@ class GameService:
         elif action == "update":
             self._update(config, game_session)
 
-        config[GAME_SESSION] = game_session.to_dict(config[LANG_CODE])
+        config[GAME_SESSION] = game_session.to_dict()
         logger.debug("%s", game_session)
 
         return config
 
     @staticmethod
     def _update(config: dict[str, any], game_session: GameSession):
-        game_to_load = config.get("game_to_load")
+        game_to_load = config.get("game_to_load",game_session.get_game().name)
         save_game_as = config.get("save_game_as", game_to_load)
         logger.debug("Game to load: %s, Save game as: %s", game_to_load, save_game_as)
 
-        game_session.load_game(game_to_load, Settings.of_dict(config))
+        game_session.create_new_game(game_to_load, Settings.of_dict(config))
 
         if save_game_as:
             game_session.save_game_as(save_game_as)

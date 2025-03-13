@@ -37,6 +37,20 @@ describe('Preposition trainer page game session', () => {
       })
     })
   })
+  it('displays question text when pause is clicked', () => {
+    cy.visit(Paths.url(Paths.prepositionTrainer))
+    cy.get("#game_session_question").should("exist").then(questionElement => {
+      const startPrompt = questionElement.text();
+      cy.get("#action_start").should("exist").click().then(() => {
+        cy.hasTextIgnoreSpace("#game_session_question")
+        cy.get("#game_session_question").should("not.have.text", startPrompt)
+        cy.get("#action_pause").should("exist").click().then(() => {
+          cy.hasTextIgnoreSpace("#game_session_question")
+          cy.get("#game_session_question").should("not.have.text", startPrompt)
+        })
+      })
+    })
+  })
   it('displays question options when start is clicked', () => {
     cy.visit(Paths.url(Paths.prepositionTrainer))
     cy.get("#action_start").should("exist").click().then(() => {
@@ -86,7 +100,6 @@ describe('Preposition trainer page game session', () => {
   })
   it('displays a message when an answer is selected', () => {
     cy.visit(Paths.url(Paths.prepositionTrainer))
-    cy.hasNoTextIgnoreSpace("#game_session_previous_answer_message")
     cy.get("#action_start").should("exist").click().then(() => {
       cy.hasNoTextIgnoreSpace("#game_session_previous_answer_message")
       cy.get('[name="answer"]').first().should("exist").click().then(() => {
@@ -94,12 +107,12 @@ describe('Preposition trainer page game session', () => {
       })
     })
   })
-  // it('displays a success message when the correct answer is selected', () => {
-  //   cy.log("We currently have no way of telling if the answer we selected is correct or not")
-  // })
-  // it('displays an error message when the correct answer is selected', () => {
-  //   cy.log("We currently have no way of telling if the answer we selected is correct or not")
-  // })
+  it('displays a success message when the correct answer is selected', () => {
+    cy.log("TODO - we currently have no way of telling if the answer we selected is correct or not")
+  })
+  it('displays an error message when the correct answer is selected', () => {
+    cy.log("TODO - we currently have no way of telling if the answer we selected is correct or not")
+  })
   //@PossibleFlakyTest("Probability of displaying the same question twice depends on the number of available questions")
   it('displays a different question when an answer is selected', () => {
     cy.visit(Paths.url(Paths.prepositionTrainer))
@@ -130,6 +143,11 @@ describe('Preposition trainer page game session', () => {
     nextTextShouldBeDifferentOnTrigger("#game_session_score", () => {
       return cy.wait((questionDisplayTime + 1) * 1000)
     })
+  })
+  it('displays the right score at the end of the game', () => {
+    cy.log(
+      "TODO - we have no way of selecting the right answers to lead to game end" +
+      "Randomly selecting answers is quite cumbersome giving cypress' async nature")
   })
   it('displays a reset countdown when an answer is selected', () => {
     cy.visit(Paths.url(Paths.prepositionTrainer))

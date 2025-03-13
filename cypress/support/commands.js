@@ -39,8 +39,7 @@ Cypress.Commands.add('hasNoTextIgnoreSpace', selector => {
     }
   })
 })
-Cypress.Commands.add('updateSettings', settings => {
-  cy.visit(Paths.url(Paths.prepositionTrainer))
+Cypress.Commands.add('setSettings', (settings, afterSet) => {
   cy.get("#settings_tab").should("exist").click().then(() => {
     for (let key in settings) {
       const val = settings[key]
@@ -51,6 +50,12 @@ Cypress.Commands.add('updateSettings', settings => {
       }
     }
     cy.get("#save_game_as").should("exist").type("TestGame_" + Date.now().toString())
+    if (afterSet) afterSet()
+  })
+})
+Cypress.Commands.add('updateSettings', settings => {
+  cy.visit(Paths.url(Paths.prepositionTrainer))
+  cy.setSettings(settings, () => {
     cy.get("#action_update").should("exist").click().then(() => {
       cy.get("#page_error").invoke("text").then(text => {
         if (text) {

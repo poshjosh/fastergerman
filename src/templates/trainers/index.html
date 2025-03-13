@@ -19,7 +19,11 @@
         <p id="game_session_message">
             <span class="left">
                 <span id="game_session_previous_answer_message">
-                    {% if game_session.is_running == true %}
+                    {% if game_session.is_pending == true %}
+                        {{ i18n.t.start_game_prompt }}
+                    {% elif game_session.is_completed == true %}
+                        {{ i18n.t.game_completed_message.format(game_session.previous_score_percent) }} ({{ game_session.previous_score }})
+                    {% elif game_session.is_running == true %}
                         {% if game_session.question.previous.answer_correct == true %}
                             &emsp;&#9989
                         {% elif game_session.question.previous.answer_correct == false %}
@@ -30,7 +34,9 @@
             </span>
             &emsp;
             <span class="right">
-                {{ i18n.t.time }}: <span id="game_session_countdown">{{ game_session.countdown }}</span>
+                {% if game_session.is_completed == false %}
+                    {{ i18n.t.time }}: <span id="game_session_countdown">{{ game_session.countdown }}</span>
+                {% endif %}
             </span>
         </p>
         <div id="game_session_question">
