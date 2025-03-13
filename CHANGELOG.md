@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Highlight the correct answer so the user can know.
 - GameSession tests.
 
+## [0.0.5] - 2025-03-13
+
+## Fixed
+
+- Fix bug where game score resets to zero, when game is resumed after pause.
+
 ## [0.0.4] - 2025-03-11
 
 ### Added
