@@ -3,22 +3,6 @@
   "description": "German verbs",
   "questions": [
     {
-      "verb": "heißen",
-      "example": "Wie ___ du?",
-      "translation": "What is your name?",
-      "choices": ["heiße", "heißt", "heißen", "heißst"],
-      "answer": "heißt",
-      "level": "A1"
-    },
-    {
-      "verb": "sein",
-      "example": "Ich ___ ein Student.",
-      "translation": "I am a student.",
-      "choices": ["bist", "sind", "ist", "sein"],
-      "answer": "bin",
-      "level": "A1"
-    },
-    {
       "verb": "haben",
       "example": "Ich ___ ein Auto.",
       "translation": "I have a car.",
@@ -99,22 +83,6 @@
       "level": "A1"
     },
     {
-      "verb": "sein",
-      "example": "Ich ___ ein Student.",
-      "translation": "I am a student.",
-      "choices": ["bist", "sind", "ist", "bin"],
-      "answer": "bin",
-      "level": "A1"
-    },
-    {
-      "verb": "haben",
-      "example": "Er ___ viele Bücher.",
-      "translation": "He has many books.",
-      "choices": ["habe", "hat", "haben", "habt"],
-      "answer": "hat",
-      "level": "A1"
-    },
-    {
       "verb": "machen",
       "example": "Was ___ du am Wochenende?",
       "translation": "What do you do on the weekend?",
@@ -185,6 +153,710 @@
       "choices": ["beeinflusse", "beeinflusst", "beeinflussen", "beeinflusstest"],
       "answer": "beeinflussen",
       "level": "C2"
+    },
+    {
+      "verb": "sein",
+      "example": "Ich ___ ein Student.",
+      "translation": "I am a student.",
+      "choices": ["bin", "bist", "ist", "sind"],
+      "answer": "bin",
+      "level": "A1"
+    },
+    {
+      "verb": "haben",
+      "example": "Sie ___ ein neues Auto.",
+      "translation": "She has a new car.",
+      "choices": ["hast", "hat", "haben", "habt"],
+      "answer": "hat",
+      "level": "A1"
+    },
+    {
+      "verb": "werden",
+      "example": "Er ___ nächstes Jahr Arzt.",
+      "translation": "He will become a doctor next year.",
+      "choices": ["wird", "werde", "werden", "wirst"],
+      "answer": "wird",
+      "level": "A1"
+    },
+    {
+      "verb": "können",
+      "example": "Ich ___ gut schwimmen.",
+      "translation": "I can swim well.",
+      "choices": ["kann", "kannst", "können", "könnt"],
+      "answer": "kann",
+      "level": "A1"
+    },
+    {
+      "verb": "müssen",
+      "example": "Wir ___ jetzt gehen.",
+      "translation": "We must go now.",
+      "choices": ["müssen", "musst", "muss", "müsst"],
+      "answer": "müssen",
+      "level": "A1"
+    },
+    {
+      "verb": "gehen",
+      "example": "Die Kinder ___ zur Schule.",
+      "translation": "The children go to school.",
+      "choices": ["gehe", "gehst", "geht", "gehen"],
+      "answer": "gehen",
+      "level": "A1"
+    },
+    {
+      "verb": "sagen",
+      "example": "Er ___ immer die Wahrheit.",
+      "translation": "He always tells the truth.",
+      "choices": ["sage", "sagst", "sagt", "sagen"],
+      "answer": "sagt",
+      "level": "A1"
+    },
+    {
+      "verb": "machen",
+      "example": "Was ___ ihr am Wochenende?",
+      "translation": "What are you doing on the weekend?",
+      "choices": ["macht", "machen", "machst", "mache"],
+      "answer": "macht",
+      "level": "A1"
+    },
+    {
+      "verb": "geben",
+      "example": "Er ___ mir ein Geschenk.",
+      "translation": "He gives me a gift.",
+      "choices": ["gibt", "gebe", "gibst", "geben"],
+      "answer": "gibt",
+      "level": "A1"
+    },
+    {
+      "verb": "wissen",
+      "example": "Ich ___ nicht, wo der Schlüssel ist.",
+      "translation": "I don't know where the key is.",
+      "choices": ["weiß", "weißt", "wissen", "wisst"],
+      "answer": "weiß",
+      "level": "A1"
+    },
+    {
+      "verb": "sehen",
+      "example": "Wir ___ einen Film.",
+      "translation": "We are watching a movie.",
+      "choices": ["sehen", "siehst", "sieht", "seht"],
+      "answer": "sehen",
+      "level": "A1"
+    },
+    {
+      "verb": "wollen",
+      "example": "Er ___ nach Berlin reisen.",
+      "translation": "He wants to travel to Berlin.",
+      "choices": ["will", "willst", "wollt", "wollen"],
+      "answer": "will",
+      "level": "A1"
+    },
+    {
+      "verb": "finden",
+      "example": "Ich ___ das Buch sehr interessant.",
+      "translation": "I find the book very interesting.",
+      "choices": ["finde", "findest", "findet", "finden"],
+      "answer": "finde",
+      "level": "A1"
+    },
+    {
+      "verb": "bleiben",
+      "example": "Er ___ zu Hause.",
+      "translation": "He stays at home.",
+      "choices": ["bleibt", "bleibe", "bleibst", "bleiben"],
+      "answer": "bleibt",
+      "level": "A1"
+    },
+    {
+      "verb": "stehen",
+      "example": "Das Auto ___ vor dem Haus.",
+      "translation": "The car is standing in front of the house.",
+      "choices": ["steht", "stehe", "stehst", "stehen"],
+      "answer": "steht",
+      "level": "A1"
+    },
+    {
+      "verb": "nehmen",
+      "example": "Ich ___ den Bus zur Arbeit.",
+      "translation": "I take the bus to work.",
+      "choices": ["nehme", "nimmst", "nimmt", "nehmen"],
+      "answer": "nehme",
+      "level": "A1"
+    },
+    {
+      "verb": "sprechen",
+      "example": "Du ___ sehr gut Deutsch.",
+      "translation": "You speak German very well.",
+      "choices": ["sprichst", "spreche", "spricht", "sprechen"],
+      "answer": "sprichst",
+      "level": "A1"
+    },
+    {
+      "verb": "bringen",
+      "example": "Wer ___ die Kinder zur Schule?",
+      "translation": "Who brings the children to school?",
+      "choices": ["bringt", "bringe", "bringst", "bringen"],
+      "answer": "bringt",
+      "level": "A2"
+    },
+    {
+      "verb": "fahren",
+      "example": "Wir ___ morgen in den Urlaub.",
+      "translation": "We are going on vacation tomorrow.",
+      "choices": ["fahren", "fährst", "fährt", "fahrt"],
+      "answer": "fahren",
+      "level": "A2"
+    },
+    {
+      "verb": "schreiben",
+      "example": "Sie ___ einen Brief an ihre Großmutter.",
+      "translation": "She is writing a letter to her grandmother.",
+      "choices": ["schreibt", "schreibe", "schreibst", "schreiben"],
+      "answer": "schreibt",
+      "level": "A2"
+    },
+    {
+      "verb": "spielen",
+      "example": "Die Kinder ___ im Garten Fußball.",
+      "translation": "The children are playing soccer in the garden.",
+      "choices": ["spielen", "spielt", "spielst", "spiele"],
+      "answer": "spielen",
+      "level": "A2"
+    },
+    {
+      "verb": "lesen",
+      "example": "Er ___ jeden Abend ein Buch.",
+      "translation": "He reads a book every evening.",
+      "choices": ["liest", "lese", "lest", "lesen"],
+      "answer": "liest",
+      "level": "A2"
+    },
+    {
+      "verb": "denken",
+      "example": "Ich ___ oft an dich.",
+      "translation": "I often think of you.",
+      "choices": ["denke", "denkst", "denkt", "denken"],
+      "answer": "denke",
+      "level": "A2"
+    },
+    {
+      "verb": "lassen",
+      "example": "Er ___ seine Tasche im Büro.",
+      "translation": "He leaves his bag in the office.",
+      "choices": ["lässt", "lasse", "lässt", "lassen"],
+      "answer": "lässt",
+      "level": "A2"
+    },
+    {
+      "verb": "arbeiten",
+      "example": "Meine Eltern ___ in einer Bank.",
+      "translation": "My parents work in a bank.",
+      "choices": ["arbeiten", "arbeite", "arbeitest", "arbeitet"],
+      "answer": "arbeiten",
+      "level": "A2"
+    },
+    {
+      "verb": "glauben",
+      "example": "Ich ___ dir nicht.",
+      "translation": "I don't believe you.",
+      "choices": ["glaube", "glaubst", "glaubt", "glauben"],
+      "answer": "glaube",
+      "level": "A2"
+    },
+    {
+      "verb": "leben",
+      "example": "Sie ___ seit drei Jahren in Berlin.",
+      "translation": "She has been living in Berlin for three years.",
+      "choices": ["lebt", "lebe", "lebst", "leben"],
+      "answer": "lebt",
+      "level": "A2"
+    },
+    {
+      "verb": "heißen",
+      "example": "Wie ___ du?",
+      "translation": "What is your name?",
+      "choices": ["heißt", "heiße", "heißen", "heißt"],
+      "answer": "heißt",
+      "level": "A2"
+    },
+    {
+      "verb": "stellen",
+      "example": "Ich ___ die Flasche auf den Tisch.",
+      "translation": "I put the bottle on the table.",
+      "choices": ["stelle", "stellst", "stellt", "stellen"],
+      "answer": "stelle",
+      "level": "A2"
+    },
+    {
+      "verb": "verstehen",
+      "example": "Er ___ die Aufgabe nicht.",
+      "translation": "He doesn't understand the task.",
+      "choices": ["versteht", "verstehe", "verstehst", "verstehen"],
+      "answer": "versteht",
+      "level": "A2"
+    },
+    {
+      "verb": "liegen",
+      "example": "Das Buch ___ auf dem Tisch.",
+      "translation": "The book is lying on the table.",
+      "choices": ["liegt", "liege", "liegst", "liegen"],
+      "answer": "liegt",
+      "level": "A2"
+    },
+    {
+      "verb": "hören",
+      "example": "Ich ___ gerne Musik.",
+      "translation": "I like listening to music.",
+      "choices": ["höre", "hörst", "hört", "hören"],
+      "answer": "höre",
+      "level": "A2"
+    },
+    {
+      "verb": "beginnen",
+      "example": "Der Film ___ um 20 Uhr.",
+      "translation": "The movie begins at 8 PM.",
+      "choices": ["beginnt", "beginne", "beginnst", "beginnen"],
+      "answer": "beginnt",
+      "level": "A2"
+    },
+    {
+      "verb": "helfen",
+      "example": "Ich ___ meiner Mutter in der Küche.",
+      "translation": "I help my mother in the kitchen.",
+      "choices": ["helfe", "hilfst", "hilft", "helfen"],
+      "answer": "helfe",
+      "level": "A2"
+    },
+    {
+      "verb": "kennen",
+      "example": "Wir ___ uns seit der Schule.",
+      "translation": "We have known each other since school.",
+      "choices": ["kennen", "kenne", "kennst", "kennt"],
+      "answer": "kennen",
+      "level": "B1"
+    },
+    {
+      "verb": "zeigen",
+      "example": "Er ___ mir seinen neuen Computer.",
+      "translation": "He shows me his new computer.",
+      "choices": ["zeigt", "zeige", "zeigst", "zeigen"],
+      "answer": "zeigt",
+      "level": "B1"
+    },
+    {
+      "verb": "führen",
+      "example": "Der Chef ___ das Unternehmen seit 10 Jahren.",
+      "translation": "The boss has been leading the company for 10 years.",
+      "choices": ["führt", "führe", "führst", "führen"],
+      "answer": "führt",
+      "level": "B1"
+    },
+    {
+      "verb": "halten",
+      "example": "Ich ___ einen Vortrag über Umweltschutz.",
+      "translation": "I am giving a lecture about environmental protection.",
+      "choices": ["halte", "hältst", "hält", "halten"],
+      "answer": "halte",
+      "level": "B1"
+    },
+    {
+      "verb": "tragen",
+      "example": "Sie ___ ein rotes Kleid.",
+      "translation": "She is wearing a red dress.",
+      "choices": ["trägt", "trage", "trägst", "tragen"],
+      "answer": "trägt",
+      "level": "B1"
+    },
+    {
+      "verb": "treffen",
+      "example": "Wir ___ uns morgen im Café.",
+      "translation": "We are meeting tomorrow at the café.",
+      "choices": ["treffen", "trifft", "triffst", "treffe"],
+      "answer": "treffen",
+      "level": "B1"
+    },
+    {
+      "verb": "sitzen",
+      "example": "Die Studenten ___ in der Bibliothek.",
+      "translation": "The students are sitting in the library.",
+      "choices": ["sitzen", "sitzt", "sitze", "sitzst"],
+      "answer": "sitzen",
+      "level": "B1"
+    },
+    {
+      "verb": "entwickeln",
+      "example": "Das Unternehmen ___ neue Technologien.",
+      "translation": "The company develops new technologies.",
+      "choices": ["entwickelt", "entwickle", "entwickelst", "entwickeln"],
+      "answer": "entwickelt",
+      "level": "B1"
+    },
+    {
+      "verb": "erklären",
+      "example": "Der Lehrer ___ die Grammatik.",
+      "translation": "The teacher explains the grammar.",
+      "choices": ["erklärt", "erkläre", "erklärst", "erklären"],
+      "answer": "erklärt",
+      "level": "B1"
+    },
+    {
+      "verb": "lernen",
+      "example": "Die Studenten ___ für die Prüfung.",
+      "translation": "The students are studying for the exam.",
+      "choices": ["lernen", "lerne", "lernst", "lernt"],
+      "answer": "lernen",
+      "level": "B1"
+    },
+    {
+      "verb": "erhalten",
+      "example": "Ich ___ jeden Tag viele E-Mails.",
+      "translation": "I receive many emails every day.",
+      "choices": ["erhalte", "erhältst", "erhält", "erhalten"],
+      "answer": "erhalte",
+      "level": "B1"
+    },
+    {
+      "verb": "erreichen",
+      "example": "Wir ___ das Ziel vor Sonnenuntergang.",
+      "translation": "We reach the destination before sunset.",
+      "choices": ["erreichen", "erreiche", "erreichst", "erreicht"],
+      "answer": "erreichen",
+      "level": "B1"
+    },
+    {
+      "verb": "verlieren",
+      "example": "Er ___ oft seinen Schlüssel.",
+      "translation": "He often loses his key.",
+      "choices": ["verliert", "verliere", "verlierst", "verlieren"],
+      "answer": "verliert",
+      "level": "B1"
+    },
+    {
+      "verb": "erfahren",
+      "example": "Wir ___ die Nachricht gestern.",
+      "translation": "We learned the news yesterday.",
+      "choices": ["erfuhren", "erfuhr", "erfahrt", "erfahren"],
+      "answer": "erfuhren",
+      "level": "B1"
+    },
+    {
+      "verb": "schaffen",
+      "example": "Ich ___ es nicht rechtzeitig zur Besprechung.",
+      "translation": "I won't make it to the meeting on time.",
+      "choices": ["schaffe", "schaffst", "schafft", "schaffen"],
+      "answer": "schaffe",
+      "level": "B1"
+    },
+    {
+      "verb": "vergessen",
+      "example": "Er ___ oft seine Hausaufgaben.",
+      "translation": "He often forgets his homework.",
+      "choices": ["vergisst", "vergesse", "vergisst", "vergessen"],
+      "answer": "vergisst",
+      "level": "B1"
+    },
+    {
+      "verb": "gehören",
+      "example": "Wem ___ dieses Buch?",
+      "translation": "Who does this book belong to?",
+      "choices": ["gehört", "gehöre", "gehörst", "gehören"],
+      "answer": "gehört",
+      "level": "B1"
+    },
+    {
+      "verb": "folgen",
+      "example": "Die Kinder ___ ihrer Mutter in den Supermarkt.",
+      "translation": "The children follow their mother to the supermarket.",
+      "choices": ["folgen", "folge", "folgst", "folgt"],
+      "answer": "folgen",
+      "level": "B1"
+    },
+    {
+      "verb": "entscheiden",
+      "example": "Wir ___ uns für den günstigeren Tarif.",
+      "translation": "We decide on the cheaper rate.",
+      "choices": ["entscheiden", "entscheide", "entscheidest", "entscheidet"],
+      "answer": "entscheiden",
+      "level": "B2"
+    },
+    {
+      "verb": "betrachten",
+      "example": "Er ___ das Kunstwerk aufmerksam.",
+      "translation": "He observes the artwork attentively.",
+      "choices": ["betrachtet", "betrachte", "betrachtest", "betrachten"],
+      "answer": "betrachtet",
+      "level": "B2"
+    },
+    {
+      "verb": "bestehen",
+      "example": "Sie ___ auf einer sofortigen Entschuldigung.",
+      "translation": "She insists on an immediate apology.",
+      "choices": ["besteht", "bestehe", "bestehst", "bestehen"],
+      "answer": "besteht",
+      "level": "B2"
+    },
+    {
+      "verb": "erscheinen",
+      "example": "Sein neues Buch ___ nächsten Monat.",
+      "translation": "His new book will appear next month.",
+      "choices": ["erscheint", "erscheine", "erscheinst", "erscheinen"],
+      "answer": "erscheint",
+      "level": "B2"
+    },
+    {
+      "verb": "versuchen",
+      "example": "Ich ___ seit Wochen, ihn zu erreichen.",
+      "translation": "I have been trying to reach him for weeks.",
+      "choices": ["versuche", "versuchst", "versucht", "versuchen"],
+      "answer": "versuche",
+      "level": "B2"
+    },
+    {
+      "verb": "umgehen",
+      "example": "Er ___ geschickt mit schwierigen Situationen.",
+      "translation": "He deals skillfully with difficult situations.",
+      "choices": ["geht um", "gehe um", "gehst um", "gehen um"],
+      "answer": "geht um",
+      "level": "B2"
+    },
+    {
+      "verb": "darstellen",
+      "example": "Diese Grafik ___ die Entwicklung der letzten zehn Jahre.",
+      "translation": "This graphic represents the development of the last ten years.",
+      "choices": ["stellt dar", "stelle dar", "stellst dar", "stellen dar"],
+      "answer": "stellt dar",
+      "level": "B2"
+    },
+    {
+      "verb": "betreffen",
+      "example": "Diese Änderung ___ alle Mitarbeiter.",
+      "translation": "This change affects all employees.",
+      "choices": ["betrifft", "betreffe", "betriffst", "betreffen"],
+      "answer": "betrifft",
+      "level": "B2"
+    },
+    {
+      "verb": "aufnehmen",
+      "example": "Die Universität ___ jedes Jahr tausende neue Studenten.",
+      "translation": "The university admits thousands of new students every year.",
+      "choices": ["nimmt auf", "nehme auf", "nimmst auf", "nehmen auf"],
+      "answer": "nimmt auf",
+      "level": "B2"
+    },
+    {
+      "verb": "übernehmen",
+      "example": "Er ___ die Verantwortung für das Projekt.",
+      "translation": "He takes over responsibility for the project.",
+      "choices": ["übernimmt", "übernehme", "übernimmst", "übernehmen"],
+      "answer": "übernimmt",
+      "level": "B2"
+    },
+    {
+      "verb": "anbieten",
+      "example": "Die Firma ___ gute Karrieremöglichkeiten.",
+      "translation": "The company offers good career opportunities.",
+      "choices": ["bietet an", "biete an", "bietest an", "bieten an"],
+      "answer": "bietet an",
+      "level": "B2"
+    },
+    {
+      "verb": "ausgehen",
+      "example": "Wir ___ davon aus, dass er pünktlich sein wird.",
+      "translation": "We assume that he will be on time.",
+      "choices": ["gehen aus", "gehe aus", "gehst aus", "geht aus"],
+      "answer": "gehen aus",
+      "level": "B2"
+    },
+    {
+      "verb": "bedeuten",
+      "example": "Was ___ dieses Symbol?",
+      "translation": "What does this symbol mean?",
+      "choices": ["bedeutet", "bedeute", "bedeutest", "bedeuten"],
+      "answer": "bedeutet",
+      "level": "B2"
+    },
+    {
+      "verb": "ändern",
+      "example": "Wir ___ unsere Pläne wegen des schlechten Wetters.",
+      "translation": "We are changing our plans because of the bad weather.",
+      "choices": ["ändern", "ändere", "änderst", "ändert"],
+      "answer": "ändern",
+      "level": "B2"
+    },
+    {
+      "verb": "auftreten",
+      "example": "Die Band ___ morgen Abend im Stadion.",
+      "translation": "The band will perform tomorrow evening at the stadium.",
+      "choices": ["tritt auf", "trete auf", "trittst auf", "treten auf"],
+      "answer": "tritt auf",
+      "level": "B2"
+    },
+    {
+      "verb": "erwarten",
+      "example": "Wir ___ eine Antwort innerhalb einer Woche.",
+      "translation": "We expect an answer within a week.",
+      "choices": ["erwarten", "erwarte", "erwartest", "erwartet"],
+      "answer": "erwarten",
+      "level": "B2"
+    },
+    {
+      "verb": "verfügen",
+      "example": "Das Hotel ___ über einen Swimmingpool.",
+      "translation": "The hotel has a swimming pool.",
+      "choices": ["verfügt", "verfüge", "verfügst", "verfügen"],
+      "answer": "verfügt",
+      "level": "B2"
+    },
+    {
+      "verb": "einsetzen",
+      "example": "Die Firma ___ neue Technologien zur Verbesserung der Produktivität.",
+      "translation": "The company implements new technologies to improve productivity.",
+      "choices": ["setzt ein", "setze ein", "setzt ein", "setzen ein"],
+      "answer": "setzt ein",
+      "level": "B2"
+    },
+    {
+      "verb": "ausdrücken",
+      "example": "Der Künstler ___ seine Gefühle durch Malerei.",
+      "translation": "The artist expresses his feelings through painting.",
+      "choices": ["drückt aus", "drücke aus", "drückst aus", "drücken aus"],
+      "answer": "drückt aus",
+      "level": "B2"
+    },
+    {
+      "verb": "bewegen",
+      "example": "Was ___ dich dazu, diesen Job anzunehmen?",
+      "translation": "What motivates you to take this job?",
+      "choices": ["bewegt", "bewege", "bewegst", "bewegen"],
+      "answer": "bewegt",
+      "level": "C1"
+    },
+    {
+      "verb": "beziehen",
+      "example": "Die Wissenschaftler ___ sich auf frühere Studien.",
+      "translation": "The scientists refer to previous studies.",
+      "choices": ["beziehen", "beziehe", "beziehst", "bezieht"],
+      "answer": "beziehen",
+      "level": "C1"
+    },
+    {
+      "verb": "verändern",
+      "example": "Digitale Technologien ___ unsere Arbeitsweise grundlegend.",
+      "translation": "Digital technologies fundamentally change our way of working.",
+      "choices": ["verändern", "verändere", "veränderst", "verändert"],
+      "answer": "verändern",
+      "level": "C1"
+    },
+    {
+      "verb": "beweisen",
+      "example": "Der Anwalt ___ die Unschuld seines Mandanten.",
+      "translation": "The lawyer proves his client's innocence.",
+      "choices": ["beweist", "beweise", "beweisen", "beweist"],
+      "answer": "beweist",
+      "level": "C1"
+    },
+    {
+      "verb": "vermeiden",
+      "example": "Wir sollten es ___, zu spät zu kommen.",
+      "translation": "We should avoid being late.",
+      "choices": ["vermeiden", "vermeide", "vermeidest", "vermeidet"],
+      "answer": "vermeiden",
+      "level": "C1"
+    },
+    {
+      "verb": "erfolgen",
+      "example": "Die Zahlung ___ automatisch am Monatsende.",
+      "translation": "The payment is made automatically at the end of the month.",
+      "choices": ["erfolgt", "erfolge", "erfolgst", "erfolgen"],
+      "answer": "erfolgt",
+      "level": "C1"
+    },
+    {
+      "verb": "aufweisen",
+      "example": "Das Gebäude ___ zahlreiche architektonische Besonderheiten.",
+      "translation": "The building exhibits numerous architectural features.",
+      "choices": ["weist auf", "weise auf", "weist auf", "weisen auf"],
+      "answer": "weist auf",
+      "level": "C1"
+    },
+    {
+      "verb": "vorliegen",
+      "example": "Dem Gericht ___ neue Beweise.",
+      "translation": "New evidence is available to the court.",
+      "choices": ["liegen vor", "liegt vor", "liegst vor", "liege vor"],
+      "answer": "liegen vor",
+      "level": "C1"
+    },
+    {
+      "verb": "widerspiegeln",
+      "example": "Seine Kunst ___ die gesellschaftlichen Probleme seiner Zeit.",
+      "translation": "His art reflects the social problems of his time.",
+      "choices": ["spiegelt wider", "spiegele wider", "spiegelst wider", "spiegeln wider"],
+      "answer": "spiegelt wider",
+      "level": "C1"
+    },
+    {
+      "verb": "entsprechen",
+      "example": "Seine Leistung ___ nicht den Erwartungen.",
+      "translation": "His performance does not meet the expectations.",
+      "choices": ["entspricht", "entspreche", "entsprichst", "entsprechen"],
+      "answer": "entspricht",
+      "level": "C1"
+    },
+    {
+      "verb": "abschließen",
+      "example": "Wir ___ die Verhandlungen erfolgreich.",
+      "translation": "We conclude the negotiations successfully.",
+      "choices": ["schließen ab", "schließe ab", "schließt ab", "schließen ab"],
+      "answer": "schließen ab",
+      "level": "C1"
+    },
+    {
+      "verb": "berücksichtigen",
+      "example": "Der Ausschuss ___ alle eingereichten Vorschläge.",
+      "translation": "The committee considers all submitted proposals.",
+      "choices": ["berücksichtigt", "berücksichtige", "berücksichtigst", "berücksichtigen"],
+      "answer": "berücksichtigt",
+      "level": "C1"
+    },
+    {
+      "verb": "hervorrufen",
+      "example": "Diese Medikamente ___ manchmal Nebenwirkungen.",
+      "translation": "These medications sometimes cause side effects.",
+      "choices": ["rufen hervor", "rufe hervor", "rufst hervor", "ruft hervor"],
+      "answer": "rufen hervor",
+      "level": "C1"
+    },
+    {
+      "verb": "vertreten",
+      "example": "Der Anwalt ___ seinen Mandanten vor Gericht.",
+      "translation": "The lawyer represents his client in court.",
+      "choices": ["vertritt", "vertrete", "vertrittst", "vertreten"],
+      "answer": "vertritt",
+      "level": "C1"
+    },
+    {
+      "verb": "voraussetzen",
+      "example": "Diese Position ___ fundierte Kenntnisse in Wirtschaftsrecht.",
+      "translation": "This position requires solid knowledge of business law.",
+      "choices": ["setzt voraus", "setze voraus", "setzt voraus", "setzen voraus"],
+      "answer": "setzt voraus",
+      "level": "C1"
+    },
+    {
+      "verb": "einleiten",
+      "example": "Der Staatsanwalt ___ ein Verfahren gegen das Unternehmen.",
+      "translation": "The prosecutor initiates proceedings against the company.",
+      "choices": ["leitet ein", "leite ein", "leitest ein", "leiten ein"],
+      "answer": "leitet ein",
+      "level": "C1"
+    },
+    {
+      "verb": "wahrnehmen",
+      "example": "Der Manager ___ die Interessen der Mitarbeiter.",
+      "translation": "The manager represents the interests of the employees.",
+      "choices": ["nimmt wahr", "nehme wahr", "nimmst wahr", "nehmen wahr"],
+      "answer": "nimmt wahr",
+      "level": "C1"
     }
   ]
 }
