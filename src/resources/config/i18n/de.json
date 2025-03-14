@@ -1,0 +1,33 @@
+{
+  "display_name": "Deutsch",
+  "translations": {
+    "app_short_description": "Schneller Deutsch lernen",
+    "display_translation": "Frageübersetzung anzeigen",
+    "game_completed_message": "Spiel beendet. Du hast {} Prozent erreicht.",
+    "game_to_load": "Spiel zu laden",
+    "invalid": "Nicht gültig",
+    "max_consecutively_correct": "Max. aufeinanderfolgende richtige Antworten",
+    "max_number_of_questions": "Maximale Anzahl von Fragen",
+    "new_game": "Neues Spiel",
+    "no_more_questions": "Keine weiter Fragen verfügbar von insgesamt: {}, für Bereich: {} bis {}",
+    "not_found": "Nicht gefunden",
+    "number_of_choices": "Anzahl der Auswahlmöglichkeiten pro Frage",
+    "pause": "pause",
+    "please_enter_name": "Bitte geben Sie einen Namen ein",
+    "preposition_trainer": "Präpositionstrainer",
+    "question_display_time": "Frage-Anzeigezeit (Sekunden)",
+    "questions_left": "Verbleibende Fragen",
+    "required": "Erforderlich",
+    "save_game_as": "Spiel speichern unter",
+    "score": "Punktestand",
+    "select_game_to_load": "Spiel zum Laden auswählen",
+    "settings": "Einstellungen",
+    "start": "Start",
+    "start_at_question_number": "Start bei Fragenummer",
+    "start_game_prompt": "Klicken Sie auf Start, um zu beginnen",
+    "submit": "Abschicken",
+    "time": "Zeit",
+    "unexpected_error": "Unerwartetes Problem",
+    "verb_trainer": "Verb Trainer"
+  }
+}

@@ -7,6 +7,7 @@ from typing import Callable
 
 from fastergerman.config import LoggingConfig, AppConfig
 from fastergerman.file import load_yaml
+from fastergerman.i18n import I18n
 
 logger = logging.getLogger(__name__)
 
@@ -27,6 +28,7 @@ class App:
         log_file = Path(self.logging_config.get_filename())
         if log_file.exists() is False:
             log_file.parent.mkdir(parents=True, exist_ok=True)
+        I18n.init(self.config.get_app_language(), self.config.get_translations_dir())
 
     def start(self):
         raise NotImplementedError("Subclasses should implement the start method")

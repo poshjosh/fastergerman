@@ -1,0 +1,33 @@
+{
+  "display_name": "Русский",
+  "translations": {
+    "app_short_description": "Учите немецкий быстрее",
+    "display_translation": "Отображать перевод вопроса",
+    "game_completed_message": "Игра завершена. Вы набрали {} процентов",
+    "game_to_load": "Игра должна быть загружена",
+    "invalid": "Недействительно",
+    "max_consecutively_correct": "Максимальное количество последовательных правильных ответов",
+    "max_number_of_questions": "Максимальное количество вопросов",
+    "new_game": "Новая игра",
+    "no_more_questions": "Больше нет вопросов из общего количества: {}, для диапазона: {} - {}",
+    "not_found": "Не найдено",
+    "number_of_choices": "Количество вариантов ответа на один вопрос",
+    "pause": "Пауза",
+    "please_enter_name": "Пожалуйста, введите имя",
+    "preposition_trainer": "Тренажер по предлогам",
+    "question_display_time": "Время отображения вопроса (секунды)",
+    "questions_left": "Осталось вопросов",
+    "required": "Требуется",
+    "save_game_as": "Сохранить игру как",
+    "score": "Оценка",
+    "select_game_to_load": "Выбрать игру для загрузки",
+    "settings": "Настройки",
+    "start": "Начать",
+    "start_at_question_number": "Начать с номера вопроса",
+    "start_game_prompt": "Нажмите Start, чтобы начать",
+    "submit": "Отправить",
+    "time": "Время",
+    "unexpected_error": "Неожиданная проблема",
+    "verb_trainer": "Тренер глаголов"
+  }
+}

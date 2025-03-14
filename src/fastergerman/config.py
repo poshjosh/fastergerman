@@ -29,7 +29,7 @@ class AppConfig(Config):
     def get_app_version(self) -> str:
         return self.app()['version']
 
-    def get_app_language(self, default: str or None) -> str or None:
+    def get_app_language(self, default: str = "en") -> str:
         env = os.environ.get("APP_LANGUAGE_CODE")
         return env if env else self.app().get('language-code', default)
 
@@ -50,9 +50,13 @@ class AppConfig(Config):
             'dir', os.path.join(Path.home(), f".{self.get_app_name().lower()}", f"v{self.get_app_version()}"))
         return self._path(val)
 
-    def get_questions_src(self) -> str:
-        env = os.environ.get("APP_QUESTIONS_SRC")
-        return self._path(env if env else self.app()['questions']['src'])
+    def get_questions_dir(self) -> str:
+        env = os.environ.get("APP_QUESTIONS_DIR")
+        return self._path(env if env else self.app()['questions']['dir'])
+
+    def get_translations_dir(self) -> str:
+        env = os.environ.get("APP_TRANSLATIONS_DIR")
+        return self._path(env if env else self.app()['translations']['dir'])
 
     def get_web_port(self) -> int:
         env = os.environ.get("APP_PORT")

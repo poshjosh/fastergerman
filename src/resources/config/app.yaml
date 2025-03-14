@@ -7,4 +7,7 @@ app:
   # [dev|prod]
   profiles: dev
   questions:
-      src: resources/config/questions
+    dir: resources/config/questions
+  translations:
+    dir: resources/config/i18n
+

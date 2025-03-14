@@ -8,8 +8,8 @@ from fastergerman.config import AppConfig
 from fastergerman.game import Game, GameSession, Question, FileQuestionsSource, Settings, \
     AbstractGameTimer, GameEventListener, FileGameStore, AbstractGameStore
 from fastergerman.game.game_session import NO_GAME_NAME_SELECTION, GameTimers
-from fastergerman.i18n import DEFAULT_LANGUAGE_CODE, I18n, SETTINGS, GAME_TO_LOAD, \
-    QUESTION_DISPLAY_TIME_SECONDS, NUMBER_OF_CHOICES_PER_QUESTION, MAX_CONSECUTIVE_CORRECT_ANSWERS, \
+from fastergerman.i18n import I18n, SETTINGS, GAME_TO_LOAD, QUESTION_DISPLAY_TIME_SECONDS, \
+    NUMBER_OF_CHOICES_PER_QUESTION, MAX_CONSECUTIVE_CORRECT_ANSWERS, \
     DISPLAY_QUESTION_TRANSLATION, START_AT_QUESTION_NUMBER, MAX_NUMBER_OF_QUESTIONS, \
     START_GAME_PROMPT, START, PAUSE, SCORE, QUESTIONS_LEFT, TIME, GAME_COMPLETED_MESSAGE
 from fastergerman.ui import UIGameTimer, CloseGameDialog
@@ -43,7 +43,7 @@ class DesktopGameUI(GameEventListener, GameTimers):
         super().__init__()
         self.session = DesktopGameSession(
             FileGameStore.of_dir(app_config.get_app_dir()),
-            FileQuestionsSource(app_config.get_questions_src()).load_questions()["preposition"],
+            FileQuestionsSource(app_config.get_questions_dir()).load_questions()["preposition"],
             self,
             self.handle_question)
         self.session.add_game_event_listener(self)
@@ -61,7 +61,7 @@ class DesktopGameUI(GameEventListener, GameTimers):
         ##############
 
         game: Game = self.session.get_game()
-        self.lang_code = app_config.get_app_language(DEFAULT_LANGUAGE_CODE)
+        self.lang_code = app_config.get_app_language()
 
         # Main container with padding
         self.main_frame = ttk.Frame(self.root, padding=str(PADDING_L))

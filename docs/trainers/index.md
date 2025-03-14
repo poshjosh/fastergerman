@@ -35,6 +35,6 @@ Example format:
 
 ### Add translations for the trainer's display name.
 
-- See translation for `PREPOSITION_TRAINER` in [i18n.py](../src/fastergerman/i18n.py)
+- See [the README file](../../README.md#i18n) for how to add translations.
 
 ### Deploy the app

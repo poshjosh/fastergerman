@@ -32,3 +32,11 @@ Visit the [fastergerman website](http://fastergerman.us-east-2.elasticbeanstalk.
 - Tests - run `shell/run.tests.sh`
 - End-to-end tests - `shell/run.e2e.tests.sh`
 
+#### i18n
+
+- You can add translations by running the script `shell/add-translations.sh`
+- By default translations are located in the `src/resources/config/i18n` directory.
+- The location of translations can be changed by setting either the `APP_TRANSLATIONS_DIR` 
+environment variable, or specifying the `app:translations:dir` in the 
+`src/resources/config/app.yaml` file.
+

@@ -1,7 +1,7 @@
 import logging
 
 from fastergerman.config import AppConfig
-from fastergerman.i18n import I18n, DEFAULT_LANGUAGE_CODE
+from fastergerman.i18n import I18n
 from fastergerman.web import LANG_CODE, GameService, RequestData
 
 logger = logging.getLogger(__name__)
@@ -29,7 +29,7 @@ class WebService:
     def _with_default_page_variables(self, variables: dict[str, any] = None):
         if variables is None:
             variables = {}
-        lang_code = variables.get(LANG_CODE, DEFAULT_LANGUAGE_CODE)
+        lang_code = variables.get(LANG_CODE, I18n.get_default_language_code())
         variables["i18n"] = {
             "supported_languages": I18n.get_supported_languages(),
             "dir": I18n.get_dir(lang_code),

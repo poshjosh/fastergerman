@@ -5,7 +5,7 @@ from typing import Union
 from flask import session
 
 from fastergerman.game import NO_GAME_NAME_SELECTION
-from fastergerman.i18n import I18n, DEFAULT_LANGUAGE_CODE, REQUIRED, SAVE_GAME_AS, INVALID, \
+from fastergerman.i18n import I18n, REQUIRED, SAVE_GAME_AS, INVALID, \
     GAME_TO_LOAD
 
 logger = logging.getLogger(__name__)
@@ -64,11 +64,11 @@ class RequestData:
         return request_data
 
     @staticmethod
-    def get_language_code(request, default: str = DEFAULT_LANGUAGE_CODE) -> str:
+    def get_language_code(request, default: str = I18n.get_default_language_code()) -> str:
         return session.get(LANG_CODE, RequestData._request_lang_code(request, default))
 
     @staticmethod
-    def _request_lang_code(request, default: str = DEFAULT_LANGUAGE_CODE) -> str:
+    def _request_lang_code(request, default: str = I18n.get_default_language_code()) -> str:
         supported_lang_codes = I18n.get_supported_language_codes()
         best_match = request.accept_languages.best_match(supported_lang_codes)
         return best_match if best_match and I18n.is_supported(best_match) else default
@@ -95,7 +95,7 @@ class RequestData:
 
     @staticmethod
     def error(data: dict[str, any], message_key, candidate_key: str) -> ValidationError:
-        lang_code = data.get(LANG_CODE, DEFAULT_LANGUAGE_CODE)
+        lang_code = data.get(LANG_CODE, I18n.get_default_language_code())
         return ValidationError(f"{I18n.translate(lang_code, message_key)}: "
                                f"{I18n.translate(lang_code, candidate_key)}")
 

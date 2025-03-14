@@ -1,0 +1,33 @@
+{
+  "display_name": "українська",
+  "translations": {
+    "app_short_description": "Вивчайте німецьку швидше",
+    "display_translation": "Показати переклад запитання",
+    "game_completed_message": "Гру завершено. Ви набрали {} відсотків.",
+    "game_to_load": "Гру потрібно завантажити",
+    "invalid": "Недійсний",
+    "max_consecutively_correct": "Максимальна кількість правильних відповідей підряд",
+    "max_number_of_questions": "Максимальна кількість запитань",
+    "new_game": "Нова гра",
+    "no_more_questions": "Немає більше запитань від total: {}, для діапазону: {} до {}",
+    "not_found": "Не знайдено",
+    "number_of_choices": "Кількість варіантів відповіді на запитання",
+    "pause": "Пауза",
+    "please_enter_name": "Будь ласка, введіть ім'я",
+    "preposition_trainer": "Тренер прийменників",
+    "question_display_time": "Час відображення запитання (секунди)",
+    "questions_left": "Залишилося запитань",
+    "required": "Потрібно",
+    "save_game_as": "Зберегти гру як",
+    "score": "Оцінка",
+    "select_game_to_load": "Вибрати гру для завантаження",
+    "settings": "Налаштування",
+    "start": "Старт",
+    "start_at_question_number": "Почати з номера питання",
+    "start_game_prompt": "Натисніть Start, щоб почати",
+    "submit": "Надіслати",
+    "time": "Час",
+    "unexpected_error": "Неочікувана проблема",
+    "verb_trainer": "Тренер дієслова"
+  }
+}

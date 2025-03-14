@@ -56,7 +56,7 @@ def write_content(content: AnyStr, file_path):
 
 
 def write_json(python_obj, file_path):
-    with open(file_path, 'w+') as outfile:
+    with open(file_path, 'w+', encoding='utf8') as outfile:
         json.dump(python_obj, outfile)
 
 
