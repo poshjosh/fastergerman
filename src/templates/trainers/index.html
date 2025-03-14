@@ -7,7 +7,9 @@
 
 {% block content %}
 
-    <h3>{{ i18n.t.preposition_trainer }}</h3>
+    {% with trainer_id = trainer + '_trainer' %}
+        <h3 id="trainer_heading">{{ i18n.t[trainer_id] }}</h3>
+    {% endwith %}
 
     {% include 'trainers/common/settings.html' %}
 

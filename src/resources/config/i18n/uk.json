@@ -6,6 +6,7 @@
     "game_completed_message": "Гру завершено. Ви набрали {} відсотків.",
     "game_to_load": "Гру потрібно завантажити",
     "invalid": "Недійсний",
+    "language_level": "Мовний рівень",
     "max_consecutively_correct": "Максимальна кількість правильних відповідей підряд",
     "max_number_of_questions": "Максимальна кількість запитань",
     "new_game": "Нова гра",

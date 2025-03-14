@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add language level setting.
 - Externalize and automate i18n.
 - Implement Verb Trainer.
 - Add translations for ar,ru,tr,uk

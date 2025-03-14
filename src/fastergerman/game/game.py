@@ -2,6 +2,15 @@ from dataclasses import dataclass, asdict
 from random import shuffle
 from typing import List
 
+class LanguageLevel:
+    VALUES = ["A1", "A2", "B1", "B2", "C1", "C2"]
+    @staticmethod
+    def ordinal(level: str) -> int:
+        return LanguageLevel.VALUES.index(level)
+
+    @staticmethod
+    def is_lte(a: str, b: str) -> bool:
+        return LanguageLevel.ordinal(a) <= LanguageLevel.ordinal(b)
 
 @dataclass(frozen=True)
 class Score:
@@ -86,6 +95,7 @@ class Settings:
     display_translation: bool = True
     start_at_question_number: int = 0
     max_number_of_questions: int = 20
+    language_level: str = "A2"
 
     @staticmethod
     def of_dict(settings_dict: dict) -> 'Settings':
@@ -96,12 +106,15 @@ class Settings:
             int(settings_dict.get("max_consecutively_correct", 2)),
             dt.lower() == "true" if isinstance(dt, str) else bool(dt),
             int(settings_dict.get("start_at_question_number", 0)),
-            int(settings_dict.get("max_number_of_questions", 20)))
+            int(settings_dict.get("max_number_of_questions", 20)),
+            settings_dict.get("language_level", "A2"))
 
     def to_dict(self) -> dict[str, any]:
         return asdict(self)
 
     def get_questions_from(self, questions: List[Question]) -> List[Question]:
+        questions = [q for q in questions if LanguageLevel.is_lte(q.level, self.language_level)]
+        questions.sort(key=lambda q: LanguageLevel.ordinal(q.level))
         first_question = self.start_at_question_number
         max_questions = self.max_number_of_questions
         number_of_ques = len(questions)

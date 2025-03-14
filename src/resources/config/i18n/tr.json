@@ -6,6 +6,7 @@
     "game_completed_message": "Oyun tamamlandı. Yüzde {} puan aldınız.",
     "game_to_load": "Yüklenecek oyun",
     "invalid": "Geçerli değil",
+    "language_level": "Dil seviyesi",
     "max_consecutively_correct": "Maksimum ardışık doğru cevaplar",
     "max_number_of_questions": "Maksimum soru sayısı",
     "new_game": "Yeni oyun",

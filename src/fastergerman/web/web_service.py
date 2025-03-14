@@ -1,6 +1,7 @@
 import logging
 
 from fastergerman.config import AppConfig
+from fastergerman.game import LanguageLevel
 from fastergerman.i18n import I18n
 from fastergerman.web import LANG_CODE, GameService, RequestData
 
@@ -13,7 +14,8 @@ class WebService:
             "app": {
                 "name": app_config.get_app_name(),
                 "is_production": app_config.is_production(),
-                "trainer_types": trainer_types  #[str(e) for e in trainer_types]
+                "trainer_types": trainer_types,  #[str(e) for e in trainer_types]
+                "language_levels": LanguageLevel.VALUES
             }
         }
 

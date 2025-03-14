@@ -7,6 +7,7 @@
     "game_completed_message": "Game completed. You scored {} percent.",
     "game_to_load": "Game to load",
     "invalid": "Not valid",
+    "language_level": "Language level",
     "max_consecutively_correct": "Max consecutive correct answers",
     "max_number_of_questions": "Max number of questions",
     "new_game": "New game",

@@ -7,6 +7,7 @@
     "game_completed_message": "اكتملت اللعبة. لقد سجلت {} في المائة.",
     "game_to_load": "اللعبة قيد التحميل",
     "invalid": "غير صالح",
+    "language_level": "مستوى اللغة",
     "max_consecutively_correct": "الحد الأقصى للإجابات الصحيحة المتتالية",
     "max_number_of_questions": "الحد الأقصى لعدد الأسئلة",
     "new_game": "لعبة جديدة",

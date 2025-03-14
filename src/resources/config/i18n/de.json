@@ -6,6 +6,7 @@
     "game_completed_message": "Spiel beendet. Du hast {} Prozent erreicht.",
     "game_to_load": "Spiel zu laden",
     "invalid": "Nicht gültig",
+    "language_level": "Sprachniveau",
     "max_consecutively_correct": "Max. aufeinanderfolgende richtige Antworten",
     "max_number_of_questions": "Maximale Anzahl von Fragen",
     "new_game": "Neues Spiel",
