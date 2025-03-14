@@ -247,7 +247,7 @@ class BaseGameSession:
             if self.__game.settings.display_translation is True:
                 translation = question.translation if question else None
             choices = question.choices if question else []
-            correct_answer = question.preposition if question else None
+            correct_answer = question.answer if question else None
             answer_correct = question.is_answer(answer) is True if question else None
         return {"example": example, "translation": translation,
                 "choices": choices, "correct_answer": correct_answer,

@@ -1,4 +1,5 @@
 from dataclasses import dataclass, asdict
+from random import shuffle
 from typing import List
 
 
@@ -32,34 +33,49 @@ class NoMoreQuestionsError(Exception):
 
 @dataclass(frozen=True)
 class Question:
-    verb: str
-    preposition: str
+    answer: str
     example: str
     translation: str
     choices: list[str]
-    priority: str = "medium"
+    level: str
     consecutively_correct: int = 0
 
     @staticmethod
     def of_dict(question_dict: dict) -> 'Question':
-        return Question(question_dict["verb"],
-                        question_dict["preposition"],
+        answer = question_dict["answer"]
+        choices = question_dict["choices"]
+        if answer not in choices:
+            choices.append(answer)
+        shuffle(choices)
+        return Question(answer,
                         question_dict["example"],
                         question_dict["translation"],
-                        question_dict["choices"],
-                        question_dict.get("priority", "medium"),
+                        choices,
+                        question_dict["level"],
                         int(question_dict.get("consecutively_correct", 0)))
 
     def to_dict(self) -> dict[str, any]:
         return asdict(self)
 
+    def with_number_of_choices(self, number_of_choices: int) -> 'Question':
+        if number_of_choices >= len(self.choices):
+            return self
+        choices = [self.answer]
+        for i in range(number_of_choices - 1):
+            if self.choices[i] == self.answer:
+                continue
+            choices.append(self.choices[i])
+        shuffle(choices)
+        return Question(self.answer, self.example, self.translation,
+                        choices, self.level, self.consecutively_correct)
+
     def on_answer(self, answer: str) -> 'Question':
-        return Question(self.verb, self.preposition, self.example, self.translation,
-                        self.choices, self.priority,
+        return Question(self.answer, self.example, self.translation,
+                        self.choices, self.level,
                         self.consecutively_correct + 1 if self.is_answer(answer) else 0)
 
     def is_answer(self, answer: str) -> bool:
-        return answer == self.preposition
+        return answer == self.answer
 
 
 @dataclass(frozen=True)
@@ -85,7 +101,7 @@ class Settings:
     def to_dict(self) -> dict[str, any]:
         return asdict(self)
 
-    def get_questions_from(self, questions: List) -> List:
+    def get_questions_from(self, questions: List[Question]) -> List[Question]:
         first_question = self.start_at_question_number
         max_questions = self.max_number_of_questions
         number_of_ques = len(questions)
@@ -95,12 +111,15 @@ class Settings:
         result = questions[first_question:last_question]
         if len(result) == 0:
             raise NoMoreQuestionsError(number_of_ques, first_question, last_question)
-        return result
+        return [q.with_number_of_choices(self.number_of_choices) for q in result]
 
     def with_value(self, key: str, value: any) -> 'Settings':
         settings_dict = self.to_dict()
         if key not in settings_dict:
             raise ValueError(f"Invalid key {key}")
+        existing = settings_dict.get(key)
+        if existing == value:
+            return self
         settings_dict[key] = value
         return Settings.of_dict(settings_dict)
 
@@ -142,20 +161,18 @@ class Game:
         if updated_question.consecutively_correct >= self.settings.max_consecutively_correct:
             # Return the game without the question
             questions.remove(question)
-            # Did not work
-#            questions = [q for q in self.questions if q.verb != question.verb]
         else:
             index = questions.index(question)
             questions.remove(question)
             questions.insert(index, updated_question)
-            # Did not work
-#            questions = [updated_question if q.verb == question.verb else q for q in self.questions]
         return Game(self.name,
                     self.settings,
                     questions,
                     self.score.advance(question.is_answer(answer)))
 
     def with_name(self, name: str) -> 'Game':
+        if self.name == name:
+            return self
         return Game(
             name,
             self.settings,

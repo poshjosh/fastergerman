@@ -294,7 +294,7 @@ class DesktopGameUI(GameEventListener, GameTimers):
 
         # Get choices
         choices = self._get_choices(
-            question.preposition, question.choices, int(self.number_of_choices_var.get()))
+            question.answer, question.choices, int(self.number_of_choices_var.get()))
 
         def handle_answer(answer: str):
             self.session.handle_answer(answer)

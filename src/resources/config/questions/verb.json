@@ -1,0 +1,190 @@
+{
+  "type": "verb",
+  "description": "German verbs",
+  "questions": [
+    {
+      "verb": "heißen",
+      "example": "Wie ___ du?",
+      "translation": "What is your name?",
+      "choices": ["heiße", "heißt", "heißen", "heißst"],
+      "answer": "heißt",
+      "level": "A1"
+    },
+    {
+      "verb": "sein",
+      "example": "Ich ___ ein Student.",
+      "translation": "I am a student.",
+      "choices": ["bist", "sind", "ist", "sein"],
+      "answer": "bin",
+      "level": "A1"
+    },
+    {
+      "verb": "haben",
+      "example": "Ich ___ ein Auto.",
+      "translation": "I have a car.",
+      "choices": ["habe", "habt", "haben", "habst"],
+      "answer": "habe",
+      "level": "A1"
+    },
+    {
+      "verb": "werden",
+      "example": "Ich ___ morgen gehen.",
+      "translation": "I will go tomorrow.",
+      "choices": ["werde", "wird", "werden", "wirst"],
+      "answer": "werde",
+      "level": "A1"
+    },
+    {
+      "verb": "mögen",
+      "example": "Ich ___ Kaffee.",
+      "translation": "I like coffee.",
+      "choices": ["mag", "mögt", "mögen", "mögt"],
+      "answer": "mag",
+      "level": "A1"
+    },
+    {
+        "verb": "gehen",
+        "example": "Ich ___ zur Schule.",
+        "translation": "I go to school.",
+        "choices": ["gehe", "geht", "gehen", "gehst"],
+        "answer": "gehe",
+        "level": "A1"
+    },
+    {
+        "verb": "sprechen",
+        "example": "Ich ___ Deutsch.",
+        "translation": "I speak German.",
+        "choices": ["spreche", "sprichst", "sprechen", "sprecht"],
+        "answer": "spreche",
+        "level": "A1"
+    },
+    {
+        "verb": "lernen",
+        "example": "Ich ___ Deutsch.",
+        "translation": "I learn German.",
+        "choices": ["lerne", "lernst", "lernen", "lernt"],
+        "answer": "lerne",
+        "level": "A1"
+    },
+    {
+        "verb": "arbeiten",
+        "example": "Ich ___ in einem Büro.",
+        "translation": "I work in an office.",
+        "choices": ["arbeite", "arbeitest", "arbeiten", "arbeitet"],
+        "answer": "arbeite",
+        "level": "A1"
+    },
+    {
+        "verb": "wohnen",
+        "example": "Ich ___ in Berlin.",
+        "translation": "I live in Berlin.",
+        "choices": ["wohne", "wohnst", "wohnen", "wohnt"],
+        "answer": "wohne",
+        "level": "A1"
+    },
+    {
+        "verb": "kommen",
+        "example": "Ich ___ aus Deutschland.",
+        "translation": "I come from Germany.",
+        "choices": ["komme", "kommst", "kommen", "kommt"],
+        "answer": "komme",
+        "level": "A1"
+    },
+    {
+      "verb": "heißen",
+      "example": "Wie ___ du?",
+      "translation": "What is your name?",
+      "choices": ["heiße", "heißt", "heißen", "heißst"],
+      "answer": "heißt",
+      "level": "A1"
+    },
+    {
+      "verb": "sein",
+      "example": "Ich ___ ein Student.",
+      "translation": "I am a student.",
+      "choices": ["bist", "sind", "ist", "bin"],
+      "answer": "bin",
+      "level": "A1"
+    },
+    {
+      "verb": "haben",
+      "example": "Er ___ viele Bücher.",
+      "translation": "He has many books.",
+      "choices": ["habe", "hat", "haben", "habt"],
+      "answer": "hat",
+      "level": "A1"
+    },
+    {
+      "verb": "machen",
+      "example": "Was ___ du am Wochenende?",
+      "translation": "What do you do on the weekend?",
+      "choices": ["macht", "mache", "machen", "machst"],
+      "answer": "machst",
+      "level": "A2"
+    },
+    {
+      "verb": "geben",
+      "example": "Er ___ mir das Buch.",
+      "translation": "He gives me the book.",
+      "choices": ["gebe", "gibt", "geben", "gebt"],
+      "answer": "gibt",
+      "level": "A2"
+    },
+    {
+      "verb": "kommen",
+      "example": "Wann ___ du nach Hause?",
+      "translation": "When are you coming home?",
+      "choices": ["kommt", "komme", "kommen", "kommst"],
+      "answer": "kommst",
+      "level": "A1"
+    },
+    {
+      "verb": "finden",
+      "example": "Ich ___ meinen Schlüssel nicht.",
+      "translation": "I can't find my key.",
+      "choices": ["findet", "finde", "finden", "findest"],
+      "answer": "finde",
+      "level": "A2"
+    },
+    {
+      "verb": "arbeiten",
+      "example": "Er ___ in einer großen Firma.",
+      "translation": "He works in a big company.",
+      "choices": ["arbeite", "arbeitet", "arbeiten", "arbeitest"],
+      "answer": "arbeitet",
+      "level": "B1"
+    },
+    {
+      "verb": "sprechen",
+      "example": "Sie ___ drei Sprachen.",
+      "translation": "She speaks three languages.",
+      "choices": ["spreche", "spricht", "sprechen", "sprecht"],
+      "answer": "spricht",
+      "level": "B1"
+    },
+    {
+      "verb": "vergessen",
+      "example": "Ich ___ immer meine Hausaufgaben.",
+      "translation": "I always forget my homework.",
+      "choices": ["vergisst", "vergesse", "vergessen", "vergesst"],
+      "answer": "vergesse",
+      "level": "B2"
+    },
+    {
+      "verb": "entwickeln",
+      "example": "Das Unternehmen ___ neue Technologien.",
+      "translation": "The company develops new technologies.",
+      "choices": ["entwickle", "entwickelt", "entwickeln", "entwicklest"],
+      "answer": "entwickelt",
+      "level": "C1"
+    },
+    {
+      "verb": "beeinflussen",
+      "example": "Die Medien ___ die öffentliche Meinung.",
+      "translation": "The media influence public opinion.",
+      "choices": ["beeinflusse", "beeinflusst", "beeinflussen", "beeinflusstest"],
+      "answer": "beeinflussen",
+      "level": "C2"
+    }
+  ]
+}

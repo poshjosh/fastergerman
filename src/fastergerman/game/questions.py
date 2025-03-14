@@ -25,7 +25,7 @@ class FileQuestionsSource(QuestionsSource):
                 continue
             questions = json["questions"]
             print(f"{__name__} Found {len(questions)} questions of type: {ques_type} from: {path}")
-            result[ques_type] = [Question.of_dict(q) for q in questions if q.get("priority") != "low"]
+            result[ques_type] = [Question.of_dict(q) for q in questions]
             print(f"{__name__} Loaded {len(result[ques_type])} questions of type: {ques_type} from: {path}")
         if not result:
             raise ValueError(f"No questions found for: {self.__paths}")

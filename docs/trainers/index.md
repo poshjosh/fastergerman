@@ -1,13 +1,19 @@
 # Trainers
 
-This app is organized around trainers. There could be trainers for various language
-constructs. For example: `preposition`, `verb`, `noun`, `adjective`, etc.
+There could be trainers for various language constructs. For example: 
+`preposition`, `verb`, `noun`, `adjective`, etc.
+
+## Current Trainers
+
+- [Prepositions](prepositions.md)
+
+- [Verbs](verbs.md)
 
 ## Adding a new trainer
 
 To add a trainer for prepositions:
 
-### Add a source file for the trainer's questions.  
+### Add a source file for the trainer's questions.
 Example format:
 ```json
 {
@@ -16,7 +22,7 @@ Example format:
   "questions": [
     {
       "verb": "warten",
-      "preposition": "auf",
+      "answer": "auf",
       "example": "Ich warte ___ den Bus.",
       "translation": "I'm waiting for the bus.",
       "choices": ["mit", "für", "zu", "auf" ]

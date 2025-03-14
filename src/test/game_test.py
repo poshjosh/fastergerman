@@ -5,24 +5,27 @@ from fastergerman.game import Game, Question, Score, Settings
 questions = [
     {
         "verb": "warten",
-        "preposition": "auf",
+        "answer": "auf",
         "example": "Ich warte ___ den Bus.",
         "translation": "I'm waiting for the bus.",
-        "choices": ["mit", "für", "zu", "auf"]
+        "choices": ["mit", "für", "zu", "auf"],
+        "level": "A1"
     },
     {
         "verb": "denken",
-        "preposition": "an",
+        "answer": "an",
         "example": "Ich denke ___ meine Familie.",
         "translation": "I'm thinking about my family.",
-        "choices": ["über", "von", "an", "mit"]
+        "choices": ["über", "von", "an", "mit"],
+        "level": "A2"
     },
     {
         "verb": "sich freuen",
-        "preposition": "auf",
+        "answer": "auf",
         "example": "Ich freue mich ___ das Wochenende.",
         "translation": "I'm looking forward to the weekend.",
-        "choices": ["für", "mit", "zu", "auf"]
+        "choices": ["für", "mit", "zu", "auf"],
+        "level": "A2"
     }
 ]
 
@@ -37,7 +40,7 @@ class GameTestCase(unittest.TestCase):
 
         for i in range(max_consecutively_correct):
             question = game.questions[0]
-            game = game.on_question_answer(question, question.preposition)
+            game = game.on_question_answer(question, question.answer)
 
         exp_questions = num_questions - 1
 

@@ -27,6 +27,7 @@ START_GAME_PROMPT = "start_game_prompt"
 SUBMIT = "submit"
 TIME = "time"
 UNEXPECTED_ERROR = "unexpected_error"
+VERB_TRAINER = "verb_trainer"
 
 config = {
     DEFAULT_LANGUAGE_CODE: {
@@ -59,24 +60,25 @@ config = {
             START_GAME_PROMPT: "Click Start to begin",
             SUBMIT: "Submit",
             TIME: "Time",
-            UNEXPECTED_ERROR: "Unexpected problem"
+            UNEXPECTED_ERROR: "Unexpected problem",
+            VERB_TRAINER: "Verb Trainer"
         }
     },
     "ar":{
         "display_name": "العربية",
         "dir": "rtl",
         "translations": {
-            APP_SHORT_SHORT_DESCRIPTION: "تعلم الألمانية بشكل أسرع",
+            APP_SHORT_DESCRIPTION: "تعلم الألمانية بشكل أسرع",
             DISPLAY_QUESTION_TRANSLATION: "عرض ترجمة السؤال",
             GAME_COMPLETED_MESSAGE: "اكتملت اللعبة. لقد سجلت {} في المائة.",
             GAME_TO_LOAD: "اللعبة قيد التحميل",
             INVALID: "غير صالح",
             MAX_CONSECUTIVE_CORRECT_ANSWERS: "الحد الأقصى للإجابات الصحيحة المتتالية",
-            max_number_number_of_questions: "الحد الأقصى لعدد الأسئلة",
+            MAX_NUMBER_OF_QUESTIONS: "الحد الأقصى لعدد الأسئلة",
             NEW_GAME: "لعبة جديدة",
             NO_MORE_QUESTIONS: "لا مزيد من الأسئلة المتاحة من الإجمالي: {}، للنطاق: {} إلى {}",
             NOT_FOUND: "غير موجود",
-            NUMBER_OF_OF_CHOICES_PER_QUESTION: "عدد الاختيارات لكل سؤال",
+            NUMBER_OF_CHOICES_PER_QUESTION: "عدد الاختيارات لكل سؤال",
             PAUSE: "إيقاف مؤقت",
             PLEASE_ENTER_NAME: "الرجاء إدخال اسم",
             PREPOSITION_TRAINER: "مدرب حروف الجر",
@@ -86,13 +88,13 @@ config = {
             SAVE_GAME_AS: "حفظ اللعبة باسم",
             SCORE: "النتيجة",
             SELECT_GAME_TO_LOAD: "تحديد_اللعبة المراد تحميلها",
-            SETTING: "الإعدادات",
+            SETTINGS: "الإعدادات",
             START: "البدء",
-            START_AT_AT_QUESTION_NUMBER: "ابدأ عند رقم السؤال",
+            START_AT_QUESTION_NUMBER: "ابدأ عند رقم السؤال",
             START_GAME_PROMPT: "انقر فوق ابدأ للبدء",
             SUBMIT: "إرسال",
             TIME: "الوقت",
-            UNEXPECTECTED_ERROR: "مشكلة غير متوقعة"            
+            UNEXPECTED_ERROR: "مشكلة غير متوقعة"
         }
     },
     "bn":{"display_name": "বাংলা"},
@@ -173,7 +175,7 @@ config = {
             DISPLAY_QUESTION_TRANSLATION: "Soru çevirisini görüntüle",
             GAME_COMPLETED_MESSAGE: "Oyun tamamlandı. Yüzde {} puan aldınız.",
             GAME_TO_LOAD: "Yüklenecek oyun",
-            GEÇERSİZ: "Geçerli değil",
+            INVALID: "Geçerli değil",
             MAX_CONSECUTIVE_CORRECT_ANSWERS: "Maksimum ardışık doğru cevaplar",
             MAX_NUMBER_OF_QUESTIONS: "Maksimum soru sayısı",
             NEW_GAME: "Yeni oyun",
@@ -185,11 +187,11 @@ config = {
             PREPOSITION_TRAINER: "Edat Eğitmeni",
             QUESTION_DISPLAY_TIME_SECONDS: "Soru görüntüleme süresi (saniye)",
             QUESTIONS_LEFT: "Sorular kaldı",
-            GEREKLİ: "Gerekli",
+            REQUIRED: "Gerekli",
             SAVE_GAME_AS: "Oyunu farklı kaydet",
-            SKOR: "Skor",
+            SCORE: "Skor",
             SELECT_GAME_TO_LOAD: "Yüklenecek oyunu seçin",
-            AYARLAR: "Ayarlar",
+            SETTINGS: "Ayarlar",
             START: "Başlat",
             START_AT_QUESTION_NUMBER: "Soru numarasından başla",
             START_GAME_PROMPT: "Başlamak için Başlat'a tıklayın",
@@ -289,4 +291,8 @@ class I18n:
         for k in translation_keys:
             result[k] = I18n.translate(lang, k)
         return result
+
+
+if __name__ == "__main__":
+    print(f"Supported language codes: {I18n.get_supported_language_codes()}")
 

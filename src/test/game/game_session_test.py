@@ -84,17 +84,19 @@ class GameSessionTestCase(unittest.TestCase):
     def _given_questions() -> List[Question]:
         return [Question.of_dict({
                 "verb": "warten",
-                "preposition": "auf",
+                "answer": "auf",
                 "example": "Ich warte ___ den Bus.",
                 "translation": "I'm waiting for the bus.",
-                "choices": ["mit", "für", "zu", "auf"]
+                "choices": ["mit", "für", "zu", "auf"],
+                "level": "A1"
             }),
             Question.of_dict({
                 "verb": "denken",
-                "preposition": "an",
+                "answer": "an",
                 "example": "Ich denke ___ meine Familie.",
                 "translation": "I'm thinking about my family.",
-                "choices": ["über", "von", "an", "mit"]
+                "choices": ["über", "von", "an", "mit"],
+                "level": "A2"
             })
         ]
 
