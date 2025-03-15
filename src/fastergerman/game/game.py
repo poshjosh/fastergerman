@@ -95,7 +95,7 @@ class Settings:
     display_translation: bool = True
     start_at_question_number: int = 0
     max_number_of_questions: int = 20
-    language_level: str = "A2"
+    language_level: str = "B2"
 
     @staticmethod
     def of_dict(settings_dict: dict) -> 'Settings':
@@ -107,7 +107,7 @@ class Settings:
             dt.lower() == "true" if isinstance(dt, str) else bool(dt),
             int(settings_dict.get("start_at_question_number", 0)),
             int(settings_dict.get("max_number_of_questions", 20)),
-            settings_dict.get("language_level", "A2"))
+            settings_dict.get("language_level", "B2"))
 
     def to_dict(self) -> dict[str, any]:
         return asdict(self)

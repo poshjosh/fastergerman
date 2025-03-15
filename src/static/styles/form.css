@@ -36,11 +36,16 @@ form .red-asterix { font-weight:900; color: red; }
 
 form .control { font-size: 1.5rem; margin-top: 0.5rem; margin-bottom:0.5rem; }
 
-form input[type="text"] { width: 100%; }
+form input[type="text"] { width: 85%; }
 
-form select { width: 100%; }
+form select { width: 85%; }
 
 form label { color: #def; }
+
+#settings label { font-size:1rem; }
+@media only screen and (min-width: 760px) {
+    #settings label { font-size: inherit; }
+}
 
 form .clickable {
     background-color: #0f9df7;
@@ -62,7 +67,10 @@ form .settings-input {
     vertical-align:top; margin-top:0.5rem;
 }
 
-form #game_session_message { height: 2rem; }
+form .game_session_message { height: 2rem; font-size:1rem; }
+@media only screen and (min-width: 760px) {
+    form .game_session_message { height: 2rem; font-size:1.25rem; }
+}
 
 .question-text { margin-bottom: 1rem; }
 

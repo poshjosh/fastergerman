@@ -7,7 +7,7 @@
 
 APP_NAME="${APP_NAME:-fastergerman}"
 EXISTING_ENV="${EXISTING_ENV:-fastergerman-default-env}"
-NEW_APP_VERSION="${NEW_APP_VERSION:-v0.0.5}"
+NEW_APP_VERSION="${NEW_APP_VERSION:-v0.0.5c}"
 DEPLOY="${DEPLOY:-true}"
 DRY_RUN="${DRY_RUN:-false}"
 TARGET_DIR="${TARGET_DIR:-output/aws}"

@@ -1,49 +1,9 @@
-{% macro display_number_input(name, label, val, min, max) %}
-    <p class="settings-input">
-        <label class="inline-label" for="{{ name }}">{{ label }}</label>
-        <input type="number" id="{{ name }}" name="{{ name }}"
-               class="control" value="{{ val }}" min="{{ min }}" max="{{ max }}"/>
-    </p>
-{% endmacro %}
 <form id="game_session_settings" action="/trainers/{{ trainer }}"
       class="form settings-form" method="post">
     <input type="hidden" name="action" value="update"/>
     <input type="button" id="settings_tab" value="{{ i18n.t.settings }} &#9660;"
            class="control clickable" onclick="fastergerman.toggleDisplay('settings_tab', '{{ i18n.t.settings }} &#9650;', '{{ i18n.t.settings }} &#9660;', 'settings');"/>
     <div id="settings">
-        <p class="settings-input">
-            <label class="inline-label" for="language_level">{{ i18n.t.language_level }}</label>
-            <select id="language_level" name="language_level"
-                    class="control">
-                <option value="" disabled selected>{{ i18n.t.language_level }}</option>
-                {% for level in app.language_levels %}
-                    <option value="{{ level }}">{{ level }}</option>
-                {% endfor %}
-            </select>
-        </p>
-        {{ display_number_input("number_of_choices", i18n.t.number_of_choices, game_session.settings.number_of_choices, 2, 4) }}
-        {{ display_number_input("question_display_time", i18n.t.question_display_time, game_session.settings.question_display_time, 1, 100) }}
-        {{ display_number_input("max_consecutively_correct", i18n.t.max_consecutively_correct, game_session.settings.max_consecutively_correct, 1, 100) }}
-        {{ display_number_input("start_at_question_number", i18n.t.start_at_question_number, game_session.settings.start_at_question_number, 0, 999) }}
-        {{ display_number_input("max_number_of_questions", i18n.t.max_number_of_questions, game_session.settings.max_number_of_questions, 1, 999) }}
-        <p class="settings-input">
-            <span class="inline-label">{{ i18n.t.display_translation }}</span>
-            {% macro display_bool_input(name, value) %}
-                <label>
-                    {{ value }}
-                    {% if game_session.settings.display_translation == value %}
-                    <input type="radio" id="display_translation_checked" name="display_translation"
-                           class="control" value="{{ value|lower }}" checked/>
-                    {% else %}
-                    <input type="radio" id="display_translation_unchecked" name="display_translation"
-                           class="control" value="{{ value|lower }}"/>
-                    {% endif %}
-                </label>
-            {% endmacro %}
-            {{ display_bool_input("display_translation", true) }}
-            &emsp;
-            {{ display_bool_input("display_translation", false) }}
-        </p>
 
         <p class="settings-input">
             <label for="game_to_load">{{ i18n.t.game_to_load }}</label>
@@ -71,9 +31,52 @@
 
         <p class="settings-input">
             <label for="save_game_as">{{ i18n.t.save_game_as }}</label>
+            &nbsp;<span class="red-asterix">*</span>
             <br/>
             <input type="text" id="save_game_as" name="save_game_as" class="control"/>
         </p>
+
+        <p class="settings-input">
+            <label class="inline-label" for="language_level">{{ i18n.t.language_level }}</label>
+            <select id="language_level" name="language_level" class="control">
+                <option value="" disabled selected>{{ i18n.t.language_level }}</option>
+                {% for level in app.language_levels %}
+                    <option value="{{ level }}">{{ level }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        {% macro display_number_input(name, label, val, min, max) %}
+            <p class="settings-input">
+                <label class="inline-label" for="{{ name }}">{{ label }}</label>
+                <input type="number" id="{{ name }}" name="{{ name }}"
+                       class="control" value="{{ val }}" min="{{ min }}" max="{{ max }}"/>
+            </p>
+        {% endmacro %}
+        {{ display_number_input("number_of_choices", i18n.t.number_of_choices, game_session.settings.number_of_choices, 2, 4) }}
+        {{ display_number_input("question_display_time", i18n.t.question_display_time, game_session.settings.question_display_time, 1, 100) }}
+        {{ display_number_input("max_consecutively_correct", i18n.t.max_consecutively_correct, game_session.settings.max_consecutively_correct, 1, 100) }}
+        {{ display_number_input("start_at_question_number", i18n.t.start_at_question_number, game_session.settings.start_at_question_number, 0, 999) }}
+        {{ display_number_input("max_number_of_questions", i18n.t.max_number_of_questions, game_session.settings.max_number_of_questions, 1, 999) }}
+        <p class="settings-input">
+            <!-- ignore warning that: A form label must be associated with a form control -->
+            <label class="inline-label">{{ i18n.t.display_translation }}</label>
+            {% macro display_bool_input(name, value) %}
+                <label>
+                    {{ value }}
+                    {% if game_session.settings.display_translation == value %}
+                        <input type="radio" id="display_translation_checked" name="display_translation"
+                               class="control" value="{{ value|lower }}" checked/>
+                    {% else %}
+                        <input type="radio" id="display_translation_unchecked" name="display_translation"
+                               class="control" value="{{ value|lower }}"/>
+                    {% endif %}
+                </label>
+            {% endmacro %}
+            {{ display_bool_input("display_translation", true) }}
+            &emsp;
+            {{ display_bool_input("display_translation", false) }}
+        </p>
+
         <button type="submit" id="action_update"
                 class="control clickable button">Submit</button>
     </div>

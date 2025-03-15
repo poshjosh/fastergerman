@@ -18,7 +18,7 @@
 
         <input type="hidden" name="action" value="answer"/>
 
-        <p id="game_session_message">
+        <p class="game_session_message">
             <span class="left">
                 <span id="game_session_previous_answer_message">
                     {% if game_session.is_pending == true %}
@@ -70,7 +70,7 @@
                     class="control clickable button">{{ i18n.t.start }}</button>
         {% endif %}
 
-        <p>
+        <p class="game_session_message">
             <span class="left">
                 {{ i18n.t.questions_left }}: <span id="game_session_questions_left">{{ game_session.questions_left }}</span>
             </span>
