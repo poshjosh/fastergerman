@@ -1,11 +1,11 @@
 import logging
-import os
+from abc import ABC, abstractmethod
 from typing import List, Callable
 
 from werkzeug.exceptions import NotFound
 
 from fastergerman.game import GameSession, GameTimer, Settings, Question, AbstractGameTimer, \
-    AbstractGameStore, GameTimers, FileGameStore
+    AbstractGameStore, GameTimers
 from fastergerman.web import SESSION_ID, ACTION, GAME_SESSION
 from fastergerman.web.request_data import TRAINER
 
@@ -37,11 +37,26 @@ class WebGameSession(GameSession):
     def _get_question_display_time_millis(self) -> int:
         return self.get_game().settings.question_display_time * 1000
 
+class AbstractGameSessionProvider(ABC):
+    @abstractmethod
+    def create_store(self, session_id: str, trainer: str) -> AbstractGameStore:
+        raise NotImplementedError()
+
+    @abstractmethod
+    def get_questions(self, trainer: str) -> List[Question]:
+        raise NotImplementedError()
+
+    def create_session(self, session_id: str, trainer: str) -> GameSession:
+        game_store = self.create_store(session_id, trainer)
+        questions = self.get_questions(trainer)
+        if not questions:
+            raise NotFound(f"Trainer not found: {trainer}")
+        return WebGameSession(game_store, questions)
+
 class GameService:
-    def __init__(self, app_dir: str, questions: dict[str, List[Question]]):
-        self.__app_dir = app_dir
+    def __init__(self, game_session_provider: AbstractGameSessionProvider):
+        self.__game_session_provider = game_session_provider
         self.__game_sessions = dict[str, GameSession]()
-        self.__questions = questions
 
     def close(self):
         for session in self.__game_sessions.values():
@@ -52,12 +67,12 @@ class GameService:
     def _to_session_key(session_id: str, trainer: str) -> str:
         return f"{session_id}_{trainer}"
 
+    def get_session(self, session_id: str, trainer: str) -> GameSession:
+        return self.__game_sessions[self._to_session_key(session_id, trainer)]
+
     def _create_session(self, session_id: str, trainer: str) -> GameSession:
         key = self._to_session_key(session_id, trainer)
-        game_store = FileGameStore.of_dir(os.path.join(self.__app_dir, session_id))
-        if trainer not in self.__questions.keys():
-            raise NotFound(f"Trainer not found: {trainer}")
-        self.__game_sessions[key] = WebGameSession(game_store, self.__questions[trainer])
+        self.__game_sessions[key] = self.__game_session_provider.create_session(session_id, trainer)
         return self.__game_sessions[key]
 
     def _get_or_create_session(self, session_id: str, trainer: str) -> GameSession:

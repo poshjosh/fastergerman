@@ -1,19 +1,34 @@
 import logging
+import os
+from typing import List
 
 from flask import Flask
 
 from fastergerman.app import App
-from fastergerman.game import FileQuestionsSource
-from fastergerman.web import GameService, WebService
+from fastergerman.game import FileQuestionsSource, AbstractGameStore, FileGameStore, Question
+from fastergerman.web import GameService, WebService, AbstractGameSessionProvider
 
 logger = logging.getLogger(__name__)
+
+
+class GameSessionProvider(AbstractGameSessionProvider):
+    def __init__(self, app_dir: str, questions: dict[str, List[Question]]):
+        self.__app_dir = app_dir
+        self.__questions = questions
+
+    def create_store(self, session_id: str, trainer: str) -> AbstractGameStore:
+        return FileGameStore.of_dir(os.path.join(self.__app_dir, session_id, trainer))
+
+    def get_questions(self, trainer: str) -> List[Question]:
+        return self.__questions.get(trainer, [])
 
 
 class WebApp(App):
     def __init__(self, application: Flask, app_config_path: str = None, logging_config_path: str = None):
         super().__init__(app_config_path, logging_config_path)
         questions = FileQuestionsSource(self.config.get_questions_dir()).load_questions()
-        game_service = GameService(self.config.get_app_dir(), questions)
+        session_provider = GameSessionProvider(self.config.get_app_dir(), questions)
+        game_service = GameService(session_provider)
 
         self.web_service = WebService(self.config, game_service, questions.keys())
 

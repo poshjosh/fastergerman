@@ -12,6 +12,11 @@ class LanguageLevel:
     def is_lte(a: str, b: str) -> bool:
         return LanguageLevel.ordinal(a) <= LanguageLevel.ordinal(b)
 
+    @staticmethod
+    def next(level: str, default: str) -> str:
+        pos = LanguageLevel.VALUES.index(level) + 1
+        return default if pos >= len(LanguageLevel.VALUES) else LanguageLevel.VALUES[pos]
+
 @dataclass(frozen=True)
 class Score:
     success: int = 0
@@ -69,11 +74,10 @@ class Question:
     def with_number_of_choices(self, number_of_choices: int) -> 'Question':
         if number_of_choices >= len(self.choices):
             return self
-        choices = [self.answer]
-        for i in range(number_of_choices - 1):
-            if self.choices[i] == self.answer:
-                continue
-            choices.append(self.choices[i])
+        choices = self.choices[:number_of_choices]
+        if self.answer not in choices:
+            choices.insert(0, self.answer)
+            choices.pop()
         shuffle(choices)
         return Question(self.answer, self.example, self.translation,
                         choices, self.level, self.consecutively_correct)
