@@ -10,4 +10,14 @@ app:
     dir: resources/config/questions
   translations:
     dir: resources/config/i18n
-
+  chat:
+    ratelimit:
+      permits: 2
+      duration: 10000
+    disabled: false
+    history_max_tokens: 10000
+    prompt: You are a helpful assistant. Answer all questions to the best of your ability in {language}.
+    model:
+      name: llama3.1 # gpt-4o-mini
+      # use `echo` here to have your chat messages echoed to you.
+      provider: ollama # openai

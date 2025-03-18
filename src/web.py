@@ -1,5 +1,6 @@
 import traceback
-from datetime import datetime
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
 
 import jinja2
 from flask import Flask, render_template, request
@@ -8,11 +9,9 @@ import logging.config
 
 from werkzeug.exceptions import NotFound
 
-from fastergerman import i18n
 from fastergerman.game.game import NoMoreQuestionsError
 from fastergerman.i18n import I18n, UNEXPECTED_ERROR, NOT_FOUND, NO_MORE_QUESTIONS
-from fastergerman.web import RequestData, ValidationError, WebApp
-from fastergerman.web.request_data import TRAINER
+from fastergerman.web import RequestData, ValidationError, WebApp, TRAINER, CHAT_REQUEST
 
 # AWS elastic beanstalk requires that we name this `application`, not `app` or any other thing.
 # AWS elastic beanstalk requires that the app be fully initialized in the global scope.
@@ -27,11 +26,17 @@ logging.config.dictConfig(app.logging_config.to_dict())
 INDEX_TEMPLATE = 'index.html'
 TRAINERS = '/trainers'
 TRAINERS_INDEX_TEMPLATE = f'{TRAINERS}/index.html'[1:]
-
+CHAT = '/chat'
+CHAT_INDEX_TEMPLATE = f'{CHAT}/index.html'[1:]
 
 @application.template_filter('url_quote')
 def url_quote_filter(s):
     return jinja2.utils.url_quote(s)
+
+@application.template_filter('display_time')
+def display_time(timestamp):
+    utc = datetime.fromtimestamp(timestamp, tz=timezone.utc)
+    return utc.astimezone(ZoneInfo(RequestData.get_timezone(request))).strftime("%H:%M:%S")
 
 
 def _handle_exception(message, template: str = None):
@@ -40,6 +45,8 @@ def _handle_exception(message, template: str = None):
     if not template:
         if request.path.startswith(TRAINERS):
             template = TRAINERS_INDEX_TEMPLATE
+        elif request.path.startswith(CHAT):
+            template = CHAT_INDEX_TEMPLATE
         else:
             template = INDEX_TEMPLATE
     data["error"] = message
@@ -84,6 +91,14 @@ def trainers(trainer):
     data[TRAINER] = trainer
     return render_template(TRAINERS_INDEX_TEMPLATE, **app.web_service.trainers(data))
 
+@application.route(CHAT, methods=['GET', 'POST'])
+def chat():
+    data = RequestData.collect(request)
+    if CHAT_REQUEST in data:
+        data = app.web_service.chat(data)
+    else:
+        data = app.web_service.default(data)
+    return render_template(CHAT_INDEX_TEMPLATE, **data)
 
 if __name__ == '__main__':
     print(f"{datetime.now()} | __main__")

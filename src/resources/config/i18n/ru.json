@@ -1,12 +1,18 @@
 {
   "display_name": "Русский",
+  "english_name": "Russian",
   "translations": {
     "app_short_description": "Учите немецкий быстрее",
+    "chat": "Чат",
+    "chat_disabled": "Чат отключен",
+    "chat_model": "Чат модель",
+    "chat_model_api_key": "Ключ модели чата API",
     "display_translation": "Отображать перевод вопроса",
     "game_completed_message": "Игра завершена. Вы набрали {} процентов",
     "game_to_load": "Игра должна быть загружена",
     "invalid": "Недействительно",
     "language_level": "Языковой уровень",
+    "llm_not_found": "LLM не найден",
     "max_consecutively_correct": "Максимальное количество последовательных правильных ответов",
     "max_number_of_questions": "Максимальное количество вопросов",
     "new_game": "Новая игра",
@@ -16,6 +22,7 @@
     "pause": "Пауза",
     "please_enter_name": "Пожалуйста, введите имя",
     "preposition_trainer": "Тренажер по предлогам",
+    "provide_chat_model_api_key": "Предоставьте ваш ключ API, чтобы продолжить чат",
     "question_display_time": "Время отображения вопроса (секунды)",
     "questions_left": "Осталось вопросов",
     "required": "Требуется",
@@ -28,6 +35,7 @@
     "start_game_prompt": "Нажмите Start, чтобы начать",
     "submit": "Отправить",
     "time": "Время",
+    "too_many_requests": "Слишком много запросов",
     "unexpected_error": "Неожиданная проблема",
     "verb_trainer": "Тренер глаголов"
   }

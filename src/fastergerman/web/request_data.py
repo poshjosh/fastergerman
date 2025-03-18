@@ -1,5 +1,6 @@
 import logging
 import uuid
+from datetime import timezone
 from typing import Union
 
 from flask import session
@@ -12,11 +13,16 @@ logger = logging.getLogger(__name__)
 
 LANG_CODE = "lang_code"
 SESSION_ID = "session_id"
-TRAINER = "trainer"
 ACTION = "action"
 GAME_SESSION = "game_session"
+TRAINER = "trainer"
 TRAINER_TYPES = "trainer_types"
+TIMEZONE = "timezone"
 
+CHAT_REQUEST = "chat_request"
+CHAT_MODEL_NAME = "chat_model_name"
+CHAT_MODEL_PROVIDER = "chat_model_provider"
+CHAT_MODEL_API_KEY = "chat_model_api_key"
 
 class ValidationError(Exception):
     def __init__(self, *args):
@@ -64,6 +70,10 @@ class RequestData:
         return request_data
 
     @staticmethod
+    def get_timezone(request, default: str = str(timezone.utc)) -> str:
+        return RequestData.get(request, TIMEZONE, session.get(TIMEZONE, default))
+
+    @staticmethod
     def get_language_code(request, default: str = I18n.get_default_language_code()) -> str:
         return session.get(LANG_CODE, RequestData._request_lang_code(request, default))
 
@@ -103,6 +113,7 @@ class RequestData:
     def sync_to_session(data: dict[str, any]):
         RequestData._sync_to_session(data, GAME_SESSION)
         RequestData._sync_to_session(data, TRAINER)
+        RequestData._sync_to_session(data, TIMEZONE)
 
     @staticmethod
     def _sync_to_session(data: dict[str, any], key: str):

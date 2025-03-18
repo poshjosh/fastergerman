@@ -14,7 +14,7 @@
     {% include 'trainers/common/settings.html' %}
 
     <form id="game_session_answer" action="/trainers/{{ trainer }}"
-          class="form" method="post">
+          class="card" method="post">
 
         <input type="hidden" name="action" value="answer"/>
 
@@ -60,7 +60,7 @@
         {% endfor %}
     </form>
     <form id="game_session" action="/trainers/{{ trainer }}"
-          class="form" method="post">
+          class="card" method="post">
 
         {% if game_session.is_running == true %}
             <button type="submit" id="action_pause" name="action" value="pause"
@@ -81,7 +81,7 @@
         </p>
     </form>
     <form id="game_session_next" action="/trainers/{{ trainer }}"
-          class="form" method="post">
+          class="card" method="post">
         <input type="hidden" id="action_next" name="action" value="next"/>
     </form>
     <script src="{{ url_for('static', filename='scripts/scripts.js') }}"

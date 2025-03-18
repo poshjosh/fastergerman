@@ -1,12 +1,18 @@
 {
   "display_name": "Türkçe",
+  "english_name": "Turkish",
   "translations": {
     "app_short_description": "Almancayı daha hızlı öğrenin",
+    "chat": "Sohbet",
+    "chat_disabled": "Sohbet devre dışı bırakıldı",
+    "chat_model": "Sohbet modeli",
+    "chat_model_api_key": "Sohbet Modeli API Anahtarı",
     "display_translation": "Soru çevirisini görüntüle",
     "game_completed_message": "Oyun tamamlandı. Yüzde {} puan aldınız.",
     "game_to_load": "Yüklenecek oyun",
     "invalid": "Geçerli değil",
     "language_level": "Dil seviyesi",
+    "llm_not_found": "LLM bulunamadı",
     "max_consecutively_correct": "Maksimum ardışık doğru cevaplar",
     "max_number_of_questions": "Maksimum soru sayısı",
     "new_game": "Yeni oyun",
@@ -16,6 +22,7 @@
     "pause": "Duraklat",
     "please_enter_name": "Lütfen bir isim girin",
     "preposition_trainer": "Edat Eğitmeni",
+    "provide_chat_model_api_key": "Sohbet etmeye devam etmek için API anahtarınızı sağlayın",
     "question_display_time": "Soru görüntüleme süresi (saniye)",
     "questions_left": "Sorular kaldı",
     "required": "Gerekli",
@@ -28,6 +35,7 @@
     "start_game_prompt": "Başlamak için Başlat'a tıklayın",
     "submit": "Gönder",
     "time": "Zaman",
+    "too_many_requests": "Çok fazla istek",
     "unexpected_error": "Beklenmeyen sorun",
     "verb_trainer": "Fiil eğitmeni"
   }

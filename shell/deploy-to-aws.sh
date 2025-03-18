@@ -47,6 +47,8 @@ printf "\nCopied files to '%s'\n" "${TARGET_DIR}/"
 rm "${TARGET_DIR}/main.py"
 rm -Rf "${TARGET_DIR}/fastergerman/ui"
 
+# Delete files not needed for web app deployment
+rm "${TARGET_DIR}/translator.py"
 rm -Rf "${TARGET_DIR}/fastergerman.egg-info"
 rm -Rf "${TARGET_DIR}/output"
 rm -Rf "${TARGET_DIR}/test"
@@ -100,9 +102,10 @@ if [[ -z "${EXISTING_ENV}" ]]; then
     eb setenv APP_PORT=5000
     eb setenv APP_DIR=sessions
     eb_set_optional_env APP_SECRET_KEY
-    eb_set_optional_env APP_LANGUAGE_CODE
-    eb_set_optional_env APP_QUESTIONS_DIR
-    eb_set_optional_env APP_TRANSLATIONS_DIR
+    eb_set_optional_env APP_CHAT_DISABLED
+    eb_set_optional_env APP_CHAT_MODEL_API_KEY
+    eb_set_optional_env APP_CHAT_MODEL_NAME
+    eb_set_optional_env APP_CHAT_MODEL_PROVIDER
   fi
 else
   selected_env="${EXISTING_ENV}"

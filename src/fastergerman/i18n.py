@@ -5,6 +5,10 @@ import os
 logger = logging.getLogger(__name__)
 
 APP_SHORT_DESCRIPTION="app_short_description"
+CHAT="chat"
+CHAT_DISABLED="chat_disabled"
+CHAT_MODEL = "chat_model"
+CHAT_MODEL_API_KEY = "chat_model_api_key"
 DISPLAY_QUESTION_TRANSLATION = "display_translation"
 GAME_COMPLETED_MESSAGE = "game_completed_message"
 GAME_TO_LOAD = "game_to_load"
@@ -12,6 +16,7 @@ INVALID = "invalid"
 LANGUAGE_LEVEL = "language_level"
 MAX_CONSECUTIVE_CORRECT_ANSWERS = "max_consecutively_correct"
 MAX_NUMBER_OF_QUESTIONS = "max_number_of_questions"
+LLM_NOT_FOUND = "llm_not_found"
 NEW_GAME = "new_game"
 NO_MORE_QUESTIONS = "no_more_questions"
 NOT_FOUND = "not_found"
@@ -19,6 +24,7 @@ NUMBER_OF_CHOICES_PER_QUESTION = "number_of_choices"
 PAUSE = "pause"
 PLEASE_ENTER_NAME = "please_enter_name"
 PREPOSITION_TRAINER = "preposition_trainer"
+PROVIDE_CHAT_MODEL_API_KEY = "provide_chat_model_api_key"
 QUESTION_DISPLAY_TIME_SECONDS = "question_display_time"
 QUESTIONS_LEFT = "questions_left"
 REQUIRED = "required"
@@ -31,6 +37,7 @@ START_AT_QUESTION_NUMBER = "start_at_question_number"
 START_GAME_PROMPT = "start_game_prompt"
 SUBMIT = "submit"
 TIME = "time"
+TOO_MANY_REQUESTS = "too_many_requests"
 UNEXPECTED_ERROR = "unexpected_error"
 VERB_TRAINER = "verb_trainer"
 
@@ -60,6 +67,14 @@ class I18n:
         if code not in I18n.__config:
             raise ValueError(f"Translations for default language '{code}' not found")
         I18n.__default_lang_code = code
+
+    @staticmethod
+    def get_english_name_for_code(lang_code: str) -> str:
+        return I18n.get_config(lang_code).get("english_name", lang_code)
+
+    @staticmethod
+    def get_code_for_english_name(english_name: str) -> str:
+        return I18n.__default_lang_code
 
     @staticmethod
     def is_supported(lang_code: str):
@@ -112,6 +127,10 @@ class I18n:
             return val if val else key
         else:
             raise ValueError(f"{lang} translation not found for key {key}")
+
+    @staticmethod
+    def get_display_name(lang_code: str, default: str) -> str:
+        return I18n.get_config(lang_code).get("display_name", default)
 
     @staticmethod
     def get_dir(lang) -> str:

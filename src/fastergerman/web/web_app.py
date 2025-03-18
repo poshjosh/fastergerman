@@ -1,36 +1,43 @@
 import logging
-import os
-from typing import List
 
 from flask import Flask
 
 from fastergerman.app import App
-from fastergerman.game import FileQuestionsSource, AbstractGameStore, FileGameStore, Question
-from fastergerman.web import GameService, WebService, AbstractGameSessionProvider
+from fastergerman.chat import LangchainChatService, ChatRequest
+from fastergerman.chat.chat_service import MessageState, MessageConverter
+from fastergerman.game import FileQuestionsSource
+from fastergerman.web import GameService, WebService, RateLimiter
 
 logger = logging.getLogger(__name__)
 
 
-class GameSessionProvider(AbstractGameSessionProvider):
-    def __init__(self, app_dir: str, questions: dict[str, List[Question]]):
-        self.__app_dir = app_dir
-        self.__questions = questions
+class MessageConverterImpl(MessageConverter):
+    def __init__(self, rate_limiter: RateLimiter, default_llm_api_key: str):
+        self.__rate_limiter = rate_limiter
+        self.__default_llm_api_key = default_llm_api_key
 
-    def create_store(self, session_id: str, trainer: str) -> AbstractGameStore:
-        return FileGameStore.of_dir(os.path.join(self.__app_dir, session_id, trainer))
-
-    def get_questions(self, trainer: str) -> List[Question]:
-        return self.__questions.get(trainer, [])
+    def to_message_input(self, request: ChatRequest) -> MessageState:
+        message_state = super().to_message_input(request)
+        if request.model.api_key != self.__default_llm_api_key: # user provided own api key
+            return message_state
+        if self.__rate_limiter.is_within_limit(request.session_id) is False:
+            message_state["limit_exceeded"] = True
+        return message_state
 
 
 class WebApp(App):
     def __init__(self, application: Flask, app_config_path: str = None, logging_config_path: str = None):
         super().__init__(app_config_path, logging_config_path)
-        questions = FileQuestionsSource(self.config.get_questions_dir()).load_questions()
-        session_provider = GameSessionProvider(self.config.get_app_dir(), questions)
-        game_service = GameService(session_provider)
 
-        self.web_service = WebService(self.config, game_service, questions.keys())
+        questions = FileQuestionsSource(self.config.get_questions_dir()).load_questions()
+        game_service = GameService.of(self.config.get_app_dir(), questions)
+
+        state_converter = MessageConverterImpl(
+            RateLimiter(self.config.chat().get_ratelimit_permits(),
+                        self.config.chat().get_ratelimit_duration()),
+            self.config.chat().model().get_api_key())
+        chat_service = LangchainChatService.of(self.config.chat(), state_converter)
+        self.web_service = WebService(self.config, game_service, questions.keys(), chat_service)
 
         App.add_shutdown_callback(self.web_service.close)
 

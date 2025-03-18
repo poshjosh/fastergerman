@@ -11,4 +11,7 @@
             </p>
         {% endwith %}
     {% endfor %}
+    {% if chat and chat.disabled != true %}
+        <p><a id="chat_trainer" href="chat">{{ i18n.t.chat }}</a></p>
+    {% endif %}
 {% endblock %}

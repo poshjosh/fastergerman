@@ -2,18 +2,20 @@
 
 from setuptools import setup, find_packages
 
-from fastergerman.config import AppConfig
-from fastergerman.file import load_yaml
-from fastergerman.i18n import I18n, APP_SHORT_DESCRIPTION
+from src.fastergerman.config import AppConfig
+from src.fastergerman.file import load_yaml
 
 if __name__ == "__main__":
-    app_config = AppConfig(load_yaml('resources/config/app.yaml'))
+    app_config = AppConfig(load_yaml('src/resources/config/app.yaml'))
     setup(name=app_config.get_app_name(),
           version=app_config.get_app_version(),
-          description=I18n.translate_default(APP_SHORT_DESCRIPTION),
+          description="Learn german faster",
           author="PoshJosh",
           author_email="posh.bc@gmail.com",
-          install_requires=["PyYAML", "flask", "flask-cors"],
+          install_requires=[
+              "PyYAML", "flask", "flask-cors", "transformers", "langchain-core", "langgraph>=0.2.28",
+              "langchain[groq]", "langchain[openai]", "langchain[anthropic]", "langchain[cohere]",
+              "langchain-nvidia-ai-endpoints", "langchain-xai"],
           license="MIT",
           classifiers=[
               "Programming Language :: Python :: 3",

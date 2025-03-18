@@ -1,0 +1,98 @@
+{% extends "common/page.html" %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles/form.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div id="chat">
+        <form id="chat_request_form" action="/chat"
+              class="card" method="post">
+            <input type="hidden" id="timezone" name="timezone"/>
+            {% if chat %}
+                {% for chat in chat.chats %}
+                    {% if chat.author == 'me' %}
+                        <div class="chat_message_left chat_message">
+                            {{ chat.content | e }}
+                            <br/><span class="chat_message_time">{{ chat.timestamp | display_time }}</span>
+                        </div>
+                    {% else %}
+                        <div class="chat_message_right chat_message">
+                            {{ chat.content | e }}
+                            <br/><span class="chat_message_time">{{ chat.timestamp | display_time }}</span>
+                        </div>
+                    {% endif %}
+                    <div style="clear:both;"></div>
+                {% endfor %}
+            {% endif %}
+            <div id="last_chat" style="display:none;">
+                <div class="chat_message_left chat_message" id="last_chat_request"></div>
+                <div class="chat_message_right chat_message" id="last_chat_response">
+                    <div class="spinner"></div>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <p>
+                <!-- TODO i18n for innerText -->
+                <label for="chat_request">Ask anything, I will reply in your language: {{ i18n.lang_name }}</label>
+                <br/>
+                <!-- TODO i18n for placeholder -->
+                <textarea id="chat_request" name="chat_request" class="control"
+                          placeholder="Type your question here" rows="3" cols="42"></textarea>
+                <span id="chat_request_error" class="control_error" style="display:none;"></span>
+            </p>
+            <button type="submit" id="chat_request_submit" class="control">{{ i18n.t.submit }}</button>
+            {% if chat and chat.supported_models %}
+                <hr/>
+                <p>
+                    <label for="chat_model_api_key">{{ i18n.t.chat_model_api_key }}</label>
+                    <br/>
+                    <input type="text" id="chat_model_api_key" name="chat_model_api_key"
+                           class="control"/>
+                </p>
+                <p>
+                    <label for="chat_model_name">{{ i18n.t.chat_model }}</label>
+                    <select id="chat_model_name" name="chat_model_name" class="control">
+                        <option value="" disabled selected>{{ i18n.t.chat_model }}</option>
+                        {% for model_name in chat.supported_models.keys() %}
+                            <option value="{{ model_name }}">{{ model_name }}</option>
+                        {% endfor %}
+                    </select>
+                </p>
+            {% endif %}
+        </form>
+    </div>
+    <script>
+      function setUpForm(formId, timezoneId, inputId, inputDisplayName, errorId, beforeSendToServer) {
+        document.getElementById(timezoneId).value = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const form = document.getElementById(formId);
+        const input = document.getElementById(inputId);
+        input.value = '';
+        const error = document.getElementById(errorId);
+        input.addEventListener("change", function(){
+          error.style.display = 'none';
+        });
+        form.addEventListener("submit", function(event){
+          const inputValue = input.value;
+          if (inputValue && inputValue.trim()) {
+            error.style.display = 'none';
+            if (beforeSendToServer) {
+              beforeSendToServer(inputValue);
+            }
+          } else {
+            event.preventDefault();
+            error.style.display = 'block';
+            error.innerText = inputDisplayName + ' is required.';
+          }
+        });
+      }
+
+      setUpForm(
+        "chat_request_form", "timezone", "chat_request", "Chat request", "chat_request_error",
+        function(chatRequestText){
+          document.getElementById("last_chat").style.display = 'block';
+          document.getElementById("last_chat_request").innerText = chatRequestText;
+        });
+    </script>
+{% endblock %}

@@ -1,12 +1,18 @@
 {
   "display_name": "Deutsch",
+  "english_name": "German",
   "translations": {
     "app_short_description": "Schneller Deutsch lernen",
+    "chat": "Chat",
+    "chat_disabled": "Der Chat ist deaktiviert",
+    "chat_model": "Chat -Modell",
+    "chat_model_api_key": "Chat -Modell -API -Schlüssel",
     "display_translation": "Frageübersetzung anzeigen",
     "game_completed_message": "Spiel beendet. Du hast {} Prozent erreicht.",
     "game_to_load": "Spiel zu laden",
     "invalid": "Nicht gültig",
     "language_level": "Sprachniveau",
+    "llm_not_found": "LLM nicht gefunden",
     "max_consecutively_correct": "Max. aufeinanderfolgende richtige Antworten",
     "max_number_of_questions": "Maximale Anzahl von Fragen",
     "new_game": "Neues Spiel",
@@ -16,6 +22,7 @@
     "pause": "pause",
     "please_enter_name": "Bitte geben Sie einen Namen ein",
     "preposition_trainer": "Präpositionstrainer",
+    "provide_chat_model_api_key": "Geben Sie Ihren API -Schlüssel an, um weiter zu chatten",
     "question_display_time": "Frage-Anzeigezeit (Sekunden)",
     "questions_left": "Verbleibende Fragen",
     "required": "Erforderlich",
@@ -28,6 +35,7 @@
     "start_game_prompt": "Klicken Sie auf Start, um zu beginnen",
     "submit": "Abschicken",
     "time": "Zeit",
+    "too_many_requests": "Zu viele Anfragen",
     "unexpected_error": "Unerwartetes Problem",
     "verb_trainer": "Verb Trainer"
   }

@@ -1,13 +1,19 @@
 {
   "display_name": "العربية",
+  "english_name": "Arabic",
   "dir": "rtl",
   "translations": {
     "app_short_description": "تعلم الألمانية بشكل أسرع",
+    "chat": "محادثة",
+    "chat_disabled": "تم تعطيل الدردشة",
+    "chat_model": "نموذج الدردشة",
+    "chat_model_api_key": "مفتاح API طراز الدردشة",
     "display_translation": "عرض ترجمة السؤال",
     "game_completed_message": "اكتملت اللعبة. لقد سجلت {} في المائة.",
     "game_to_load": "اللعبة قيد التحميل",
     "invalid": "غير صالح",
     "language_level": "مستوى اللغة",
+    "llm_not_found": "LLM لم يتم العثور عليها",
     "max_consecutively_correct": "الحد الأقصى للإجابات الصحيحة المتتالية",
     "max_number_of_questions": "الحد الأقصى لعدد الأسئلة",
     "new_game": "لعبة جديدة",
@@ -17,6 +23,7 @@
     "pause": "إيقاف مؤقت",
     "please_enter_name": "الرجاء إدخال اسم",
     "preposition_trainer": "مدرب حروف الجر",
+    "provide_chat_model_api_key": "قدم مفتاح API لمواصلة الدردشة",
     "question_display_time": "وقت عرض السؤال (بالثواني)",
     "questions_left": "الأسئلة المتبقية",
     "required": "مطلوب",
@@ -29,6 +36,7 @@
     "start_game_prompt": "انقر فوق ابدأ للبدء",
     "submit": "إرسال",
     "time": "الوقت",
+    "too_many_requests": "الكثير من الطلبات",
     "unexpected_error": "مشكلة غير متوقعة",
     "verb_trainer": "مدرب الفعل"
   }

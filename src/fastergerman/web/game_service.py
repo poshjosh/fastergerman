@@ -1,13 +1,13 @@
 import logging
+import os
 from abc import ABC, abstractmethod
 from typing import List, Callable
 
 from werkzeug.exceptions import NotFound
 
 from fastergerman.game import GameSession, GameTimer, Settings, Question, AbstractGameTimer, \
-    AbstractGameStore, GameTimers
-from fastergerman.web import SESSION_ID, ACTION, GAME_SESSION
-from fastergerman.web.request_data import TRAINER
+    AbstractGameStore, GameTimers, FileGameStore
+from fastergerman.web import SESSION_ID, ACTION, GAME_SESSION, TRAINER
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +53,22 @@ class AbstractGameSessionProvider(ABC):
             raise NotFound(f"Trainer not found: {trainer}")
         return WebGameSession(game_store, questions)
 
+class GameSessionProvider(AbstractGameSessionProvider):
+    def __init__(self, app_dir: str, questions: dict[str, List[Question]]):
+        self.__app_dir = app_dir
+        self.__questions = questions
+
+    def create_store(self, session_id: str, trainer: str) -> AbstractGameStore:
+        return FileGameStore.of_dir(os.path.join(self.__app_dir, session_id, trainer))
+
+    def get_questions(self, trainer: str) -> List[Question]:
+        return self.__questions.get(trainer, [])
+
 class GameService:
+    @staticmethod
+    def of(app_dir: str, questions: dict[str, List[Question]]) -> 'GameService':
+        return GameService(GameSessionProvider(app_dir, questions))
+
     def __init__(self, game_session_provider: AbstractGameSessionProvider):
         self.__game_session_provider = game_session_provider
         self.__game_sessions = dict[str, GameSession]()
