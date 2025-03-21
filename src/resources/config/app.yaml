@@ -2,7 +2,7 @@ web:
   port: 5010
 app:
   name: FasterGerman
-  version: 0.0.5
+  version: 0.0.6
   language-code: en-GB
   # [dev|prod]
   profiles: dev
