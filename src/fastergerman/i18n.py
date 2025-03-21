@@ -5,6 +5,7 @@ import os
 logger = logging.getLogger(__name__)
 
 APP_SHORT_DESCRIPTION="app_short_description"
+ASK_ANYTHING = "ask_anything"
 CHAT="chat"
 CHAT_DISABLED="chat_disabled"
 CHAT_MODEL = "chat_model"
@@ -12,6 +13,7 @@ CHAT_MODEL_API_KEY = "chat_model_api_key"
 DISPLAY_QUESTION_TRANSLATION = "display_translation"
 GAME_COMPLETED_MESSAGE = "game_completed_message"
 GAME_TO_LOAD = "game_to_load"
+# GERMAN = "german" TODO remove from translation files
 INVALID = "invalid"
 LANGUAGE_LEVEL = "language_level"
 MAX_CONSECUTIVE_CORRECT_ANSWERS = "max_consecutively_correct"
@@ -38,6 +40,7 @@ START_GAME_PROMPT = "start_game_prompt"
 SUBMIT = "submit"
 TIME = "time"
 TOO_MANY_REQUESTS = "too_many_requests"
+TYPE_HERE = "type_here"
 UNEXPECTED_ERROR = "unexpected_error"
 VERB_TRAINER = "verb_trainer"
 

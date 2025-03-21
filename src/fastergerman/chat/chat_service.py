@@ -87,7 +87,7 @@ class MessageConverter:
         return {
             "messages": [HumanMessage(
                 request.query, response_metadata={"created_at": dt_str})],
-            "language": request.lang_name,
+            "language": "German",
             "model_data": request.model
         }
 

@@ -102,7 +102,6 @@ if [[ -z "${EXISTING_ENV}" ]]; then
     eb setenv APP_PORT=5000
     eb setenv APP_DIR=sessions
     eb_set_optional_env APP_SECRET_KEY
-    eb_set_optional_env APP_CHAT_DISABLED
     eb_set_optional_env APP_CHAT_MODEL_API_KEY
     eb_set_optional_env APP_CHAT_MODEL_NAME
     eb_set_optional_env APP_CHAT_MODEL_PROVIDER

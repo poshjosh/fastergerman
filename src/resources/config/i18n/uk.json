@@ -3,13 +3,16 @@
   "english_name": "Ukrainian",
   "translations": {
     "app_short_description": "Вивчайте німецьку швидше",
+    "ask_anything": "Запитайте що завгодно, я відповім німецькою",
     "chat": "Чат",
     "chat_disabled": "Чат відключається",
     "chat_model": "Модель чату",
     "chat_model_api_key": "Ключ API моделі чату",
+    "combo_trainer": "Комбінований тренер",
     "display_translation": "Показати переклад запитання",
     "game_completed_message": "Гру завершено. Ви набрали {} відсотків.",
     "game_to_load": "Гру потрібно завантажити",
+    "german": "Німецький",
     "invalid": "Недійсний",
     "language_level": "Мовний рівень",
     "llm_not_found": "Llm не знайдено",
@@ -21,6 +24,7 @@
     "number_of_choices": "Кількість варіантів відповіді на запитання",
     "pause": "Пауза",
     "please_enter_name": "Будь ласка, введіть ім'я",
+    "possessive-adjective_trainer": "Присвячений прикметник",
     "preposition_trainer": "Тренер прийменників",
     "provide_chat_model_api_key": "Надайте свій ключ API для продовження спілкування",
     "question_display_time": "Час відображення запитання (секунди)",
@@ -36,6 +40,7 @@
     "submit": "Надіслати",
     "time": "Час",
     "too_many_requests": "Занадто багато запитів",
+    "type_here": "Введіть тут",
     "unexpected_error": "Неочікувана проблема",
     "verb_trainer": "Тренер дієслова"
   }

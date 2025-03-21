@@ -1,0 +1,671 @@
+{
+  "type": "possessive-adjective",
+  "description": "German possessive adjectives",
+  "questions": [
+    {
+      "example": "Ist das ___ Buch?",
+      "translation": "Is that your book?",
+      "choices": ["dein", "sein", "ihr", "unser", "euer"],
+      "answer": "dein",
+      "level": "A1"
+    },
+    {
+      "example": "___ Name ist Anna.",
+      "translation": "My name is Anna.",
+      "choices": ["Mein", "Dein", "Sein", "Ihr", "Unser"],
+      "answer": "Mein",
+      "level": "A1"
+    },
+    {
+      "example": "Wo ist ___ Auto?",
+      "translation": "Where is your car?",
+      "choices": ["dein", "sein", "ihr", "euer", "unser"],
+      "answer": "dein",
+      "level": "A1"
+    },
+    {
+      "example": "___ Hund ist sehr freundlich.",
+      "translation": "His dog is very friendly.",
+      "choices": ["Sein", "Dein", "Ihr", "Mein", "Euer"],
+      "answer": "Sein",
+      "level": "A1"
+    },
+    {
+      "example": "Wie heißt ___ Bruder?",
+      "translation": "What is your brother's name?",
+      "choices": ["dein", "sein", "ihr", "mein", "unser"],
+      "answer": "dein",
+      "level": "A1"
+    },
+    {
+      "example": "___ Eltern wohnen in Berlin.",
+      "translation": "Her parents live in Berlin.",
+      "choices": ["Ihre", "Deine", "Seine", "Meine", "Unsere"],
+      "answer": "Ihre",
+      "level": "A1"
+    },
+    {
+      "example": "Das ist ___ Schwester.",
+      "translation": "That is my sister.",
+      "choices": ["meine", "deine", "seine", "ihre", "unsere"],
+      "answer": "meine",
+      "level": "A1"
+    },
+    {
+      "example": "Wo sind ___ Schlüssel?",
+      "translation": "Where are your keys?",
+      "choices": ["deine", "seine", "ihre", "meine", "unsere"],
+      "answer": "deine",
+      "level": "A1"
+    },
+    {
+      "example": "___ Haus ist sehr groß.",
+      "translation": "Our house is very big.",
+      "choices": ["Unser", "Mein", "Dein", "Sein", "Ihr"],
+      "answer": "Unser",
+      "level": "A1"
+    },
+    {
+      "example": "Wie alt ist ___ Tochter?",
+      "translation": "How old is your daughter?",
+      "choices": ["deine", "seine", "ihre", "eure", "unsere"],
+      "answer": "deine",
+      "level": "A1"
+    },
+    {
+      "example": "___ Freund kommt aus Spanien.",
+      "translation": "Her friend comes from Spain.",
+      "choices": ["Ihr", "Dein", "Sein", "Mein", "Euer"],
+      "answer": "Ihr",
+      "level": "A1"
+    },
+    {
+      "example": "Wir suchen ___ Lehrer.",
+      "translation": "We are looking for our teacher.",
+      "choices": ["unseren", "meinen", "deinen", "seinen", "ihren"],
+      "answer": "unseren",
+      "level": "A2"
+    },
+    {
+      "example": "Sie liebt ___ Katze sehr.",
+      "translation": "She loves her cat very much.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "A2"
+    },
+    {
+      "example": "Ich habe ___ Hausaufgaben vergessen.",
+      "translation": "I forgot my homework.",
+      "choices": ["meine", "deine", "seine", "ihre", "unsere"],
+      "answer": "meine",
+      "level": "A2"
+    },
+    {
+      "example": "Er gibt ___ Freundin ein Geschenk.",
+      "translation": "He gives his girlfriend a present.",
+      "choices": ["seiner", "deiner", "meiner", "ihrer", "unserer"],
+      "answer": "seiner",
+      "level": "A2"
+    },
+    {
+      "example": "Könnt ihr ___ Fahrräder hier abstellen?",
+      "translation": "Can you park your bicycles here?",
+      "choices": ["eure", "deine", "seine", "meine", "ihre"],
+      "answer": "eure",
+      "level": "A2"
+    },
+    {
+      "example": "Sie spricht mit ___ Mutter am Telefon.",
+      "translation": "She is speaking with her mother on the phone.",
+      "choices": ["ihrer", "deiner", "seiner", "meiner", "eurer"],
+      "answer": "ihrer",
+      "level": "A2"
+    },
+    {
+      "example": "Der Lehrer korrigiert ___ Fehler.",
+      "translation": "The teacher corrects your mistakes.",
+      "choices": ["deine", "seine", "ihre", "meine", "unsere"],
+      "answer": "deine",
+      "level": "A2"
+    },
+    {
+      "example": "Wir haben ___ Auto verkauft.",
+      "translation": "We sold our car.",
+      "choices": ["unser", "mein", "dein", "sein", "ihr"],
+      "answer": "unser",
+      "level": "A2"
+    },
+    {
+      "example": "Er hat ___ Schlüssel verloren.",
+      "translation": "He lost his keys.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "A2"
+    },
+    {
+      "example": "Kann ich ___ Stift ausleihen?",
+      "translation": "Can I borrow your pen?",
+      "choices": ["deinen", "seinen", "ihren", "meinen", "euren"],
+      "answer": "deinen",
+      "level": "A2"
+    },
+    {
+      "example": "Hast du ___ Handy dabei?",
+      "translation": "Do you have your mobile phone with you?",
+      "choices": ["dein", "sein", "ihr", "mein", "euer"],
+      "answer": "dein",
+      "level": "A2"
+    },
+    {
+      "example": "Die Kinder machen ___ Hausaufgaben.",
+      "translation": "The children are doing their homework.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "A2"
+    },
+    {
+      "example": "Er hilft ___ Großvater im Garten.",
+      "translation": "He helps his grandfather in the garden.",
+      "choices": ["seinem", "deinem", "meinem", "ihrem", "unserem"],
+      "answer": "seinem",
+      "level": "B1"
+    },
+    {
+      "example": "Ich verstehe ___ Erklärung nicht.",
+      "translation": "I don't understand your explanation.",
+      "choices": ["deine", "seine", "ihre", "meine", "eure"],
+      "answer": "deine",
+      "level": "B1"
+    },
+    {
+      "example": "Sie stellt ___ neuen Kollegen vor.",
+      "translation": "She introduces her new colleagues.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben ___ Pläne geändert.",
+      "translation": "We changed our plans.",
+      "choices": ["unsere", "meine", "deine", "seine", "ihre"],
+      "answer": "unsere",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat ___ Meinung deutlich geäußert.",
+      "translation": "He expressed his opinion clearly.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "B1"
+    },
+    {
+      "example": "Die Familie feiert ___ Jubiläum.",
+      "translation": "The family celebrates its anniversary.",
+      "choices": ["ihr", "sein", "dein", "mein", "euer"],
+      "answer": "ihr",
+      "level": "B1"
+    },
+    {
+      "example": "Ich respektiere ___ Entscheidung.",
+      "translation": "I respect your decision.",
+      "choices": ["deine", "seine", "ihre", "meine", "eure"],
+      "answer": "deine",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben ___ Erwartungen nicht erfüllt.",
+      "translation": "We did not meet their expectations.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat ___ Versprechen gehalten.",
+      "translation": "He kept his promise.",
+      "choices": ["sein", "dein", "ihr", "mein", "euer"],
+      "answer": "sein",
+      "level": "B1"
+    },
+    {
+      "example": "Die Firma hat ___ Umsatz verdoppelt.",
+      "translation": "The company has doubled its turnover.",
+      "choices": ["ihren", "deinen", "seinen", "meinen", "euren"],
+      "answer": "ihren",
+      "level": "B1"
+    },
+    {
+      "example": "Habt ihr ___ Unterlagen dabei?",
+      "translation": "Do you have your documents with you?",
+      "choices": ["eure", "deine", "seine", "meine", "ihre"],
+      "answer": "eure",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat ___ Verhalten nicht erklären können.",
+      "translation": "He couldn't explain his behavior.",
+      "choices": ["sein", "dein", "ihr", "mein", "euer"],
+      "answer": "sein",
+      "level": "B1"
+    },
+    {
+      "example": "Die Studenten haben ___ Prüfungen bestanden.",
+      "translation": "The students passed their exams.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "B1"
+    },
+    {
+      "example": "Der Autor stellt ___ neues Buch vor.",
+      "translation": "The author presents his new book.",
+      "choices": ["sein", "dein", "ihr", "mein", "euer"],
+      "answer": "sein",
+      "level": "B1"
+    },
+    {
+      "example": "Die Lehrer bewerten ___ Methoden kritisch.",
+      "translation": "The teachers evaluate their methods critically.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "B2"
+    },
+    {
+      "example": "Der Politiker hat ___ Meinung geändert.",
+      "translation": "The politician changed his opinion.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "B2"
+    },
+    {
+      "example": "Das Unternehmen präsentiert ___ neue Strategie.",
+      "translation": "The company presents its new strategy.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "B2"
+    },
+    {
+      "example": "Wir müssen ___ Vorgehensweise überdenken.",
+      "translation": "We need to reconsider our approach.",
+      "choices": ["unsere", "meine", "deine", "seine", "ihre"],
+      "answer": "unsere",
+      "level": "B2"
+    },
+    {
+      "example": "Die Experten haben ___ Bedenken geäußert.",
+      "translation": "The experts expressed their concerns.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "B2"
+    },
+    {
+      "example": "Der Kandidat hat ___ Bewerbung zurückgezogen.",
+      "translation": "The candidate withdrew his application.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "B2"
+    },
+    {
+      "example": "Die Professorin veröffentlicht ___ Forschungsergebnisse.",
+      "translation": "The professor publishes her research results.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "B2"
+    },
+    {
+      "example": "Die Teilnehmer äußern ___ Bedenken offen.",
+      "translation": "The participants express their concerns openly.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "B2"
+    },
+    {
+      "example": "Der Konzern hat ___ Ziele nicht erreicht.",
+      "translation": "The corporation did not achieve its goals.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "B2"
+    },
+    {
+      "example": "Die Mitarbeiter haben ___ Aufgaben erfüllt.",
+      "translation": "The employees have fulfilled their tasks.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "B2"
+    },
+    {
+      "example": "Der Verein hat ___ Statuten überarbeitet.",
+      "translation": "The association has revised its statutes.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "B2"
+    },
+    {
+      "example": "Die Kunden haben ___ Beschwerden eingereicht.",
+      "translation": "The customers have submitted their complaints.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "B2"
+    },
+    {
+      "example": "Der Ausschuss hat ___ Empfehlungen vorgelegt.",
+      "translation": "The committee has presented its recommendations.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "B2"
+    },
+    {
+      "example": "Die Organisation hat ___ Strukturen reformiert.",
+      "translation": "The organization has reformed its structures.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "B2"
+    },
+    {
+      "example": "Die Parteien haben ___ Positionen dargelegt.",
+      "translation": "The parties have outlined their positions.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "B2"
+    },
+    {
+      "example": "Der Künstler präsentiert ___ neueste Werke.",
+      "translation": "The artist presents his latest works.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "B2"
+    },
+    {
+      "example": "Die Regierung hat ___ Strategie grundlegend geändert.",
+      "translation": "The government has fundamentally changed its strategy.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C1"
+    },
+    {
+      "example": "Die Kommission hat ___ Bericht vorgelegt, der heftig kritisiert wurde.",
+      "translation": "The commission presented its report, which was heavily criticized.",
+      "choices": ["ihren", "deinen", "seinen", "meinen", "euren"],
+      "answer": "ihren",
+      "level": "C1"
+    },
+    {
+      "example": "Der Konzern muss ___ Einfluss auf die Politik rechtfertigen.",
+      "translation": "The corporation must justify its influence on politics.",
+      "choices": ["seinen", "deinen", "meinen", "ihren", "euren"],
+      "answer": "seinen",
+      "level": "C1"
+    },
+    {
+      "example": "Die Wissenschaftler haben ___ Hypothese widerlegt.",
+      "translation": "The scientists have refuted their hypothesis.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C1"
+    },
+    {
+      "example": "Der Vorstand hat ___ Verantwortung für den Skandal eingestanden.",
+      "translation": "The board has admitted its responsibility for the scandal.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "C1"
+    },
+    {
+      "example": "Die Universität hat ___ Zulassungsverfahren überarbeitet.",
+      "translation": "The university has revised its admission procedures.",
+      "choices": ["ihr", "dein", "sein", "mein", "euer"],
+      "answer": "ihr",
+      "level": "C1"
+    },
+    {
+      "example": "Der Ausschuss hat ___ Entscheidung einstimmig getroffen.",
+      "translation": "The committee made its decision unanimously.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "C1"
+    },
+    {
+      "example": "Die Experten haben ___ Gutachten unabhängig voneinander erstellt.",
+      "translation": "The experts created their assessments independently of each other.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C1"
+    },
+    {
+      "example": "Der Verband muss ___ Satzung den neuen Vorschriften anpassen.",
+      "translation": "The association must adapt its statutes to the new regulations.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "C1"
+    },
+    {
+      "example": "Die Behörde hat ___ Befugnisse überschritten.",
+      "translation": "The authority has exceeded its powers.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C1"
+    },
+    {
+      "example": "Das Parlament hat ___ Zustimmung verweigert.",
+      "translation": "The parliament refused its approval.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "C1"
+    },
+    {
+      "example": "Die Abgeordneten haben ___ Mandate niedergelegt.",
+      "translation": "The representatives resigned from their mandates.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C1"
+    },
+    {
+      "example": "Der Konzern hat ___ Marktposition ausgebaut.",
+      "translation": "The corporation has expanded its market position.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "C1"
+    },
+    {
+      "example": "Die Stiftung hat ___ Förderrichtlinien überarbeitet.",
+      "translation": "The foundation has revised its funding guidelines.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C1"
+    },
+    {
+      "example": "Das Komitee hat ___ Vorbehalte deutlich zum Ausdruck gebracht.",
+      "translation": "The committee has clearly expressed its reservations.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "C1"
+    },
+    {
+      "example": "Die Regierung hat ___ Koalitionspartner vor vollendete Tatsachen gestellt.",
+      "translation": "The government presented its coalition partner with a fait accompli.",
+      "choices": ["ihren", "deinen", "seinen", "meinen", "euren"],
+      "answer": "ihren",
+      "level": "C1"
+    },
+    {
+      "example": "Das Gremium hat ___ Kompetenzbereich überschritten.",
+      "translation": "The board has exceeded its area of competence.",
+      "choices": ["seinen", "deinen", "meinen", "ihren", "euren"],
+      "answer": "seinen",
+      "level": "C1"
+    },
+    {
+      "example": "Die internationalen Organisationen haben ___ Bedenken hinsichtlich der Menschenrechtslage zum Ausdruck gebracht.",
+      "translation": "The international organizations have expressed their concerns regarding the human rights situation.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C2"
+    },
+    {
+      "example": "Der Verfassungsgerichtshof hat ___ Urteil mit einer detaillierten Begründung versehen.",
+      "translation": "The Constitutional Court provided its judgment with a detailed reasoning.",
+      "choices": ["sein", "dein", "ihr", "mein", "euer"],
+      "answer": "sein",
+      "level": "C2"
+    },
+    {
+      "example": "Die Fraktionen haben ___ Abstimmungsverhalten taktisch angepasst.",
+      "translation": "The parliamentary groups have tactically adjusted their voting behavior.",
+      "choices": ["ihr", "dein", "sein", "mein", "euer"],
+      "answer": "ihr",
+      "level": "C2"
+    },
+    {
+      "example": "Der Aufsichtsrat hat ___ Bedenken bezüglich der Geschäftsstrategie nicht hinreichend artikuliert.",
+      "translation": "The supervisory board did not adequately articulate its concerns regarding the business strategy.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "C2"
+    },
+    {
+      "example": "Die Sachverständigen haben ___ Expertisen unabhängig voneinander erstellt, kamen jedoch zu ähnlichen Schlussfolgerungen.",
+      "translation": "The experts created their assessments independently of each other, but came to similar conclusions.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C2"
+    },
+    {
+      "example": "Das Ministerium hat ___ Zuständigkeitsbereich erweitert, ohne die anderen Ressorts zu konsultieren.",
+      "translation": "The ministry expanded its area of responsibility without consulting the other departments.",
+      "choices": ["seinen", "deinen", "meinen", "ihren", "euren"],
+      "answer": "seinen",
+      "level": "C2"
+    },
+    {
+      "example": "Die Diplomaten haben ___ Verhandlungsposition in multilateralen Gesprächen abgestimmt.",
+      "translation": "The diplomats coordinated their negotiating position in multilateral talks.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C2"
+    },
+    {
+      "example": "Der Ethikrat hat ___ Empfehlung mit umfangreichen Erläuterungen versehen.",
+      "translation": "The Ethics Council provided its recommendation with extensive explanations.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "C2"
+    },
+    {
+      "example": "Die Prüfungskommission hat ___ Beurteilungskriterien transparent dargelegt.",
+      "translation": "The examination board has transparently set out its assessment criteria.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C2"
+    },
+    {
+      "example": "Der Nobelpreisträger hat in ___ Dankesrede die gesellschaftliche Relevanz der Grundlagenforschung betont.",
+      "translation": "In his acceptance speech, the Nobel Prize winner emphasized the social relevance of basic research.",
+      "choices": ["seiner", "deiner", "meiner", "ihrer", "eurer"],
+      "answer": "seiner",
+      "level": "C2"
+    },
+    {
+      "example": "Die Verfassungsrichter haben ___ Entscheidung einstimmig gefällt, was die Legitimität des Urteils stärkt.",
+      "translation": "The constitutional judges made their decision unanimously, which strengthens the legitimacy of the verdict.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C2"
+    },
+    {
+      "example": "Der Ausschuss hat ___ Bericht trotz zahlreicher Kritikpunkte verabschiedet.",
+      "translation": "The committee adopted its report despite numerous points of criticism.",
+      "choices": ["seinen", "deinen", "meinen", "ihren", "euren"],
+      "answer": "seinen",
+      "level": "C2"
+    },
+    {
+      "example": "Die Redner haben ___ Argumente sachlich und differenziert vorgetragen.",
+      "translation": "The speakers presented their arguments objectively and in a differentiated manner.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C2"
+    },
+    {
+      "example": "Der Konzern hat ___ Expansionsstrategie an die geänderten Marktbedingungen angepasst.",
+      "translation": "The corporation has adapted its expansion strategy to the changed market conditions.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "C2"
+    },
+    {
+      "example": "Die Institution hat ___ Forschungsschwerpunkte interdisziplinär ausgerichtet.",
+      "translation": "The institution has oriented its research priorities in an interdisciplinary manner.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C2"
+    },
+    {
+      "example": "Die Kammer hat ___ Gutachten unter Berücksichtigung aller vorliegenden Fakten erstellt.",
+      "translation": "The chamber prepared its assessment taking into account all available facts.",
+      "choices": ["ihr", "dein", "sein", "mein", "euer"],
+      "answer": "ihr",
+      "level": "C2"
+    },
+    {
+      "example": "Der Staat hat ___ völkerrechtlichen Verpflichtungen nicht eingehalten.",
+      "translation": "The state has not fulfilled its obligations under international law.",
+      "choices": ["seine", "deine", "meine", "ihre", "eure"],
+      "answer": "seine",
+      "level": "C2"
+    },
+    {
+      "example": "Die Delegierten haben ___ Mandate niedergelegt.",
+      "translation": "The delegates resigned from their mandates.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C2"
+    },
+    {
+      "example": "Die Partei hat ___ politischen Grundsätze in einem neuen Programm formuliert.",
+      "translation": "The party formulated its political principles in a new program.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C2"
+    },
+    {
+      "example": "Der Rat hat ___ Beschluss mit einer Zwei-Drittel-Mehrheit gefasst.",
+      "translation": "The council passed its resolution with a two-thirds majority.",
+      "choices": ["seinen", "deinen", "meinen", "ihren", "euren"],
+      "answer": "seinen",
+      "level": "C2"
+    },
+    {
+      "example": "Die Koalition hat ___ Vorhaben wegen interner Differenzen aufgegeben.",
+      "translation": "The coalition abandoned its project due to internal differences.",
+      "choices": ["ihr", "dein", "sein", "mein", "euer"],
+      "answer": "ihr",
+      "level": "C2"
+    },
+    {
+      "example": "Der Präsident hat in ___ Rede die nationalen Interessen betont.",
+      "translation": "In his speech, the president emphasized the national interests.",
+      "choices": ["seiner", "deiner", "meiner", "ihrer", "eurer"],
+      "answer": "seiner",
+      "level": "C2"
+    },
+    {
+      "example": "Die Forscher haben ___ Ergebnisse auf einem internationalen Kongress präsentiert.",
+      "translation": "The researchers presented their results at an international congress.",
+      "choices": ["ihre", "deine", "seine", "meine", "eure"],
+      "answer": "ihre",
+      "level": "C2"
+    },
+    {
+      "example": "Die Eltern helfen ___ Kindern bei den Hausaufgaben.",
+      "translation": "The parents help their children with homework.",
+      "choices": ["ihren", "seinen", "deinen", "meinen", "euren"],
+      "answer": "ihren",
+      "level": "A2"
+    },
+    {
+      "example": "Du hast ___ Schirm im Bus vergessen.",
+      "translation": "You forgot your umbrella on the bus.",
+      "choices": ["deinen", "meinen", "seinen", "ihren", "unseren"],
+      "answer": "deinen",
+      "level": "A2"
+    }
+  ]
+}

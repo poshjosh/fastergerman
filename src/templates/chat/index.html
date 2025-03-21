@@ -35,11 +35,11 @@
             </div>
             <p>
                 <!-- TODO i18n for innerText -->
-                <label for="chat_request">Ask anything, I will reply in your language: {{ i18n.lang_name }}</label>
+                <label for="chat_request">{{ i18n.t.ask_anything }}</label>
                 <br/>
                 <!-- TODO i18n for placeholder -->
                 <textarea id="chat_request" name="chat_request" class="control"
-                          placeholder="Type your question here" rows="3" cols="42"></textarea>
+                          placeholder="{{ i18n.t.type_here }}" rows="3" cols="42"></textarea>
                 <span id="chat_request_error" class="control_error" style="display:none;"></span>
             </p>
             <button type="submit" id="chat_request_submit" class="control">{{ i18n.t.submit }}</button>

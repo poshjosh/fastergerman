@@ -4,13 +4,16 @@
   "dir": "rtl",
   "translations": {
     "app_short_description": "تعلم الألمانية بشكل أسرع",
+    "ask_anything": "اسأل أي شيء ، سأرد باللغة الألمانية",
     "chat": "محادثة",
     "chat_disabled": "تم تعطيل الدردشة",
     "chat_model": "نموذج الدردشة",
     "chat_model_api_key": "مفتاح API طراز الدردشة",
+    "combo_trainer": "مدرب مشترك",
     "display_translation": "عرض ترجمة السؤال",
     "game_completed_message": "اكتملت اللعبة. لقد سجلت {} في المائة.",
     "game_to_load": "اللعبة قيد التحميل",
+    "german": "الألمانية",
     "invalid": "غير صالح",
     "language_level": "مستوى اللغة",
     "llm_not_found": "LLM لم يتم العثور عليها",
@@ -22,6 +25,7 @@
     "number_of_choices": "عدد الاختيارات لكل سؤال",
     "pause": "إيقاف مؤقت",
     "please_enter_name": "الرجاء إدخال اسم",
+    "possessive-adjective_trainer": "مدرب صفة التملك",
     "preposition_trainer": "مدرب حروف الجر",
     "provide_chat_model_api_key": "قدم مفتاح API لمواصلة الدردشة",
     "question_display_time": "وقت عرض السؤال (بالثواني)",
@@ -37,6 +41,7 @@
     "submit": "إرسال",
     "time": "الوقت",
     "too_many_requests": "الكثير من الطلبات",
+    "type_here": "اكتب هنا",
     "unexpected_error": "مشكلة غير متوقعة",
     "verb_trainer": "مدرب الفعل"
   }

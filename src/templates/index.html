@@ -4,6 +4,9 @@
 
 {% block content %}
 
+    <p>
+        <a id="combo_trainer" href="trainers/combo">{{ i18n.t.combo_trainer }}</a>
+    </p>
     {% for trainer in app.trainer_types %}
         {% with trainer_id = trainer + '_trainer' %}
             <p>

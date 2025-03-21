@@ -62,7 +62,9 @@ class GameSessionProvider(AbstractGameSessionProvider):
         return FileGameStore.of_dir(os.path.join(self.__app_dir, session_id, trainer))
 
     def get_questions(self, trainer: str) -> List[Question]:
-        return self.__questions.get(trainer, [])
+        if trainer == "combo":
+            return [q for questions in self.__questions.values() for q in questions]
+        return [q for q in self.__questions.get(trainer, [])]
 
 class GameService:
     @staticmethod
@@ -126,7 +128,7 @@ class GameService:
 
     @staticmethod
     def _update(config: dict[str, any], game_session: GameSession):
-        game_to_load = config.get("game_to_load",game_session.get_game().name)
+        game_to_load = config.get("game_to_load", game_session.get_game().name)
         save_game_as = config.get("save_game_as", game_to_load)
         logger.debug("Game to load: %s, Save game as: %s", game_to_load, save_game_as)
 

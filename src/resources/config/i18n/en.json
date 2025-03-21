@@ -4,13 +4,16 @@
   "dir": "ltr",
   "translations": {
     "app_short_description": "Learn german faster",
+    "ask_anything": "Ask anything, I will reply in German",
     "chat": "Chat",
     "chat_disabled": "Chat is disabled",
     "chat_model": "Chat model",
     "chat_model_api_key": "Chat model API key",
+    "combo_trainer": "Combined Trainer",
     "display_translation": "Display question translation",
     "game_completed_message": "Game completed. You scored {} percent.",
     "game_to_load": "Game to load",
+    "german": "German",
     "invalid": "Not valid",
     "language_level": "Language level",
     "llm_not_found": "LLM not found",
@@ -22,6 +25,7 @@
     "number_of_choices": "Number of choices per question",
     "pause": "pause",
     "please_enter_name": "Please enter a name",
+    "possessive-adjective_trainer": "Possessive Adjective Trainer",
     "preposition_trainer": "Preposition Trainer",
     "provide_chat_model_api_key": "Provide your API key to continue chatting",
     "question_display_time": "Question display time (seconds)",
@@ -37,6 +41,7 @@
     "submit": "Submit",
     "time": "Time",
     "too_many_requests": "Too many requests",
+    "type_here": "Type here",
     "unexpected_error": "Unexpected problem",
     "verb_trainer": "Verb Trainer"
   }

@@ -8,6 +8,8 @@ There could be trainers for various language constructs. For example:
 - [Prepositions](prepositions.md)
 
 - [Verbs](verbs.md)
+- 
+- [Possessive adjectives](possessive-adjectives.md)
 
 ## Adding a new trainer
 
@@ -34,6 +36,8 @@ Example format:
 - You can generate questions using [this prompt](./prompt.md)
 
 ### Add translations for the trainer's display name.
+
+Example english translation = `preposition_trainer="Preposition Trainer"`
 
 - See [the README file](../../README.md#i18n) for how to add translations.
 
