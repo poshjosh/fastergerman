@@ -1,0 +1,1189 @@
+{
+  "type": "pronominal-adverb",
+  "questions": [
+    {
+      "example": "Ich erinnere mich nicht _____, was gestern passiert ist.",
+      "translation": "I don't remember what happened yesterday.",
+      "choices": [
+        "daran",
+        "davon",
+        "darüber",
+        "dafür",
+        "darauf"
+      ],
+      "answer": "daran",
+      "level": "A2"
+    },
+    {
+      "example": "Wir haben lange _____ gesprochen, wie wir das Problem lösen können.",
+      "translation": "We talked for a long time about how we can solve the problem.",
+      "choices": [
+        "darüber",
+        "daran",
+        "damit",
+        "davon",
+        "dazu"
+      ],
+      "answer": "darüber",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat sich _____ gewöhnt, jeden Morgen früh aufzustehen.",
+      "translation": "He has gotten used to getting up early every morning.",
+      "choices": [
+        "daran",
+        "darauf",
+        "davon",
+        "dafür",
+        "dabei"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Sie träumt schon lange _____, im Ausland zu leben.",
+      "translation": "She has long dreamed of living abroad.",
+      "choices": [
+        "davon",
+        "daran",
+        "darauf",
+        "dafür",
+        "dabei"
+      ],
+      "answer": "davon",
+      "level": "B1"
+    },
+    {
+      "example": "Ich freue mich sehr _____, dich kennenzulernen.",
+      "translation": "I'm very happy to meet you.",
+      "choices": [
+        "darüber",
+        "daran",
+        "dafür",
+        "davon",
+        "darauf"
+      ],
+      "answer": "darüber",
+      "level": "A2"
+    },
+    {
+      "example": "Er besteht _____, dass wir pünktlich sind.",
+      "translation": "He insists that we are on time.",
+      "choices": [
+        "darauf",
+        "daran",
+        "davon",
+        "dazu",
+        "damit"
+      ],
+      "answer": "darauf",
+      "level": "B1"
+    },
+    {
+      "example": "Sie zweifelt _____, ob sie die richtige Entscheidung getroffen hat.",
+      "translation": "She doubts whether she made the right decision.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dafür",
+        "darüber"
+      ],
+      "answer": "daran",
+      "level": "B2"
+    },
+    {
+      "example": "Ich bin _____ interessiert, mehr über deine Kultur zu erfahren.",
+      "translation": "I am interested in learning more about your culture.",
+      "choices": [
+        "daran",
+        "darauf",
+        "dazu",
+        "damit",
+        "dafür"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben uns _____ geeinigt, das Projekt nächste Woche zu starten.",
+      "translation": "We agreed to start the project next week.",
+      "choices": [
+        "darauf",
+        "daran",
+        "davon",
+        "darüber",
+        "dazu"
+      ],
+      "answer": "darauf",
+      "level": "B2"
+    },
+    {
+      "example": "Sie hat _____ teilgenommen, obwohl sie krank war.",
+      "translation": "She participated in it, although she was sick.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Ich habe _____ gedacht, heute ins Kino zu gehen.",
+      "translation": "I thought about going to the cinema today.",
+      "choices": [
+        "daran",
+        "davon",
+        "darüber",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "daran",
+      "level": "A2"
+    },
+    {
+      "example": "Wir müssen _____ arbeiten, unsere Fehler zu korrigieren.",
+      "translation": "We need to work on correcting our mistakes.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dafür",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat mir _____ erzählt, was in seiner Heimat passiert ist.",
+      "translation": "He told me about what happened in his homeland.",
+      "choices": [
+        "davon",
+        "darüber",
+        "daran",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "davon",
+      "level": "B1"
+    },
+    {
+      "example": "Sie können sich _____ verlassen, dass ich pünktlich sein werde.",
+      "translation": "You can rely on me being on time.",
+      "choices": [
+        "darauf",
+        "daran",
+        "dazu",
+        "davon",
+        "dafür"
+      ],
+      "answer": "darauf",
+      "level": "B1"
+    },
+    {
+      "example": "Ich habe nichts _____ gehört, dass das Konzert abgesagt wurde.",
+      "translation": "I haven't heard anything about the concert being canceled.",
+      "choices": [
+        "davon",
+        "darüber",
+        "daran",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "davon",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben lange _____ diskutiert, ob wir umziehen sollten.",
+      "translation": "We discussed for a long time whether we should move.",
+      "choices": [
+        "darüber",
+        "davon",
+        "daran",
+        "dazu",
+        "damit"
+      ],
+      "answer": "darüber",
+      "level": "B1"
+    },
+    {
+      "example": "Sie hat sich _____ beschwert, dass der Service schlecht war.",
+      "translation": "She complained that the service was bad.",
+      "choices": [
+        "darüber",
+        "davon",
+        "daran",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darüber",
+      "level": "B1"
+    },
+    {
+      "example": "Ich bin _____ gewöhnt, früh aufzustehen.",
+      "translation": "I am used to getting up early.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "daran",
+      "level": "A2"
+    },
+    {
+      "example": "Er hat _____ gedacht, ein neues Auto zu kaufen.",
+      "translation": "He thought about buying a new car.",
+      "choices": [
+        "daran",
+        "davon",
+        "darüber",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "daran",
+      "level": "A2"
+    },
+    {
+      "example": "Wir freuen uns _____, euch bald wiederzusehen.",
+      "translation": "We look forward to seeing you again soon.",
+      "choices": [
+        "darauf",
+        "daran",
+        "davon",
+        "darüber",
+        "dazu"
+      ],
+      "answer": "darauf",
+      "level": "A2"
+    },
+    {
+      "example": "Sie hat _____ gearbeitet, ihre Deutschkenntnisse zu verbessern.",
+      "translation": "She worked on improving her German skills.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Ich bin _____ schuld, dass wir den Zug verpasst haben.",
+      "translation": "It's my fault that we missed the train.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat sich _____ entschieden, in Deutschland zu studieren.",
+      "translation": "He decided to study in Germany.",
+      "choices": [
+        "dafür",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "dafür",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben _____ geachtet, keine Fehler zu machen.",
+      "translation": "We made sure not to make any mistakes.",
+      "choices": [
+        "darauf",
+        "daran",
+        "davon",
+        "dazu",
+        "damit"
+      ],
+      "answer": "darauf",
+      "level": "B2"
+    },
+    {
+      "example": "Sie hat sich _____ erinnert, dass wir uns schon einmal getroffen haben.",
+      "translation": "She remembered that we had already met once before.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Ich verzichte gerne _____, wenn es jemand anderem hilft.",
+      "translation": "I'm happy to do without it if it helps someone else.",
+      "choices": [
+        "darauf",
+        "daran",
+        "davon",
+        "dazu",
+        "damit"
+      ],
+      "answer": "darauf",
+      "level": "B2"
+    },
+    {
+      "example": "Er hat nichts _____ gesagt, wann er zurückkommt.",
+      "translation": "He didn't say anything about when he's coming back.",
+      "choices": [
+        "davon",
+        "darüber",
+        "daran",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "davon",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben uns _____ gefreut, dass du gekommen bist.",
+      "translation": "We were happy that you came.",
+      "choices": [
+        "darüber",
+        "davon",
+        "daran",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darüber",
+      "level": "A2"
+    },
+    {
+      "example": "Sie hat _____ gezweifelt, ob sie die Prüfung bestehen würde.",
+      "translation": "She doubted whether she would pass the exam.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Ich denke oft _____, wie schön unsere Reise war.",
+      "translation": "I often think about how beautiful our trip was.",
+      "choices": [
+        "daran",
+        "davon",
+        "darüber",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "A2"
+    },
+    {
+      "example": "Er hat _____ gelitten, dass niemand ihm zuhörte.",
+      "translation": "He suffered from the fact that nobody listened to him.",
+      "choices": [
+        "darunter",
+        "darüber",
+        "daran",
+        "davon",
+        "darauf"
+      ],
+      "answer": "darunter",
+      "level": "B2"
+    },
+    {
+      "example": "Wir haben _____ gewartet, dass sie anruft.",
+      "translation": "We waited for her to call.",
+      "choices": [
+        "darauf",
+        "daran",
+        "davon",
+        "dazu",
+        "damit"
+      ],
+      "answer": "darauf",
+      "level": "B1"
+    },
+    {
+      "example": "Sie kommt nicht _____ vorbei, eine Entscheidung zu treffen.",
+      "translation": "She can't avoid making a decision.",
+      "choices": [
+        "darum",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "darum",
+      "level": "B2"
+    },
+    {
+      "example": "Ich halte nichts _____, Zeit mit sinnlosen Aktivitäten zu verschwenden.",
+      "translation": "I don't think much of wasting time with meaningless activities.",
+      "choices": [
+        "davon",
+        "daran",
+        "darüber",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "davon",
+      "level": "B2"
+    },
+    {
+      "example": "Er hat _____ gespart, ein Haus zu kaufen.",
+      "translation": "He saved up to buy a house.",
+      "choices": [
+        "dafür",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "dafür",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben lange _____ gearbeitet, das Projekt rechtzeitig fertigzustellen.",
+      "translation": "We worked for a long time to complete the project on time.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Sie hat _____ gezögert, ihre Meinung zu sagen.",
+      "translation": "She hesitated to express her opinion.",
+      "choices": [
+        "damit",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "damit",
+      "level": "B2"
+    },
+    {
+      "example": "Ich bin _____ beteiligt, das neue Projekt zu entwickeln.",
+      "translation": "I am involved in developing the new project.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat _____ gearbeitet, seine Fehler zu korrigieren.",
+      "translation": "He worked on correcting his mistakes.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Wir können uns _____ freuen, dass wir gewonnen haben.",
+      "translation": "We can be happy that we won.",
+      "choices": [
+        "darüber",
+        "daran",
+        "davon",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darüber",
+      "level": "A2"
+    },
+    {
+      "example": "Sie hat sich _____ interessiert, wie man Deutsch lernt.",
+      "translation": "She was interested in how to learn German.",
+      "choices": [
+        "dafür",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "dafür",
+      "level": "B1"
+    },
+    {
+      "example": "Ich bin _____ gespannt, wie der Film endet.",
+      "translation": "I'm curious about how the movie ends.",
+      "choices": [
+        "darauf",
+        "daran",
+        "davon",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darauf",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat _____ gesorgt, dass alle genug zu essen haben.",
+      "translation": "He made sure that everyone had enough to eat.",
+      "choices": [
+        "dafür",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "dafür",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben uns _____ gewöhnt, jeden Tag Sport zu treiben.",
+      "translation": "We have gotten used to doing sports every day.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Sie hat _____ bestanden, die Wahrheit zu erfahren.",
+      "translation": "She insisted on finding out the truth.",
+      "choices": [
+        "darauf",
+        "daran",
+        "davon",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darauf",
+      "level": "B2"
+    },
+    {
+      "example": "Ich habe mich lange _____ vorbereitet, diese Prüfung zu bestehen.",
+      "translation": "I prepared for a long time to pass this exam.",
+      "choices": [
+        "darauf",
+        "daran",
+        "davon",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darauf",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat _____ gezweifelt, dass wir rechtzeitig ankommen würden.",
+      "translation": "He doubted that we would arrive on time.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Wir sind _____ interessiert, neue Leute kennenzulernen.",
+      "translation": "We are interested in meeting new people.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "daran",
+      "level": "A2"
+    },
+    {
+      "example": "Sie hat sich _____ geärgert, dass der Bus zu spät kam.",
+      "translation": "She was annoyed that the bus was late.",
+      "choices": [
+        "darüber",
+        "daran",
+        "davon",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darüber",
+      "level": "B1"
+    },
+    {
+      "example": "Ich muss _____ denken, wie ich das Problem lösen kann.",
+      "translation": "I need to think about how I can solve the problem.",
+      "choices": [
+        "darüber",
+        "daran",
+        "davon",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darüber",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat sich _____ bemüht, pünktlich zu sein.",
+      "translation": "He made an effort to be on time.",
+      "choices": [
+        "darum",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "darum",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben _____ gelernt, dass man nicht alles glauben sollte, was man hört.",
+      "translation": "We learned from it that you shouldn't believe everything you hear.",
+      "choices": [
+        "daraus",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "daraus",
+      "level": "B2"
+    },
+    {
+      "example": "Sie hat _____ geträumt, eine berühmte Schauspielerin zu werden.",
+      "translation": "She dreamed of becoming a famous actress.",
+      "choices": [
+        "davon",
+        "daran",
+        "darauf",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "davon",
+      "level": "B1"
+    },
+    {
+      "example": "Ich habe _____ gearbeitet, meine Sprachkenntnisse zu verbessern.",
+      "translation": "I worked on improving my language skills.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat _____ gehofft, eine gute Note zu bekommen.",
+      "translation": "He hoped to get a good grade.",
+      "choices": [
+        "darauf",
+        "daran",
+        "davon",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darauf",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben _____ gescheitert, das Ziel zu erreichen.",
+      "translation": "We failed to reach the goal.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B2"
+    },
+    {
+      "example": "Sie ist _____ begabt, komplizierte Probleme schnell zu lösen.",
+      "translation": "She is talented at solving complicated problems quickly.",
+      "choices": [
+        "darin",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "darin",
+      "level": "B2"
+    },
+    {
+      "example": "Ich bin _____ gescheitert, den Test zu bestehen.",
+      "translation": "I failed to pass the test.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Er ist _____ beteiligt, das neue Projekt zu entwickeln.",
+      "translation": "He is involved in developing the new project.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben uns _____ entschieden, im Urlaub nach Italien zu fahren.",
+      "translation": "We decided to go to Italy on vacation.",
+      "choices": [
+        "dafür",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "dafür",
+      "level": "B1"
+    },
+    {
+      "example": "Sie hat _____ teilgenommen, obwohl sie krank war.",
+      "translation": "She participated in it, although she was sick.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Ich habe _____ profitiert, dass ich früh aufgestanden bin.",
+      "translation": "I benefited from getting up early.",
+      "choices": [
+        "davon",
+        "daran",
+        "darauf",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "davon",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat sich _____ beschwert, dass der Service schlecht war.",
+      "translation": "He complained that the service was bad.",
+      "choices": [
+        "darüber",
+        "daran",
+        "davon",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darüber",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben uns _____ gestritten, wer das Geschirr spülen sollte.",
+      "translation": "We argued about who should wash the dishes.",
+      "choices": [
+        "darüber",
+        "daran",
+        "davon",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darüber",
+      "level": "B1"
+    },
+    {
+      "example": "Sie hat _____ nachgedacht, einen neuen Job zu suchen.",
+      "translation": "She thought about looking for a new job.",
+      "choices": [
+        "darüber",
+        "daran",
+        "davon",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darüber",
+      "level": "B1"
+    },
+    {
+      "example": "Ich bin _____ gespannt, wie die Geschichte endet.",
+      "translation": "I'm curious about how the story ends.",
+      "choices": [
+        "darauf",
+        "daran",
+        "davon",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darauf",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat _____ gewarnt, dass es gefährlich sein könnte.",
+      "translation": "He warned that it could be dangerous.",
+      "choices": [
+        "davor",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "davor",
+      "level": "B2"
+    },
+    {
+      "example": "Wir haben _____ gedacht, einen Ausflug zu machen.",
+      "translation": "We thought about making a trip.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "daran",
+      "level": "A2"
+    },
+    {
+      "example": "Sie hat _____ gekämpft, ihre Rechte zu verteidigen.",
+      "translation": "She fought to defend her rights.",
+      "choices": [
+        "dafür",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "dafür",
+      "level": "B1"
+    },
+    {
+      "example": "Ich habe mich _____ gefreut, dich zu sehen.",
+      "translation": "I was happy to see you.",
+      "choices": [
+        "darüber",
+        "daran",
+        "davon",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darüber",
+      "level": "A2"
+    },
+    {
+      "example": "Er hat _____ gelernt, seine Fehler nicht zu wiederholen.",
+      "translation": "He learned from it not to repeat his mistakes.",
+      "choices": [
+        "daraus",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "daraus",
+      "level": "B2"
+    },
+    {
+      "example": "Wir haben uns _____ entschuldigt, zu spät gekommen zu sein.",
+      "translation": "We apologized for being late.",
+      "choices": [
+        "dafür",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "dafür",
+      "level": "B1"
+    },
+    {
+      "example": "Sie hat _____ gezweifelt, ob sie die richtige Entscheidung getroffen hat.",
+      "translation": "She doubted whether she made the right decision.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Ich habe _____ gearbeitet, meine Präsentation fertigzustellen.",
+      "translation": "I worked on finishing my presentation.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat _____ gespart, ein neues Auto zu kaufen.",
+      "translation": "He saved up to buy a new car.",
+      "choices": [
+        "dafür",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "dafür",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben uns _____ geeinigt, das Projekt nächste Woche zu starten.",
+      "translation": "We agreed to start the project next week.",
+      "choices": [
+        "darauf",
+        "daran",
+        "davon",
+        "dazu",
+        "damit"
+      ],
+      "answer": "darauf",
+      "level": "B1"
+    },
+    {
+      "example": "Sie hat sich _____ erinnert, dass wir uns morgen treffen.",
+      "translation": "She remembered that we are meeting tomorrow.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Ich bin _____ interessiert, deine Meinung zu hören.",
+      "translation": "I am interested in hearing your opinion.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "daran",
+      "level": "A2"
+    },
+    {
+      "example": "Er hat _____ bestanden, dass wir sofort gehen.",
+      "translation": "He insisted that we leave immediately.",
+      "choices": [
+        "darauf",
+        "daran",
+        "davon",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darauf",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben uns _____ gestritten, wer das Auto fahren darf.",
+      "translation": "We argued about who gets to drive the car.",
+      "choices": [
+        "darüber",
+        "daran",
+        "davon",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "darüber",
+      "level": "B1"
+    },
+    {
+      "example": "Sie hat _____ geglaubt, dass ich die Wahrheit sage.",
+      "translation": "She believed that I was telling the truth.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Ich kann mich nicht _____ erinnern, wo ich meinen Schlüssel gelassen habe.",
+      "translation": "I can't remember where I left my key.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "daran",
+      "level": "A2"
+    },
+    {
+      "example": "Er hat _____ geachtet, keine Fehler zu machen.",
+      "translation": "He made sure not to make any mistakes.",
+      "choices": [
+        "darauf",
+        "daran",
+        "davon",
+        "dazu",
+        "damit"
+      ],
+      "answer": "darauf",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben _____ gearbeitet, unsere Ziele zu erreichen.",
+      "translation": "We worked on achieving our goals.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Sie hat _____ gezögert, ihre Meinung zu sagen.",
+      "translation": "She hesitated to express her opinion.",
+      "choices": [
+        "damit",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "damit",
+      "level": "B2"
+    },
+    {
+      "example": "Ich bin _____ schuld, dass wir zu spät gekommen sind.",
+      "translation": "It's my fault that we were late.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "dafür"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Er hat _____ teilgenommen, obwohl er krank war.",
+      "translation": "He participated in it, although he was sick.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Wir haben uns _____ bemüht, pünktlich zu sein.",
+      "translation": "We made an effort to be on time.",
+      "choices": [
+        "darum",
+        "daran",
+        "davon",
+        "darauf",
+        "darüber"
+      ],
+      "answer": "darum",
+      "level": "B1"
+    },
+    {
+      "example": "Sie hat sich _____ gewöhnt, jeden Tag früh aufzustehen.",
+      "translation": "She has gotten used to getting up early every day.",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "damit"
+      ],
+      "answer": "daran",
+      "level": "B1"
+    },
+    {
+      "example": "Ich werde dir ___ helfen.",
+      "translation": "I will help you with that",
+      "choices": [
+        "daran",
+        "davon",
+        "darauf",
+        "dazu",
+        "dabei"
+      ],
+      "answer": "dabei",
+      "level": "B1"
+    },
+    {
+      "example": "Ich werde dir ___ helfen.",
+      "translation": "I will help you with that",
+      "choices": [
+        "daran",
+        "davon",
+        "damit",
+        "dazu",
+        "darum"
+      ],
+      "answer": "damit",
+      "level": "B1"
+    }
+  ]
+}
+      

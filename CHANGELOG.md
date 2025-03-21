@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Implement pronominal adverb trainer.
+- Limit chat request to 1000 chars by default.
 - Implement possessive-adjective trainer
 - Implement chat. 
 - Add language level setting.
