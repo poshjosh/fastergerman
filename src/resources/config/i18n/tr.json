@@ -8,6 +8,7 @@
     "chat_disabled": "Sohbet devre dışı bırakıldı",
     "chat_model": "Sohbet modeli",
     "chat_model_api_key": "Sohbet Modeli API Anahtarı",
+    "chat_request_too_long": "Sohbetiniz izin verilen maksimum karakterlerden daha uzun",
     "combo_trainer": "Kombine eğitmen",
     "display_translation": "Soru çevirisini görüntüle",
     "game_completed_message": "Oyun tamamlandı. Yüzde {} puan aldınız.",

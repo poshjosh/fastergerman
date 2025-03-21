@@ -9,6 +9,7 @@
     "chat_disabled": "Chat is disabled",
     "chat_model": "Chat model",
     "chat_model_api_key": "Chat model API key",
+    "chat_request_too_long": "Your chat is longer than the maximum characters allowed",
     "combo_trainer": "Combined Trainer",
     "display_translation": "Display question translation",
     "game_completed_message": "Game completed. You scored {} percent.",

@@ -16,6 +16,7 @@ app:
       duration: 10000
     disabled: false
     history_max_tokens: 10000
+    input_max_chars: 1000
     prompt: You are a helpful assistant. Answer all questions to the best of your ability in {language}.
     model:
       name: llama3.2 #llama3.1 # gpt-4o-mini

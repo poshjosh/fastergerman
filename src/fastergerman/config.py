@@ -39,7 +39,11 @@ class ChatConfig(Config):
 
     def get_history_max_tokens(self) -> int:
         env = os.environ.get("APP_CHAT_HISTORY_MAX_TOKENS")
-        return int(env) if env else self._config.get('history_max_tokens', 1024)
+        return int(env) if env else self._config.get('history_max_tokens', 10240)
+
+    def get_input_max_chars(self) -> int:
+        env = os.environ.get("APP_CHAT_INPUT_MAX_CHARS")
+        return int(env) if env else self._config.get('input_max_chars', 1024)
 
     def get_prompt(self) -> str or None:
         env = os.environ.get("APP_CHAT_PROMPT")

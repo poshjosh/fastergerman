@@ -9,6 +9,7 @@
     "chat_disabled": "تم تعطيل الدردشة",
     "chat_model": "نموذج الدردشة",
     "chat_model_api_key": "مفتاح API طراز الدردشة",
+    "chat_request_too_long": "الدردشة الخاصة بك أطول من الحد الأقصى للأحرف المسموح بها",
     "combo_trainer": "مدرب مشترك",
     "display_translation": "عرض ترجمة السؤال",
     "game_completed_message": "اكتملت اللعبة. لقد سجلت {} في المائة.",

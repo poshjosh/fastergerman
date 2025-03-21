@@ -15,7 +15,7 @@ from langgraph.graph.message import add_messages
 from fastergerman.chat import ChatModelProvider, ChatModelData
 from fastergerman.config import ChatConfig
 from fastergerman.i18n import I18n, UNEXPECTED_ERROR, LLM_NOT_FOUND, TOO_MANY_REQUESTS, \
-    CHAT_DISABLED, PROVIDE_CHAT_MODEL_API_KEY
+    CHAT_DISABLED, PROVIDE_CHAT_MODEL_API_KEY, CHAT_REQUEST_TOO_LONG
 from fastergerman.web import CHAT_REQUEST, SESSION_ID, LANG_CODE, CHAT_MODEL_NAME, \
     CHAT_MODEL_PROVIDER, CHAT_MODEL_API_KEY
 
@@ -172,6 +172,11 @@ class LangchainChatService(AbstractChatService):
             lang_code = I18n.get_code_for_english_name(state["language"])
             last_message_content = I18n.translate(lang_code, TOO_MANY_REQUESTS)
             ai_message = AIMessage(f"{last_message_content}")
+        elif len(state["messages"][-1].content) > self.__config.get_input_max_chars():
+            state["messages"][-1].content = "DELETED"
+            lang_code = I18n.get_code_for_english_name(state["language"])
+            last_message_content = I18n.translate(lang_code, CHAT_REQUEST_TOO_LONG)
+            ai_message = AIMessage(f"{last_message_content}: {self.__config.get_input_max_chars()}")
         elif model_data.provider == "echo":
             last_message = state["messages"][-1]
             ai_message = AIMessage(f"echo: {last_message.content}")

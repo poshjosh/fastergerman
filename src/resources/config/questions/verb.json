@@ -1,6 +1,5 @@
 {
   "type": "verb",
-  "description": "German verbs",
   "questions": [
     {
       "verb": "haben",
@@ -857,6 +856,14 @@
       "choices": ["nimmt wahr", "nehme wahr", "nimmst wahr", "nehmen wahr"],
       "answer": "nimmt wahr",
       "level": "C1"
+    },
+    {
+      "verb": "treiben",
+      "example": "Wer gerne Sport ___?",
+      "translation": "Who likes to do sport?",
+      "choices": ["treiben", "treibt", "treibten", "treibe", "treib"],
+      "answer": "treibt",
+      "level": "B2"
     }
   ]
 }

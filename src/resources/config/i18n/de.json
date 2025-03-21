@@ -8,6 +8,7 @@
     "chat_disabled": "Der Chat ist deaktiviert",
     "chat_model": "Chat -Modell",
     "chat_model_api_key": "Chat -Modell -API -Schlüssel",
+    "chat_request_too_long": "Ihr Chat ist länger als die zulässigen maximalen Zeichen",
     "combo_trainer": "Kombinierter Trainer",
     "display_translation": "Frageübersetzung anzeigen",
     "game_completed_message": "Spiel beendet. Du hast {} Prozent erreicht.",

@@ -8,6 +8,7 @@
     "chat_disabled": "Чат відключається",
     "chat_model": "Модель чату",
     "chat_model_api_key": "Ключ API моделі чату",
+    "chat_request_too_long": "Ваш чат довший, ніж дозволені максимальні символи",
     "combo_trainer": "Комбінований тренер",
     "display_translation": "Показати переклад запитання",
     "game_completed_message": "Гру завершено. Ви набрали {} відсотків.",
