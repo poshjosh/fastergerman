@@ -2,12 +2,17 @@
 
 # See https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-flask.html
 
+# Before deploying, make sure the following environment is available, or chat will not work:
+#APP_CHAT_MODEL_API_KEY=
+#APP_CHAT_MODEL_NAME=
+#APP_CHAT_MODEL_PROVIDER=
+
 # After deploying, you can ssh into the EC2 instance and cd `/var/app/current` to see the app files.
 # To terminate, from within "$TARGET_DIR" run: `eb terminate "${APP_NAME}-env" --all`
 
 APP_NAME="${APP_NAME:-fastergerman}"
-EXISTING_ENV="${EXISTING_ENV:-fastergerman-default-env}"
-NEW_APP_VERSION="${NEW_APP_VERSION:-v0.0.6}"
+EXISTING_ENV="${EXISTING_ENV:-fastergerman-env}"
+NEW_APP_VERSION="${NEW_APP_VERSION:-v0.0.6a}"
 DEPLOY="${DEPLOY:-true}"
 DRY_RUN="${DRY_RUN:-false}"
 TARGET_DIR="${TARGET_DIR:-output/aws}"
@@ -71,7 +76,7 @@ if [ "$DEPLOY" != true ] && [ "$DEPLOY" != "true" ] ; then
   exit 0
 fi
 
-is_not_dry_run && eb init -p python-3.9 "${APP_NAME}" --region us-east-2
+is_not_dry_run && eb init -p python-3.12 "${APP_NAME}" --region us-east-2
 printf "\nInitialized Elastic Beanstalk\n"
 
 # (optional) Run eb init again to configure a default keypair
@@ -98,7 +103,7 @@ if [[ -z "${EXISTING_ENV}" ]]; then
   printf "\nCreated Elastic Beanstalk environment\n"
 
   if is_not_dry_run; then
-    eb setenv APP_PROFILES=aws,dev
+    eb setenv APP_PROFILES=aws,prod
     eb setenv APP_PORT=5000
     eb setenv APP_DIR=sessions
     eb_set_optional_env APP_SECRET_KEY
