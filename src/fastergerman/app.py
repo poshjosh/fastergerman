@@ -1,4 +1,5 @@
 import logging
+import os
 import signal
 import sys
 from datetime import datetime
@@ -25,10 +26,25 @@ class App:
             else logging_config_path
         self.config = AppConfig(load_yaml(app_config_path))
         self.logging_config = LoggingConfig(load_yaml(logging_config_path))
+        paths = App._get_profile_logging_config_paths(self.config)
+        for path in paths:
+            self.logging_config = self.logging_config.with_updates(load_yaml(path))
+        print(f"{datetime.now()} | Logging config: {self.logging_config}")
         log_file = Path(self.logging_config.get_filename())
         if log_file.exists() is False:
             log_file.parent.mkdir(parents=True, exist_ok=True)
         I18n.init(self.config.get_app_language(), self.config.get_translations_dir())
+
+    @staticmethod
+    def _get_profile_logging_config_paths(cfg: AppConfig) -> [str]:
+        app_profiles = cfg.get_app_profiles()
+        paths = []
+        for profile in app_profiles:
+            path = f"resources/config/logging.{profile}.yaml"
+            if os.path.exists(path) is True:
+                print(f"{datetime.now()} | Additional config for logging: {path}")
+                paths.append(path)
+        return paths
 
     def start(self):
         raise NotImplementedError("Subclasses should implement the start method")

@@ -87,7 +87,7 @@ class MessageConverter:
         return {
             "messages": [HumanMessage(
                 request.query, response_metadata={"created_at": dt_str})],
-            "language": "German",
+            "language": request.lang_name,
             "model_data": request.model
         }
 
@@ -183,6 +183,7 @@ class LangchainChatService(AbstractChatService):
         else:
             model = self._get_model(model_data)
             messages = self._filter_messages(model, state)
+            logger.debug(f"Model input: {messages}")
             try:
                 ai_message: AIMessage = model.invoke(messages)
             except Exception as ex:
@@ -212,6 +213,7 @@ class LangchainChatService(AbstractChatService):
             logger.warning(f"Trimming of messages not implemented by model: {model.name}. {ex}")
             messages = state["messages"]
         if self.__prompt_template:
+            logger.debug(f"Using prompt template: {self.__prompt_template}")
             return self.__prompt_template.invoke({"messages": messages, **state})
         return messages
 

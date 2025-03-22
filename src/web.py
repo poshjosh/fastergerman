@@ -13,10 +13,11 @@ from fastergerman.game.game import NoMoreQuestionsError
 from fastergerman.i18n import I18n, UNEXPECTED_ERROR, NOT_FOUND, NO_MORE_QUESTIONS
 from fastergerman.web import RequestData, ValidationError, WebApp, TRAINER, CHAT_REQUEST
 
+print(f"{datetime.now()} | Flask({__name__})")
+
 # AWS elastic beanstalk requires that we name this `application`, not `app` or any other thing.
-# AWS elastic beanstalk requires that the app be fully initialized in the global scope.
+# AWS elastic beanstalk requires that the application be fully initialized in the global scope.
 # (in particular, not within the main block below).
-print(f"{datetime.now()} | Flask(__name__)")
 application = Flask(__name__)
 CORS(application)
 

@@ -1,0 +1,12 @@
+define:
+  &log_level 'INFO'
+handlers:
+  console:
+    level: *log_level
+  file:
+    level: *log_level
+loggers:
+  fastergerman:
+    level: *log_level
+root:
+  level: *log_level

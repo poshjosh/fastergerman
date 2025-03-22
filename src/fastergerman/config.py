@@ -13,6 +13,9 @@ class Config:
     def _path(val: str) -> str:
         return os.path.expanduser(os.path.expandvars(val))
 
+    def __str__(self):
+        return str(self._config)
+
 class ChatModelConfig(Config):
     def __init__(self, config: dict[str, any]):
         super().__init__(config)
@@ -126,6 +129,19 @@ class AppConfig(Config):
 class LoggingConfig(Config):
     def __init__(self, config: dict[str, any]):
         super().__init__(config)
+
+    def with_updates(self, data: dict[str, any]) -> 'LoggingConfig':
+
+        def sync(target: dict[str, any], update: dict[str, any]) -> dict[str, any]:
+            result = {**target}
+            for k, v in update.items():
+                if isinstance(v, dict):
+                    result[k] = sync(target[k], v)
+                else:
+                    result[k] = v
+            return result
+
+        return LoggingConfig(sync(self._config, data))
 
     def get_filename(self) -> str:
         return self._path(self._config["handlers"]["file"]["filename"])
