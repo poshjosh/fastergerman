@@ -21,6 +21,8 @@ form .control { font-size: 1.5rem; margin-top: 0.5rem; margin-bottom:0.5rem; }
 
 form input[type="text"] { width: 85%; }
 
+form textarea { width: 85%; }
+
 form select { width: 85%; }
 
 form label { color: #def; }
