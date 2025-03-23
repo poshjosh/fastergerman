@@ -20,8 +20,7 @@ class MessageConverterImpl(MessageConverter):
         message_state = super().to_message_input(request)
         if request.model.api_key != self.__default_llm_api_key: # user provided own api key
             return message_state
-        if self.__rate_limiter.is_within_limit(request.session_id) is False:
-            message_state["limit_exceeded"] = True
+        message_state["limit_exceeded"] = self.__rate_limiter.is_within_limit(request.session_id) is False
         return message_state
 
 
