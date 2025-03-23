@@ -37,7 +37,7 @@ def url_quote_filter(s):
 @application.template_filter('display_time')
 def display_time(timestamp):
     utc = datetime.fromtimestamp(timestamp, tz=timezone.utc)
-    return utc.astimezone(ZoneInfo(RequestData.get_timezone(request))).strftime("%H:%M:%S")
+    return utc.astimezone(ZoneInfo(RequestData.get_timezone(request))).strftime("%d %b - %H:%M:%S")
 
 
 def _handle_exception(message, template: str = None):
