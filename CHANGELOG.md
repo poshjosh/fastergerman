@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Submit chat on enter press in chat textarea.
+- Add new line on shift+enter press in chat textarea.
+- Add vertical scrolls to chats view.
+
 ## [0.0.6] - 2025-03-21
 
 ### Added

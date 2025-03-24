@@ -10,39 +10,39 @@
         <form id="chat_request_form" action="/chat"
               class="card" method="post">
             <input type="hidden" id="timezone" name="timezone"/>
-            {% if chat %}
-                {% for chat in chat.chats %}
-                    {% if chat.author == 'me' %}
-                        <div class="chat_message_left chat_message">
-                            {{ chat.content | e }}
-                            <br/><span class="chat_message_time">{{ chat.timestamp | display_time }}</span>
-                        </div>
-                    {% else %}
-                        <div class="chat_message_right chat_message">
-                            {{ chat.content | e }}
-                            <br/><span class="chat_message_time">{{ chat.timestamp | display_time }}</span>
-                        </div>
-                    {% endif %}
+            <div id="chat_history">
+                {% if chat %}
+                    {% for chat in chat.chats %}
+                        {% if chat.author == 'me' %}
+                            <div class="chat_message_left chat_message">
+                                {{ chat.content | e }}
+                                <br/><span class="chat_message_time">{{ chat.timestamp | display_time }}</span>
+                            </div>
+                        {% else %}
+                            <div class="chat_message_right chat_message">
+                                {{ chat.content | e }}
+                                <br/><span class="chat_message_time">{{ chat.timestamp | display_time }}</span>
+                            </div>
+                        {% endif %}
+                        <div style="clear:both;"></div>
+                    {% endfor %}
+                {% endif %}
+                <div id="last_chat" style="display:none;">
+                    <div class="chat_message_left chat_message" id="last_chat_request"></div>
+                    <div class="chat_message_right chat_message" id="last_chat_response">
+                        <div class="spinner"></div>
+                    </div>
                     <div style="clear:both;"></div>
-                {% endfor %}
-            {% endif %}
-            <div id="last_chat" style="display:none;">
-                <div class="chat_message_left chat_message" id="last_chat_request"></div>
-                <div class="chat_message_right chat_message" id="last_chat_response">
-                    <div class="spinner"></div>
                 </div>
-                <div style="clear:both;"></div>
             </div>
             <p>
-                <!-- TODO i18n for innerText -->
                 <label for="chat_request">{{ i18n.t.ask_anything }}</label>
                 <br/>
-                <!-- TODO i18n for placeholder -->
                 <textarea id="chat_request" name="chat_request" class="control"
                           placeholder="{{ i18n.t.type_here }}" rows="3"></textarea>
                 <span id="chat_request_error" class="control_error" style="display:none;"></span>
+                <button type="submit" id="chat_request_submit" class="control">{{ i18n.t.submit }}</button>
             </p>
-            <button type="submit" id="chat_request_submit" class="control">{{ i18n.t.submit }}</button>
             {% if chat and chat.supported_models %}
                 <hr/>
                 <p>
@@ -64,7 +64,22 @@
         </form>
     </div>
     <script>
-      function setUpForm(formId, timezoneId, inputId, inputDisplayName, errorId, beforeSendToServer) {
+      // https://stackoverflow.com/questions/6014702/how-do-i-detect-shiftenter-and-generate-a-new-line-in-textarea/6015906#6015906
+      function pasteIntoInput(el, text) {
+        el.focus();
+        if (typeof el.selectionStart == "number" && typeof el.selectionEnd == "number") {
+          const val = el.value;
+          const selStart = el.selectionStart;
+          el.value = val.slice(0, selStart) + text + val.slice(el.selectionEnd);
+          el.selectionEnd = el.selectionStart = selStart + text.length;
+        } else if (typeof document.selection != "undefined") {
+          const textRange = document.selection.createRange();
+          textRange.text = text;
+          textRange.collapse(false);
+          textRange.select();
+        }
+      }
+      function setUpForm(formId, timezoneId, inputId, inputDisplayName, errorId, submitId, beforeSendToServer) {
         document.getElementById(timezoneId).value = Intl.DateTimeFormat().resolvedOptions().timeZone;
         const form = document.getElementById(formId);
         const input = document.getElementById(inputId);
@@ -72,6 +87,17 @@
         const error = document.getElementById(errorId);
         input.addEventListener("change", function(){
           error.style.display = 'none';
+        });
+        input.addEventListener("keypress", function(event){
+          if (event.keyCode === 13) {
+            if (event.shiftKey) {
+              event.preventDefault();
+              pasteIntoInput(input, "\n");
+            } else {
+              event.preventDefault();
+              document.getElementById(submitId).click();
+            }
+          }
         });
         form.addEventListener("submit", function(event){
           const inputValue = input.value;
@@ -88,11 +114,18 @@
         });
       }
 
+      function scrollToBottom(scrollViewId) {
+        const scrollView = document.getElementById(scrollViewId);
+        scrollView.scrollTop = scrollView.scrollHeight - scrollView.clientHeight;
+      }
+
       setUpForm(
-        "chat_request_form", "timezone", "chat_request", "Chat request", "chat_request_error",
+        "chat_request_form", "timezone", "chat_request",
+        "Chat request", "chat_request_error", "chat_request_submit",
         function(chatRequestText){
           document.getElementById("last_chat").style.display = 'block';
           document.getElementById("last_chat_request").innerText = chatRequestText;
         });
+      scrollToBottom("chat_history");
     </script>
 {% endblock %}
