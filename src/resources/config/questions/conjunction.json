@@ -1,0 +1,936 @@
+{
+  "type": "conjunction",
+  "questions": [
+    {
+      "example": "Ich komme später, ___ ich noch arbeiten muss.",
+      "translation": "I'll come later because I still have to work.",
+      "choices": ["denn", "aber", "oder", "weil", "sondern"],
+      "answer": "weil",
+      "level": "A1"
+    },
+    {
+      "example": "Er ist müde, ___ er will noch lernen.",
+      "translation": "He is tired, but he wants to study.",
+      "choices": ["oder", "deshalb", "aber", "denn", "und"],
+      "answer": "aber",
+      "level": "A2"
+    },
+    {
+      "example": "___ es regnete, blieben wir zu Hause.",
+      "translation": "Since it was raining, we stayed at home.",
+      "choices": ["Weil", "Als", "Wenn", "Obwohl", "Bevor"],
+      "answer": "Da",
+      "level": "A2"
+    },
+    {
+      "example": "Ich studiere Medizin, ___ ich Ärztin werden möchte.",
+      "translation": "I am studying medicine because I want to become a doctor.",
+      "choices": ["damit", "weil", "dass", "denn", "ob"],
+      "answer": "weil",
+      "level": "B1"
+    },
+    {
+      "example": "___ ich nach Hause kam, war es schon dunkel.",
+      "translation": "When I came home, it was already dark.",
+      "choices": ["Als", "Wenn", "Weil", "Obwohl", "Bevor"],
+      "answer": "Als",
+      "level": "B1"
+    },
+    {
+      "example": "Er lernt Deutsch, ___ er in Deutschland arbeiten will.",
+      "translation": "He is learning German so that he can work in Germany.",
+      "choices": ["damit", "weil", "dass", "denn", "wenn"],
+      "answer": "damit",
+      "level": "B2"
+    },
+    {
+      "example": "___ er reich wäre, würde er reisen.",
+      "translation": "If he were rich, he would travel.",
+      "choices": ["Wenn", "Falls", "Ob", "Während", "Indem"],
+      "answer": "Wenn",
+      "level": "B2"
+    },
+    {
+      "example": "Sie arbeitete hart, ___ sie erfolgreich sein würde.",
+      "translation": "She worked hard so that she would be successful.",
+      "choices": ["damit", "sodass", "dass", "indem", "weil"],
+      "answer": "sodass",
+      "level": "C1"
+    },
+    {
+      "example": "___ er die Prüfung bestanden hätte, wäre er sehr glücklich gewesen.",
+      "translation": "Had he passed the exam, he would have been very happy.",
+      "choices": ["Hätte", "Wenn", "Falls", "Indem", "Obgleich"],
+      "answer": "Hätte",
+      "level": "C1"
+    },
+    {
+      "example": "Er verhielt sich so, ___ niemand seine Absichten erraten konnte.",
+      "translation": "He behaved in such a way that nobody could guess his intentions.",
+      "choices": ["dass", "sodass", "indem", "als ob", "während"],
+      "answer": "dass",
+      "level": "C2"
+    },
+    {
+      "example": "Ich bin müde, ___ ich muss zur Schule gehen.",
+      "translation": "I am tired, but I have to go to school.",
+      "choices": ["oder", "deshalb", "aber", "denn", "anstatt"],
+      "answer": "aber",
+      "level": "A2"
+    },
+    {
+      "example": "___ ich jung war, war ich sehr frech.",
+      "translation": "When I was young, I was very cheeky.",
+      "choices": ["Wenn", "Als", "Anstatt", "Bevor", "Dass"],
+      "answer": "Als",
+      "level": "B1"
+    },
+    {
+      "example": "Ich habe keine Zeit, ___ ich viele Hausaufgaben habe.",
+      "translation": "I have no time because I have a lot of homework.",
+      "choices": ["denn", "trotzdem", "während", "obwohl", "sodass"],
+      "answer": "denn",
+      "level": "A1"
+    },
+    {
+      "example": "Er bleibt zu Hause, ___ das Wetter schlecht ist.",
+      "translation": "He stays at home because the weather is bad.",
+      "choices": ["weil", "obwohl", "damit", "sobald", "falls"],
+      "answer": "weil",
+      "level": "A2"
+    },
+    {
+      "example": "Ich gehe ins Kino, ___ ich den Film schon kenne.",
+      "translation": "I go to the cinema although I already know the movie.",
+      "choices": ["obwohl", "da", "weil", "falls", "denn"],
+      "answer": "obwohl",
+      "level": "B2"
+    },
+    {
+      "example": "Wir können ins Café gehen, ___ du lieber ins Restaurant möchtest.",
+      "translation": "We can go to the café unless you prefer to go to the restaurant.",
+      "choices": ["sofern", "falls", "es sei denn", "solange", "ob"],
+      "answer": "es sei denn",
+      "level": "C1"
+    },
+    {
+      "example": "Sie spricht mehrere Sprachen, ___ sie in vielen Ländern gelebt hat.",
+      "translation": "She speaks several languages because she has lived in many countries.",
+      "choices": ["während", "da", "sodass", "wenn", "trotzdem"],
+      "answer": "da",
+      "level": "C2"
+    },
+    {
+      "example": "Ich komme später, ___ ich noch arbeiten muss.",
+      "translation": "I'll come later because I still have to work.",
+      "choices": ["denn", "aber", "oder", "weil", "sondern"],
+      "answer": "weil",
+      "level": "A1"
+    },
+    {
+      "example": "Er ist müde, ___ er will noch lernen.",
+      "translation": "He is tired, but he wants to study.",
+      "choices": ["oder", "deshalb", "aber", "denn", "und"],
+      "answer": "aber",
+      "level": "A2"
+    },
+    {
+      "example": "___ es regnete, blieben wir zu Hause.",
+      "translation": "Since it was raining, we stayed at home.",
+      "choices": ["Weil", "Als", "Wenn", "Obwohl", "Bevor"],
+      "answer": "Da",
+      "level": "A2"
+    },
+    {
+      "example": "Ich studiere Medizin, ___ ich Ärztin werden möchte.",
+      "translation": "I am studying medicine because I want to become a doctor.",
+      "choices": ["damit", "weil", "dass", "denn", "ob"],
+      "answer": "weil",
+      "level": "B1"
+    },
+    {
+      "example": "___ ich nach Hause kam, war es schon dunkel.",
+      "translation": "When I came home, it was already dark.",
+      "choices": ["Als", "Wenn", "Weil", "Obwohl", "Bevor"],
+      "answer": "Als",
+      "level": "B1"
+    },
+    {
+      "example": "Er lernt Deutsch, ___ er in Deutschland arbeiten will.",
+      "translation": "He is learning German so that he can work in Germany.",
+      "choices": ["damit", "weil", "dass", "denn", "wenn"],
+      "answer": "damit",
+      "level": "B2"
+    },
+    {
+      "example": "___ er reich wäre, würde er reisen.",
+      "translation": "If he were rich, he would travel.",
+      "choices": ["Wenn", "Falls", "Ob", "Während", "Indem"],
+      "answer": "Wenn",
+      "level": "B2"
+    },
+    {
+      "example": "Sie arbeitete hart, ___ sie erfolgreich sein würde.",
+      "translation": "She worked hard so that she would be successful.",
+      "choices": ["damit", "sodass", "dass", "indem", "weil"],
+      "answer": "sodass",
+      "level": "C1"
+    },
+    {
+      "example": "___ er die Prüfung bestanden hätte, wäre er sehr glücklich gewesen.",
+      "translation": "Had he passed the exam, he would have been very happy.",
+      "choices": ["Hätte", "Wenn", "Falls", "Indem", "Obgleich"],
+      "answer": "Hätte",
+      "level": "C1"
+    },
+    {
+      "example": "Er verhielt sich so, ___ niemand seine Absichten erraten konnte.",
+      "translation": "He behaved in such a way that nobody could guess his intentions.",
+      "choices": ["dass", "sodass", "indem", "als ob", "während"],
+      "answer": "dass",
+      "level": "C2"
+    },
+    {
+      "example": "Ich kaufe Brot, ___ ich Hunger habe.",
+      "translation": "I buy bread because I am hungry.",
+      "choices": ["denn", "oder", "und", "aber", "sondern"],
+      "answer": "denn",
+      "level": "A1"
+    },
+    {
+      "example": "Es ist kalt, ___ ich trage eine Jacke.",
+      "translation": "It is cold, so I am wearing a jacket.",
+      "choices": ["deshalb", "oder", "aber", "weil", "und"],
+      "answer": "deshalb",
+      "level": "A2"
+    },
+    {
+      "example": "___ du kommst, bereite ich das Essen vor.",
+      "translation": "While you are coming, I will prepare the food.",
+      "choices": ["Während", "Bevor", "Nachdem", "Als", "Wenn"],
+      "answer": "Während",
+      "level": "B1"
+    },
+    {
+      "example": "Ich rufe dich an, ___ du nicht zu Hause bist.",
+      "translation": "I will call you in case you are not at home.",
+      "choices": ["falls", "wenn", "dass", "ob", "weil"],
+      "answer": "falls",
+      "level": "B2"
+    },
+    {
+      "example": "___ er studiert, arbeitet er auch teilzeit.",
+      "translation": "While he is studying, he also works part-time.",
+      "choices": ["Während", "Obwohl", "Nachdem", "Bevor", "Als"],
+      "answer": "Während",
+      "level": "B2"
+    },
+    {
+      "example": "Sie war so müde, ___ sie sofort einschlief.",
+      "translation": "She was so tired that she fell asleep immediately.",
+      "choices": ["sodass", "dass", "damit", "indem", "weil"],
+      "answer": "sodass",
+      "level": "C1"
+    },
+    {
+      "example": "___ er alles versucht hätte, gab er auf.",
+      "translation": "After he had tried everything, he gave up.",
+      "choices": ["Nachdem", "Bevor", "Als", "Während", "Indem"],
+      "answer": "Nachdem",
+      "level": "C1"
+    },
+    {
+      "example": "Er tat so, ___ er nichts gewusst hätte.",
+      "translation": "He acted as if he knew nothing.",
+      "choices": ["als ob", "dass", "als", "wenn", "indem"],
+      "answer": "als ob",
+      "level": "C2"
+    },
+    {
+      "example": "Ich gehe einkaufen, ___ wir nichts mehr zu Hause haben.",
+      "translation": "I am going shopping because we have nothing left at home.",
+      "choices": ["weil", "oder", "und", "aber", "sondern"],
+      "answer": "weil",
+      "level": "A1"
+    },
+    {
+      "example": "Es ist spät, ___ ich muss noch arbeiten.",
+      "translation": "It is late, but I still have to work.",
+      "choices": ["aber", "oder", "denn", "deshalb", "und"],
+      "answer": "aber",
+      "level": "A2"
+    },
+    {
+      "example": "___ der Regen aufhörte, gingen wir spazieren.",
+      "translation": "After the rain stopped, we went for a walk.",
+      "choices": ["Nachdem", "Bevor", "Als", "Während", "Wenn"],
+      "answer": "Nachdem",
+      "level": "B1"
+    },
+    {
+      "example": "Ich lerne Deutsch, ___ ich in Deutschland studieren möchte.",
+      "translation": "I am learning German so that I can study in Germany.",
+      "choices": ["damit", "weil", "dass", "ob", "denn"],
+      "answer": "damit",
+      "level": "B2"
+    },
+    {
+      "example": "___ du nichts dagegen hast, bleibe ich heute bei dir.",
+      "translation": "If you don't mind, I will stay with you today.",
+      "choices": ["Wenn", "Falls", "Ob", "Indem", "Während"],
+      "answer": "Wenn",
+      "level": "B2"
+    },
+    {
+      "example": "Sie arbeitete so konzentriert, ___ niemand sie stören konnte.",
+      "translation": "She worked so concentrated that nobody could disturb her.",
+      "choices": ["dass", "sodass", "indem", "als ob", "weil"],
+      "answer": "dass",
+      "level": "C1"
+    },
+    {
+      "example": "___ er die Nachrichten gehört hätte, wäre er sofort losgefahren.",
+      "translation": "If he had heard the news, he would have left immediately.",
+      "choices": ["Hätte", "Wenn", "Falls", "Ob", "Indem"],
+      "answer": "Hätte",
+      "level": "C1"
+    },
+    {
+      "example": "Er verhielt sich so geheimnisvoll, ___ alle überrascht waren.",
+      "translation": "He behaved so mysteriously that everyone was surprised.",
+      "choices": ["dass", "sodass", "indem", "als ob", "während"],
+      "answer": "sodass",
+      "level": "C2"
+    },
+    {
+      "example": "Ich nehme den Schirm mit, ___ es regnen könnte.",
+      "translation": "I'll take the umbrella in case it might rain.",
+      "choices": ["falls", "wenn", "dass", "ob", "weil"],
+      "answer": "falls",
+      "level": "B2"
+    },
+    {
+      "example": "___ wir fertig sind, gehen wir essen.",
+      "translation": "Once we are finished, we will go eat.",
+      "choices": ["Sobald", "Bevor", "Nachdem", "Als", "Während"],
+      "answer": "Sobald",
+      "level": "B1"
+    },
+    {
+      "example": "Er war so aufgeregt, ___ er kaum schlafen konnte.",
+      "translation": "He was so excited that he could hardly sleep.",
+      "choices": ["dass", "sodass", "damit", "indem", "weil"],
+      "answer": "dass",
+      "level": "C1"
+    },
+    {
+      "example": "___ ich jung war, spielte ich Fußball.",
+      "translation": "When I was young, I played soccer.",
+      "choices": ["Als", "Wenn", "Nachdem", "Bevor", "Während"],
+      "answer": "Als",
+      "level": "B1"
+    },
+    {
+      "example": "Ich bleibe zu Hause, ___ morgen eine Prüfung habe.",
+      "translation": "I'm staying home because I have an exam tomorrow.",
+      "choices": ["weil", "oder", "und", "aber", "sondern"],
+      "answer": "weil",
+      "level": "A1"
+    },
+    {
+      "example": "Es ist warm, ___ ich trage ein T-Shirt.",
+      "translation": "It is warm, so I am wearing a T-shirt.",
+      "choices": ["deshalb", "oder", "aber", "weil", "und"],
+      "answer": "deshalb",
+      "level": "A2"
+    },
+    {
+      "example": "___ du mir hilfst, kann ich die Aufgabe nicht lösen.",
+      "translation": "Without you helping me, I cannot solve the task.",
+      "choices": ["Ohne dass", "Damit", "Dass", "Ob", "Weil"],
+      "answer": "Ohne dass",
+      "level": "C1"
+    },
+    {
+      "example": "Ich lerne fleißig, ___ ich gute Noten bekommen möchte.",
+      "translation": "I study diligently so that I can get good grades.",
+      "choices": ["damit", "weil", "dass", "ob", "denn"],
+      "answer": "damit",
+      "level": "B2"
+    },
+    {
+      "example": "___ es dunkel wurde, zündeten wir Kerzen an.",
+      "translation": "As it became dark, we lit candles.",
+      "choices": ["Als", "Wenn", "Nachdem", "Bevor", "Während"],
+      "answer": "Als",
+      "level": "B1"
+    },
+    {
+      "example": "Ich rufe dich an, ___ du zu Hause bist.",
+      "translation": "I will call you when you are at home.",
+      "choices": ["wenn", "dass", "ob", "weil", "falls"],
+      "answer": "wenn",
+      "level": "A2"
+    },
+    {
+      "example": "___ er krank ist, geht er trotzdem zur Arbeit.",
+      "translation": "Although he is sick, he still goes to work.",
+      "choices": ["Obwohl", "Weil", "Dass", "Wenn", "Bevor"],
+      "answer": "Obwohl",
+      "level": "B1"
+    },
+    {
+      "example": "Sie lernt so intensiv, ___ sie die Prüfung bestehen wird.",
+      "translation": "She is studying so intensively that she will pass the exam.",
+      "choices": ["sodass", "dass", "damit", "indem", "weil"],
+      "answer": "sodass",
+      "level": "C1"
+    },
+    {
+      "example": "___ du Zeit hast, können wir zusammen essen.",
+      "translation": "If you have time, we can eat together.",
+      "choices": ["Wenn", "Falls", "Ob", "Indem", "Während"],
+      "answer": "Wenn",
+      "level": "A2"
+    },
+    {
+      "example": "Ich kaufe Brot und Milch, ___ wir zu Hause nichts mehr haben.",
+      "translation": "I'm buying bread and milk because we have nothing left at home.",
+      "choices": ["weil", "oder", "und", "aber", "sondern"],
+      "answer": "weil",
+      "level": "A1"
+    },
+    {
+      "example": "___ du kommst, werde ich kochen.",
+      "translation": "By the time you come, I will have cooked.",
+      "choices": ["Bis", "Bevor", "Nachdem", "Als", "Während"],
+      "answer": "Bis",
+      "level": "B2"
+    },
+    {
+      "example": "Er arbeitete so schnell, ___ er alle Aufgaben rechtzeitig erledigte.",
+      "translation": "He worked so quickly that he completed all tasks on time.",
+      "choices": ["sodass", "dass", "damit", "indem", "weil"],
+      "answer": "sodass",
+      "level": "C1"
+    },
+    {
+      "example": "___ es aufhört zu regnen, gehen wir spazieren.",
+      "translation": "Once it stops raining, we will go for a walk.",
+      "choices": ["Sobald", "Bevor", "Nachdem", "Als", "Während"],
+      "answer": "Sobald",
+      "level": "B1"
+    },
+    {
+      "example": "Ich bleibe zu Hause, ___ es draußen zu kalt ist.",
+      "translation": "I'm staying home because it's too cold outside.",
+      "choices": ["weil", "oder", "und", "aber", "sondern"],
+      "answer": "weil",
+      "level": "A1"
+    },
+    {
+      "example": "Es ist kalt, ___ ich brauche eine Jacke.",
+      "translation": "It is cold, so I need a jacket.",
+      "choices": ["deshalb", "oder", "aber", "weil", "und"],
+      "answer": "deshalb",
+      "level": "A2"
+    },
+    {
+      "example": "___ er alles versucht hatte, gab er nicht auf.",
+      "translation": "Even though he had tried everything, he did not give up.",
+      "choices": ["Obwohl", "Weil", "Dass", "Wenn", "Bevor"],
+      "answer": "Obwohl",
+      "level": "B1"
+    },
+    {
+      "example": "Ich lerne Deutsch, ___ ich in Deutschland arbeiten will.",
+      "translation": "I am learning German so that I can work in Germany.",
+      "choices": ["damit", "weil", "dass", "ob", "denn"],
+      "answer": "damit",
+      "level": "B2"
+    },
+    {
+      "example": "___ du mir hilfst, kann ich das nicht machen.",
+      "translation": "Without you helping me, I cannot do this.",
+      "choices": ["Ohne dass", "Damit", "Dass", "Ob", "Weil"],
+      "answer": "Ohne dass",
+      "level": "C1"
+    },
+    {
+      "example": "Sie arbeitete so konzentriert, ___ niemand sie stören konnte.",
+      "translation": "She worked so concentrated that nobody could disturb her.",
+      "choices": ["dass", "sodass", "indem", "als ob", "weil"],
+      "answer": "dass",
+      "level": "C1"
+    },
+    {
+      "example": "___ er die Nachrichten gehört hätte, wäre er sofort losgefahren.",
+      "translation": "If he had heard the news, he would have left immediately.",
+      "choices": ["Hätte", "Wenn", "Falls", "Ob", "Indem"],
+      "answer": "Hätte",
+      "level": "C1"
+    },
+    {
+      "example": "Ich komme später, ___ ich noch Hausaufgaben machen muss.",
+      "translation": "I'll come later because I still have to do homework.",
+      "choices": ["weil", "oder", "und", "aber", "sondern"],
+      "answer": "weil",
+      "level": "A1"
+    },
+    {
+      "example": "Es ist spät, ___ ich bin noch wach.",
+      "translation": "It is late, but I am still awake.",
+      "choices": ["aber", "oder", "denn", "deshalb", "und"],
+      "answer": "aber",
+      "level": "A2"
+    },
+    {
+      "example": "___ du fertig bist, können wir gehen.",
+      "translation": "Once you are ready, we can go.",
+      "choices": ["Sobald", "Bevor", "Nachdem", "Als", "Während"],
+      "answer": "Sobald",
+      "level": "B1"
+    },
+    {
+      "example": "Ich lerne Deutsch, ___ ich in Deutschland studieren möchte.",
+      "translation": "I am learning German so that I can study in Germany.",
+      "choices": ["damit", "weil", "dass", "ob", "denn"],
+      "answer": "damit",
+      "level": "B2"
+    },
+    {
+      "example": "___ es aufhört zu regnen, bleiben wir drinnen.",
+      "translation": "Until it stops raining, we will stay inside.",
+      "choices": ["Bis", "Bevor", "Nachdem", "Als", "Während"],
+      "answer": "Bis",
+      "level": "B2"
+    },
+    {
+      "example": "Sie war so müde, ___ sie sofort einschlief.",
+      "translation": "She was so tired that she fell asleep immediately.",
+      "choices": ["sodass", "dass", "damit", "indem", "weil"],
+      "answer": "sodass",
+      "level": "C1"
+    },
+    {
+      "example": "___ er alles versucht hätte, gab er auf.",
+      "translation": "After he had tried everything, he gave up.",
+      "choices": ["Nachdem", "Bevor", "Als", "Während", "Indem"],
+      "answer": "Nachdem",
+      "level": "C1"
+    },
+    {
+      "example": "Er tat so, ___ er nichts gewusst hätte.",
+      "translation": "He acted as if he knew nothing.",
+      "choices": ["als ob", "dass", "als", "wenn", "indem"],
+      "answer": "als ob",
+      "level": "C2"
+    },
+    {
+      "example": "___ du mir nicht glaubst, kann ich es beweisen.",
+      "translation": "Even if you don't believe me, I can prove it.",
+      "choices": ["Selbst wenn", "Ob", "Wenn", "Falls", "Indem"],
+      "answer": "Selbst wenn",
+      "level": "C1"
+    },
+    {
+      "example": "Ich gehe einkaufen, ___ wir kein Brot mehr haben.",
+      "translation": "I am going shopping because we have no more bread.",
+      "choices": ["weil", "oder", "und", "aber", "sondern"],
+      "answer": "weil",
+      "level": "A1"
+    },
+    {
+      "example": "Es regnet, ___ ich nehme einen Schirm mit.",
+      "translation": "It's raining, so I'm taking an umbrella.",
+      "choices": ["deshalb", "oder", "aber", "weil", "und"],
+      "answer": "deshalb",
+      "level": "A2"
+    },
+    {
+      "example": "___ er krank war, ging er zur Arbeit.",
+      "translation": "Although he was sick, he went to work.",
+      "choices": ["Obwohl", "Weil", "Dass", "Wenn", "Bevor"],
+      "answer": "Obwohl",
+      "level": "B1"
+    },
+    {
+      "example": "Ich rufe dich an, ___ du nicht zu Hause bist.",
+      "translation": "I will call you in case you are not at home.",
+      "choices": ["falls", "wenn", "dass", "ob", "weil"],
+      "answer": "falls",
+      "level": "B2"
+    },
+    {
+      "example": "___ wir fertig sind, gehen wir essen.",
+      "translation": "Once we are finished, we will go eat.",
+      "choices": ["Sobald", "Bevor", "Nachdem", "Als", "Während"],
+      "answer": "Sobald",
+      "level": "B1"
+    },
+    {
+      "example": "Sie lernt so intensiv, ___ sie die Prüfung bestehen wird.",
+      "translation": "She is studying so intensively that she will pass the exam.",
+      "choices": ["sodass", "dass", "damit", "indem", "weil"],
+      "answer": "sodass",
+      "level": "C1"
+    },
+    {
+      "example": "___ du mir nicht hilfst, kann ich es nicht machen.",
+      "translation": "Without you helping me, I cannot do it.",
+      "choices": ["Ohne dass", "Damit", "Dass", "Ob", "Weil"],
+      "answer": "Ohne dass",
+      "level": "C1"
+    },
+    {
+      "example": "Er verhielt sich so geheimnisvoll, ___ alle überrascht waren.",
+      "translation": "He behaved so mysteriously that everyone was surprised.",
+      "choices": ["dass", "sodass", "indem", "als ob", "während"],
+      "answer": "sodass",
+      "level": "C2"
+    },
+    {
+      "example": "___ ich Zeit habe, besuche ich dich gerne.",
+      "translation": "Whenever I have time, I would like to visit you.",
+      "choices": ["Wann immer", "Wenn", "Falls", "Ob", "Indem"],
+      "answer": "Wann immer",
+      "level": "C1"
+    },
+    {
+      "example": "Ich bleibe zu Hause, ___ es draußen schneit.",
+      "translation": "I'm staying home because it's snowing outside.",
+      "choices": ["weil", "oder", "und", "aber", "sondern"],
+      "answer": "weil",
+      "level": "A1"
+    },
+    {
+      "example": "Es ist dunkel, ___ ich mache das Licht an.",
+      "translation": "It is dark, so I'm turning on the light.",
+      "choices": ["deshalb", "oder", "aber", "weil", "und"],
+      "answer": "deshalb",
+      "level": "A2"
+    },
+    {
+      "example": "___ du kommst, bereite ich das Essen vor.",
+      "translation": "While you are coming, I will prepare the food.",
+      "choices": ["Während", "Bevor", "Nachdem", "Als", "Wenn"],
+      "answer": "Während",
+      "level": "B1"
+    },
+    {
+      "example": "Ich lerne Deutsch, ___ ich in Deutschland arbeiten will.",
+      "translation": "I am learning German so that I can work in Germany.",
+      "choices": ["damit", "weil", "dass", "ob", "denn"],
+      "answer": "damit",
+      "level": "B2"
+    },
+    {
+      "example": "___ du mir sagst, wie es geht.",
+      "translation": "Provided that you tell me how it goes.",
+      "choices": ["Vorausgesetzt", "Dass", "Ob", "Weil", "Indem"],
+      "answer": "Vorausgesetzt",
+      "level": "C2"
+    },
+    {
+      "example": "Er arbeitete so schnell, ___ er alle Aufgaben rechtzeitig erledigte.",
+      "translation": "He worked so quickly that he completed all tasks on time.",
+      "choices": ["sodass", "dass", "damit", "indem", "weil"],
+      "answer": "sodass",
+      "level": "C1"
+    },
+    {
+      "example": "___ wir das Geld gespart haben, können wir verreisen.",
+      "translation": "Now that we have saved the money, we can travel.",
+      "choices": ["Nachdem", "Sobald", "Bis", "Bevor", "Während"],
+      "answer": "Nachdem",
+      "level": "B2"
+    },
+    {
+      "example": "Ich bleibe zu Hause, ___ es draußen zu windig ist.",
+      "translation": "I'm staying home because it's too windy outside.",
+      "choices": ["weil", "oder", "und", "aber", "sondern"],
+      "answer": "weil",
+      "level": "A1"
+    },
+    {
+      "example": "Es ist hell, ___ ich brauche keine Lampe.",
+      "translation": "It is bright, so I don't need a lamp.",
+      "choices": ["deshalb", "oder", "aber", "weil", "und"],
+      "answer": "deshalb",
+      "level": "A2"
+    },
+    {
+      "example": "___ er alles versucht hatte, gab er nicht auf.",
+      "translation": "Even though he had tried everything, he did not give up.",
+      "choices": ["Obwohl", "Weil", "Dass", "Wenn", "Bevor"],
+      "answer": "Obwohl",
+      "level": "B1"
+    },
+    {
+      "example": "Ich rufe dich an, ___ du zu Hause bist.",
+      "translation": "I will call you when you are at home.",
+      "choices": ["wenn", "dass", "ob", "weil", "falls"],
+      "answer": "wenn",
+      "level": "A2"
+    },
+    {
+      "example": "___ du Zeit hast, können wir zusammen essen.",
+      "translation": "If you have time, we can eat together.",
+      "choices": ["Wenn", "Falls", "Ob", "Indem", "Während"],
+      "answer": "Wenn",
+      "level": "A2"
+    },
+    {
+      "example": "Ich kaufe Brot und Milch, ___ wir zu Hause nichts mehr haben.",
+      "translation": "I'm buying bread and milk because we have nothing left at home.",
+      "choices": ["weil", "oder", "und", "aber", "sondern"],
+      "answer": "weil",
+      "level": "A1"
+    },
+    {
+      "example": "___ du fertig bist, gehen wir.",
+      "translation": "Once you are finished, we will go.",
+      "choices": ["Sobald", "Bevor", "Nachdem", "Als", "Während"],
+      "answer": "Sobald",
+      "level": "B1"
+    },
+    {
+      "example": "Er arbeitete so konzentriert, ___ niemand ihn stören konnte.",
+      "translation": "He worked so concentrated that nobody could disturb him.",
+      "choices": ["dass", "sodass", "indem", "als ob", "weil"],
+      "answer": "dass",
+      "level": "C1"
+    },
+    {
+      "example": "___ er die Nachrichten gehört hätte, wäre er sofort losgefahren.",
+      "translation": "If he had heard the news, he would have left immediately.",
+      "choices": ["Hätte", "Wenn", "Falls", "Ob", "Indem"],
+      "answer": "Hätte",
+      "level": "C1"
+    },
+    {
+      "example": "Sie verhielt sich so mysteriös, ___ alle verwirrt waren.",
+      "translation": "She behaved so mysteriously that everyone was confused.",
+      "choices": ["dass", "sodass", "indem", "als ob", "während"],
+      "answer": "sodass",
+      "level": "C2"
+    },
+    {
+      "example": "___ du mir nicht glaubst, kann ich es beweisen.",
+      "translation": "Even if you don't believe me, I can prove it.",
+      "choices": ["Selbst wenn", "Ob", "Wenn", "Falls", "Indem"],
+      "answer": "Selbst wenn",
+      "level": "C1"
+    },
+    {
+      "example": "Ich lerne so hart, ___ ich die beste Note bekommen werde.",
+      "translation": "I am studying so hard that I will get the best grade.",
+      "choices": ["sodass", "dass", "damit", "indem", "weil"],
+      "answer": "sodass",
+      "level": "C1"
+    },
+    {
+      "example": "___ du mir helfen würdest, wäre ich sehr dankbar.",
+      "translation": "If you would help me, I would be very grateful.",
+      "choices": ["Wenn", "Falls", "Ob", "Indem", "Während"],
+      "answer": "Wenn",
+      "level": "B2"
+    },
+    {
+      "example": "Er tat so, ___ er nichts von dem Vorfall wüsste.",
+      "translation": "He acted as if he knew nothing about the incident.",
+      "choices": ["als ob", "dass", "als", "wenn", "indem"],
+      "answer": "als ob",
+      "level": "C2"
+    },
+    {
+      "example": "___ du mir nicht zuhörst, werde ich gehen.",
+      "translation": "If you don't listen to me, I will leave.",
+      "choices": ["Wenn", "Falls", "Ob", "Indem", "Während"],
+      "answer": "Wenn",
+      "level": "A2"
+    },
+    {
+      "example": "Ich bin müde, ___ ich muss weiterarbeiten.",
+      "translation": "I am tired, but I have to continue working.",
+      "choices": ["aber", "oder", "denn", "deshalb", "und"],
+      "answer": "aber",
+      "level": "A1"
+    },
+    {
+      "example": "___ ich jung war, spielte ich Fußball.",
+      "translation": "When I was young, I played soccer.",
+      "choices": ["Als", "Wenn", "Nachdem", "Bevor", "Während"],
+      "answer": "Als",
+      "level": "B1"
+    },
+    {
+      "example": "Ich kaufe ein, ___ wir kein Essen mehr haben.",
+      "translation": "I am shopping because we have no more food.",
+      "choices": ["weil", "oder", "und", "aber", "sondern"],
+      "answer": "weil",
+      "level": "A1"
+    },
+    {
+      "example": "Es ist kalt, ___ ich brauche eine warme Jacke.",
+      "translation": "It is cold, so I need a warm jacket.",
+      "choices": ["deshalb", "oder", "aber", "weil", "und"],
+      "answer": "deshalb",
+      "level": "A2"
+    },
+    {
+      "example": "___ du mir nicht hilfst, kann ich es nicht schaffen.",
+      "translation": "Without you helping me, I cannot manage it.",
+      "choices": ["Ohne dass", "Damit", "Dass", "Ob", "Weil"],
+      "answer": "Ohne dass",
+      "level": "C1"
+    },
+    {
+      "example": "Es war ___ sehr anstrengend, aber interessant.",
+      "translation": "It was nevertheless very exhausting, but interesting.",
+      "choices": ["trotzdem", "außerdem", "deshalb", "daher", "dennoch"],
+      "answer": "trotzdem",
+      "level": "B1"
+    },
+    {
+      "example": "___ ich müde war, ging ich zum Training.",
+      "translation": "Nevertheless, although I was tired, I went to training.",
+      "choices": ["dennoch", "außerdem", "daher", "deshalb", "doch"],
+      "answer": "dennoch",
+      "level": "B2"
+    },
+    {
+      "example": "Ich habe keine Lust zu kochen, ___ ich mache ein Sandwich.",
+      "translation": "I don't feel like cooking, so instead I'll make a sandwich.",
+      "choices": ["stattdessen", "außerdem", "daher", "deshalb", "doch"],
+      "answer": "stattdessen",
+      "level": "B1"
+    },
+    {
+      "example": "___ mag ich Kaffee nicht besonders.",
+      "translation": "After all, I don't particularly like coffee.",
+      "choices": ["immerhin", "übrigens", "außerdem", "dennoch", "trotzdem"],
+      "answer": "immerhin",
+      "level": "B2"
+    },
+    {
+      "example": "Ich habe viel gelernt, ___ werde ich die Prüfung bestehen.",
+      "translation": "I have studied a lot, therefore I will pass the exam.",
+      "choices": ["daher", "außerdem", "deshalb", "doch", "dennoch"],
+      "answer": "daher",
+      "level": "B1"
+    },
+    {
+      "example": "___ habe ich keine Zeit für Hobbys.",
+      "translation": "Essentially, I have no time for hobbies.",
+      "choices": ["im Wesentlichen", "übrigens", "außerdem", "daher", "trotzdem"],
+      "answer": "im Wesentlichen",
+      "level": "C1"
+    },
+    {
+      "example": "Es war sehr teuer, ___ war es die Reise wert.",
+      "translation": "It was very expensive, nevertheless it was worth the trip.",
+      "choices": ["jedoch", "außerdem", "deshalb", "daher", "doch"],
+      "answer": "jedoch",
+      "level": "B2"
+    },
+    {
+      "example": "___ will ich heute früh schlafen gehen.",
+      "translation": "After all, I want to go to bed early today.",
+      "choices": ["immerhin", "übrigens", "außerdem", "dennoch", "trotzdem"],
+      "answer": "immerhin",
+      "level": "B1"
+    },
+    {
+      "example": "Das Wetter war schlecht, ___ haben wir einen schönen Tag verbracht.",
+      "translation": "The weather was bad, yet we spent a nice day.",
+      "choices": ["dennoch", "außerdem", "deshalb", "daher", "trotzdem"],
+      "answer": "dennoch",
+      "level": "B2"
+    },
+    {
+      "example": "___ ist das Essen hier sehr gut.",
+      "translation": "By the way, the food here is very good.",
+      "choices": ["übrigens", "immerhin", "außerdem", "daher", "trotzdem"],
+      "answer": "übrigens",
+      "level": "A2"
+    },
+    {
+      "example": "Ich habe keine Zeit zum Kochen, ___ bestelle ich Pizza.",
+      "translation": "I have no time to cook, so instead I'll order pizza.",
+      "choices": ["stattdessen", "außerdem", "daher", "deshalb", "doch"],
+      "answer": "stattdessen",
+      "level": "B1"
+    },
+    {
+      "example": "___ regnet es, wir gehen trotzdem spazieren.",
+      "translation": "Even though it's raining, we'll go for a walk anyway.",
+      "choices": ["doch", "trotzdem", "außerdem", "daher", "dennoch"],
+      "answer": "doch",
+      "level": "A2"
+    },
+    {
+      "example": "Er war müde, ___ arbeitete er weiter.",
+      "translation": "He was tired, yet he continued working.",
+      "choices": ["trotzdem", "außerdem", "deshalb", "daher", "doch"],
+      "answer": "trotzdem",
+      "level": "B1"
+    },
+    {
+      "example": "___ koche ich heute Abend für uns alle.",
+      "translation": "By the way, I'll cook for everyone tonight.",
+      "choices": ["übrigens", "immerhin", "außerdem", "daher", "trotzdem"],
+      "answer": "übrigens",
+      "level": "A2"
+    },
+    {
+      "example": "Das Konzert war teuer, ___ es war fantastisch.",
+      "translation": "The concert was expensive, nevertheless it was fantastic.",
+      "choices": ["jedoch", "außerdem", "deshalb", "daher", "doch"],
+      "answer": "jedoch",
+      "level": "B2"
+    },
+    {
+      "example": "___ habe ich keine Lust zu arbeiten.",
+      "translation": "Essentially, I have no desire to work.",
+      "choices": ["im Wesentlichen", "übrigens", "außerdem", "daher", "trotzdem"],
+      "answer": "im Wesentlichen",
+      "level": "C1"
+    },
+    {
+      "example": "Ich habe viel gelernt, ___ bin ich optimistisch.",
+      "translation": "I have studied a lot, therefore I am optimistic.",
+      "choices": ["daher", "außerdem", "deshalb", "doch", "dennoch"],
+      "answer": "daher",
+      "level": "B1"
+    },
+    {
+      "example": "___ werde ich heute ins Kino gehen.",
+      "translation": "After all, I will go to the cinema today.",
+      "choices": ["immerhin", "übrigens", "außerdem", "dennoch", "trotzdem"],
+      "answer": "immerhin",
+      "level": "B1"
+    },
+    {
+      "example": "Das Wetter war kalt, ___ hatten wir Spaß.",
+      "translation": "The weather was cold, yet we had fun.",
+      "choices": ["dennoch", "außerdem", "deshalb", "daher", "trotzdem"],
+      "answer": "dennoch",
+      "level": "B2"
+    },
+    {
+      "example": "___ kann ich Deutsch nicht gut sprechen.",
+      "translation": "After all, I cannot speak German well.",
+      "choices": ["immerhin", "übrigens", "außerdem", "dennoch", "trotzdem"],
+      "answer": "immerhin",
+      "level": "B1"
+    },
+    {
+      "example": "Ich mag Kaffee nicht, ___ trinke ich ihn manchmal.",
+      "translation": "I don't like coffee, yet I sometimes drink it.",
+      "choices": ["trotzdem", "außerdem", "deshalb", "daher", "doch"],
+      "answer": "trotzdem",
+      "level": "B1"
+    }
+  ]
+}

@@ -10,6 +10,8 @@
     "chat_model_api_key": "Sohbet Modeli API Anahtarı",
     "chat_request_too_long": "Sohbetiniz izin verilen maksimum karakterlerden daha uzun",
     "combo_trainer": "Kombine eğitmen",
+    "conjunction_trainer": "Kavuşan eğitmen",
+    "cookie_prompt": "Size hizmetimizi geliştirmek için çerezleri kullanıyoruz. Verilerinizi asla satmayacağız. Çerezleri reddetmek bazı özellikleri kullanılamaz hale getirebilir.",
     "display_translation": "Soru çevirisini görüntüle",
     "game_completed_message": "Oyun tamamlandı. Yüzde {} puan aldınız.",
     "game_to_load": "Yüklenecek oyun",

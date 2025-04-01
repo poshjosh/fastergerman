@@ -1,6 +1,36 @@
 <!DOCTYPE html>
 <html lang="{{ i18n.lang_code }}" dir="{{ i18n.dir }}">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7BBELHZS6G"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-7BBELHZS6G');
+    </script>
+
+    <!-- iubenda consent for GDPR -->
+    <script type="text/javascript">
+      var _iub = _iub || [];
+      _iub.csConfiguration = {
+        "siteId":3984441,"cookiePolicyId":74809661,"lang":"{{ i18n.lang_code }}",
+        "storage":{"useSiteId":true},
+        "banner": {
+          "position": "bottom",
+          "content": "{{ i18n.t.cookie_prompt }}",
+          "backgroundColor": "#024",
+          "textColor": "#def",
+          "fontSize": "16px",
+          "innerHtmlCloseBtn": "OK"
+        }
+      };
+    </script>
+    <script type="text/javascript" src="https://cs.iubenda.com/autoblocking/3984441.js"></script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
+    <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
+
     {% block head %}
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">

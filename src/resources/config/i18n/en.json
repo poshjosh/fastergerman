@@ -11,6 +11,8 @@
     "chat_model_api_key": "Chat model API key",
     "chat_request_too_long": "Your chat is longer than the maximum characters allowed",
     "combo_trainer": "Combined Trainer",
+    "conjunction_trainer": "Conjunction Trainer",
+    "cookie_prompt": "We use cookies to improve our service to you. We will never sell your data. Rejecting cookies may make some features unavailable.",
     "display_translation": "Display question translation",
     "game_completed_message": "Game completed. You scored {} percent.",
     "game_to_load": "Game to load",

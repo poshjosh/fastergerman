@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.7] - 2025-04-01
+
+### Added
+
+- Add Google Tag Manager
+- Implement conjunction trainer. 
 - Submit chat on enter press in chat textarea.
 - Add new line on shift+enter press in chat textarea.
 - Add vertical scrolls to chats view.
